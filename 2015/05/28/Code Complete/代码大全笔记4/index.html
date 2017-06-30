@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>柒夜</title>
+  <title>代码大全笔记4 | 柒夜</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="从零开始">
-<meta property="og:type" content="website">
-<meta property="og:title" content="柒夜">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="摘要创建高质量的代码。本节主要描述在软件构建中的设计。">
+<meta name="keywords" content="代码大全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码大全笔记4">
+<meta property="og:url" content="http://yoursite.com/2015/05/28/Code Complete/代码大全笔记4/index.html">
 <meta property="og:site_name" content="柒夜">
-<meta property="og:description" content="从零开始">
+<meta property="og:description" content="摘要创建高质量的代码。本节主要描述在软件构建中的设计。">
+<meta property="og:updated_time" content="2017-06-30T15:07:11.973Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="柒夜">
-<meta name="twitter:description" content="从零开始">
+<meta name="twitter:title" content="代码大全笔记4">
+<meta name="twitter:description" content="摘要创建高质量的代码。本节主要描述在软件构建中的设计。">
   
     <link rel="alternative" href="/atom.xml" title="柒夜" type="application/atom+xml">
   
@@ -152,34 +154,208 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Android programming the big nerd ranch guide/Android编程权威指南笔记1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Code Complete/代码大全笔记4" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+    <h1 class="article-title" itemprop="name">
+      代码大全笔记4
     </h1>
   
 
         
-        <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/" class="archive-article-date">
-  	<time datetime="2016-04-11T07:57:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-11</time>
+        <a href="/2015/05/28/Code Complete/代码大全笔记4/" class="archive-article-date">
+  	<time datetime="2015-05-28T14:52:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-05-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Android编程权威指南笔记。</p>
-        
-          <a class="article-more-a" href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/#more">more >></a>
-        
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>创建高质量的代码。本节主要描述在软件构建中的设计。</p>
+<a id="more"></a>
+<h3 id="设计中的挑战"><a href="#设计中的挑战" class="headerlink" title="设计中的挑战"></a>设计中的挑战</h3><ul>
+<li>设计是一个险恶的问题，这里暗示的是那种只有通过解决或部分解决才能被明确的问题。</li>
+<li>设计是个没有章法的过程，在设计过程中会采取很多错误的步骤，事实上，试错也是关键所在。</li>
+<li>设计就是确定取舍和调整顺序的过程，在现实中开发过程需要在各项方案中取舍，寻求平衡。</li>
+<li>设计受到诸多限制。</li>
+<li>设计是不确定的，有多种方法。</li>
+<li>设计是一个启发式过程</li>
+<li>设计是自然而然形成的，是在不断的设计评估，非正式讨论，写实验代码以及修改实验代码中演化和完善的。</li>
+</ul>
+<h3 id="关键的设计概念"><a href="#关键的设计概念" class="headerlink" title="关键的设计概念"></a>关键的设计概念</h3><ol>
+<li><p><strong>软件的首要技术革命：管理复杂度</strong></p>
+<ul>
+<li>偶然的难题和本质的难题。从哲学上来讲，软件开发有偶然性难题和本质性难题。偶然性难题在开发的初期比开发的晚期更突出。剩下那些本质性困难上的进展将会变得相对缓慢。</li>
+<li>管理复杂度的重要性。项目失败大多由差强人意的需求，规划和管理所导致的。但是当项目的确是由于技术原因失败时，其原因通常就是失控的复杂度。将系统分解成不同的子系统来减低复杂度。</li>
+<li>如何应对复杂度。把任何人在同一时间需要处理的本质复杂度的量减到最少。<br>不要让偶然性的复杂度无谓的快速增长。</li>
+</ul>
+</li>
+<li><p><strong>理想的设计特征</strong></p>
+<ul>
+<li>最小的复杂度，尽量做出简单且易于理解的设计。</li>
+<li>易于维护，在设计时为做维护工作的程序员着想。</li>
+<li>松散耦合，设计时让程序的各个组成部分关联最小。</li>
+<li>可扩展性，增强系统的功能而无需破坏其底层结构。</li>
+<li>可重用性，可重用性意味着所设计的系统的组成部分能在其他系统中重复使用。</li>
+<li>高扇入，让大量的类使用某个给定的类，设计出的系统很好的利用了在较低层次上的工具类。</li>
+<li>低扇出，让一个类里少量或适中的使用其它的类，一个类使用了大量其他的类因此可能变得过于复杂。</li>
+<li>可移植性，可移植性是说应该这样设计系统，使它能很方便的移植到其他系统。</li>
+<li>精简性，意味着设计出的系统没有多余的部分。</li>
+<li>层次性，意味着尽量保持系统各个分解层的层次性，是你能在任意的层面上观察系统，并得到某种具有一致性的看法。</li>
+<li>标准技术，尽量用标准化的，常用的方法，让整个系统给人一种熟悉的感觉。</li>
+</ul>
+</li>
+<li><p><strong>设计的层次</strong></p>
+<ul>
+<li>第一层：软件系统</li>
+<li>第二层：分解为子系统或包。这里有一点特别重要，需要规定不同子系统之间的相互通信的规则。需要考虑的有常用的子系统，业务规则，用户界面，数据库访问，对系统的依赖性。</li>
+<li>第三层：分解为类。识别出系统中所有的类，比如数据库接口子系统可能会被进一步划分成数访问类，持久化框架类以及数据库元数据。我理解的持久化意思是当一次从数据库中取出数据后，数据被放在内存中，以后需要使用都直接从内存里得到，而不用再次访问数据库，知道系统被关闭为止。这一层次的核心是对象与类的区别。</li>
+<li>第四层：分解成子程序。</li>
+<li>第五层：子程序内部的设计</li>
+</ul>
+</li>
+</ol>
+<h3 id="设计构造块：启发式方法"><a href="#设计构造块：启发式方法" class="headerlink" title="设计构造块：启发式方法"></a>设计构造块：启发式方法</h3><ol>
+<li><p><strong>找出现实世界中的对象</strong></p>
+<ul>
+<li>辨识对象及其属性（方法method和数据data）</li>
+<li>确定可以对各个对象进行的操作</li>
+<li>确定对象的哪些部分对其他对象可见，哪些部分是public哪些是private</li>
+<li>定义每个对象的公开接口public interface</li>
+</ul>
+</li>
+<li><p><strong>形成一致的抽象</strong></p>
+<ul>
+<li>从更高层次的细节来看待一个对象    </li>
+<li>抽象的主要好处是能使你忽略无关的细节。</li>
+</ul>
+</li>
+<li><p><strong>封装实现细节</strong></p>
+<ul>
+<li>能够帮助管理复杂度</li>
+<li>管理复杂度的方法是不让你看到那些复杂度</li>
+</ul>
+</li>
+<li><p><strong>当继承能简化设计时就继承</strong></p>
+<ul>
+<li>继承是强大的工具，但是如果使用不当，也会带来弊端</li>
+</ul>
+</li>
+<li><p><strong>隐藏秘密，信息隐藏</strong></p>
+<ul>
+<li>比如，好的类接口设计让类的大部分内容都不会暴露出来。</li>
+<li>隐藏复杂度，这样就不用再去应付它</li>
+<li>隐藏变化源，这样当变化发生时，其影响就能被限制在局部范围内。</li>
+<li>信息隐藏的障碍：信息过度分散；循环依赖，比如类A和类B互相调用；把类内数据误认为全局数据；可以察觉的性能耗损。</li>
+<li>信息隐藏的价值：有助于启发设计方案；有助于设计类的公开接口</li>
+</ul>
+</li>
+<li><p><strong>找出容易改变的区域</strong></p>
+<ul>
+<li>找出看起来容易变化的项目</li>
+<li>把容易变化的项目分离出来</li>
+<li>把看起来容易变化的项目隔离开来</li>
+<li>比较容易变化的区域：<strong>业务规则，对硬件的依赖性，输入和输出，非标准的语言特性，困难的设计区域和构建区域，状态变量，数据量的限制。</strong>对于状态变量的做法：不要使用布尔变量作为状态变量，最好使用枚举类型。使用访问器子程序取代对状态变量的直接检查。</li>
+<li>预料不同程度的变化</li>
+</ul>
+</li>
+<li><p><strong>保持松散耦合</strong></p>
+<ul>
+<li>耦合标准：规模，模块间连接数少；可见性，模块间的连接显而易见；灵活性，模块间的连接容易改。</li>
+<li>耦合的种类：简单数据参数耦合；简单对象的耦合；对象参数的耦合；语义上的耦合，一个模块不仅使用了另一模块的语法元素，还使用了有关那个模块内部工作细节的语义知识，这种耦合非常危险。</li>
+</ul>
+</li>
+<li><p><strong>查阅常用的设计模式</strong></p>
+<ul>
+<li>常见模式包括：适配器，桥接，装饰器，外观，工厂方法，观察者，单件，策略及模板方法。</li>
+<li>设计模式通过提供现成的抽象来减少复杂度。</li>
+<li>设计模式通过把常见的解决方案的细节予以制度化来减少出错。</li>
+<li>设计模式通过提供多种设计方案而带来启发性的价值。</li>
+<li>设计模式通过把设计对话提升到一个更高层次上来简化交流。</li>
+</ul>
+</li>
+<li><p><strong>其他的启发式方法</strong></p>
+<ul>
+<li>高内聚性：类内部的子程序或者子程序内的所有代码在支持一个中心目标上的紧密程度</li>
+<li>构造分层结构：从最通用和最抽象逐渐细化到具有特定意义的概念。</li>
+<li>严格描述类契约：意即描述类与类间的接口</li>
+<li>分配职责：为对象分派好职责</li>
+<li>为测试而设计：为测试而设计很容易产生更为规整的类接口</li>
+<li>避免失误</li>
+<li>有意识的选择绑定时间：指把特定的值绑定到某一变量的时间</li>
+<li>创建中央控制点：对于每一段有作用的代码，应该只有唯一一个地方可以看到它，这样如果需要修改，查找的地方非常少</li>
+<li>考虑使用蛮力突破：可行的蛮力解决方案要好于一个优雅但不能用的方案。</li>
+<li>画一个图：用画图来辅助思考</li>
+<li>保持设计的模块化：与隐藏信息，封装等密切相关</li>
+</ul>
+</li>
+<li><p><strong>关于设计启发的总结</strong></p>
+<ul>
+<li>寻找现实世界的对象（object）</li>
+<li>形成一致的抽象</li>
+<li>封装实现细节</li>
+<li>在可能的情况下继承</li>
+<li>信息隐藏</li>
+<li>找出容易改变的区域</li>
+<li>保持松散耦合</li>
+<li>探寻通用的设计模式</li>
+</ul>
+</li>
+<li><p><strong>使用启发式方法的原则</strong></p>
+<ul>
+<li>理解问题</li>
+<li>设计一个计划</li>
+<li>执行这一计划</li>
+<li>回顾，检视整个解</li>
+<li>最有效的原则之一就是不要卡在单一的方法上。</li>
+<li>无需马上解决整个设计难题。</li>
+</ul>
+</li>
+</ol>
+<h3 id="设计实践"><a href="#设计实践" class="headerlink" title="设计实践"></a>设计实践</h3><ul>
+<li>迭代</li>
+<li>分治</li>
+<li>自上而下和自下而上的设计方法：即从抽象到具体和由具体事务逐步抽象的方法。</li>
+<li>建立实验性原型</li>
+<li>合作设计：讨论，头脑风暴等形式</li>
+<li>需要多少设计才够？需要因地制宜，没有一个确定的方案</li>
+<li>记录设计成果：把设计文档插入代码，作为注释；用Wiki记录设计讨论和决策；写总结邮件；使用数码相机；保留设计挂图；使用CRC（类，职责，合作者）卡片，在适当的细节层创建UML图。</li>
+</ul>
+<h3 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h3><ul>
+<li>软件的首要技术使命就是管理复杂度，以简单性作为努力目标的设计方案对此最有帮助</li>
+<li>简单性可以通过两种方式来获取：一是减少在同一时间所关注的本质性复杂度的量，二是避免生成不必要的偶然的复杂度。</li>
+<li>设计是一种启发式的过程，固执于某一种单一方法会损害创新能力，从而损害你的程序。</li>
+<li>好的设计都是迭代的，你尝试设计的可能性越多，你的最终设计方案就会变得越好。</li>
+<li>信息隐藏是个非常有价值的概念，通过询问“我应该隐藏写什么？”能够解决很多困难的设计问题。</li>
+<li>很多有用有趣的、关于设计的信息存在于本书之外，这里所给出的观点只是对这些有价值资源的一点提示而已。</li>
+</ul>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -190,7 +366,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Android基础</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码大全</a>
         		</li>
       		
 		</ul>
@@ -199,565 +375,83 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2015/05/28/Code Complete/代码大全笔记4/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
-
-
-
   
-    <article id="post-php/PHP基础函数1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
-    </h1>
+    <a href="/2015/06/10/Code Complete/代码大全笔记5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          代码大全笔记5
+        
+      </div>
+    </a>
   
-
-        
-        <a href="/2016/04/08/php/PHP基础函数1/" class="archive-article-date">
-  	<time datetime="2016-04-08T03:55:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>PHP基础函数和使用方法。</p>
-        
-          <a class="article-more-a" href="/2016/04/08/php/PHP基础函数1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/04/08/php/PHP基础函数1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
   
-    <article id="post-libgdx/libgdx教程4——控件（未完成）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+    <a href="/2015/05/28/Code Complete/代码大全笔记3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">代码大全笔记3</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
-    </h1>
-  
-
-        
-        <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/" class="archive-article-date">
-  	<time datetime="2015-10-15T14:45:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-10-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Libgdx教程，控件。<br>
-        
-          <a class="article-more-a" href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">libgdx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-libgdx/libgdx教程3——动画" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
-    </h1>
-  
-
-        
-        <a href="/2015/10/13/libgdx/libgdx教程3——动画/" class="archive-article-date">
-  	<time datetime="2015-10-13T13:52:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-10-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Libgdx教程，动画。<br>
-        
-          <a class="article-more-a" href="/2015/10/13/libgdx/libgdx教程3——动画/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">libgdx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/10/13/libgdx/libgdx教程3——动画/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-libgdx/libgdx教程2——绘制汉字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/11/libgdx/libgdx教程2——绘制汉字/">Libgdx教程2——绘制汉字</a>
-    </h1>
-  
-
-        
-        <a href="/2015/10/11/libgdx/libgdx教程2——绘制汉字/" class="archive-article-date">
-  	<time datetime="2015-10-11T02:10:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-10-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Libgdx教程，绘制汉字。<br>
-        
-          <a class="article-more-a" href="/2015/10/11/libgdx/libgdx教程2——绘制汉字/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">libgdx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/10/11/libgdx/libgdx教程2——绘制汉字/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-libgdx/libgdx教程1——图形绘制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/10/libgdx/libgdx教程1——图形绘制/">Libgdx教程1——图形绘制</a>
-    </h1>
-  
-
-        
-        <a href="/2015/10/10/libgdx/libgdx教程1——图形绘制/" class="archive-article-date">
-  	<time datetime="2015-10-10T08:21:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-10-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Libgdx教程，图形绘制。<br>
-        
-          <a class="article-more-a" href="/2015/10/10/libgdx/libgdx教程1——图形绘制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">libgdx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/10/10/libgdx/libgdx教程1——图形绘制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-Game Frame/12进入3D的世界" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/27/Game Frame/12进入3D的世界/">12进入3D的世界</a>
-    </h1>
-  
-
-        
-        <a href="/2015/09/27/Game Frame/12进入3D的世界/" class="archive-article-date">
-  	<time datetime="2015-09-27T03:51:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-09-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>进入3D世界，OpenGL ES 3D基础。<br>
-        
-          <a class="article-more-a" href="/2015/09/27/Game Frame/12进入3D的世界/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">游戏框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/09/27/Game Frame/12进入3D的世界/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-Game Frame/11SuperJump2D游戏实例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/22/Game Frame/11SuperJump2D游戏实例/">11SuperJump2D游戏实例</a>
-    </h1>
-  
-
-        
-        <a href="/2015/09/22/Game Frame/11SuperJump2D游戏实例/" class="archive-article-date">
-  	<time datetime="2015-09-21T16:04:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-09-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Super Jump 2D游戏实例，实际上这个实例重用了前面的框架，并且使用与前面实例相同的形式。下面就直接列出代码。<br>
-        
-          <a class="article-more-a" href="/2015/09/22/Game Frame/11SuperJump2D游戏实例/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">游戏框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/09/22/Game Frame/11SuperJump2D游戏实例/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-Game Frame/102D游戏编程技巧下" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/17/Game Frame/102D游戏编程技巧下/">102D游戏编程技巧下</a>
-    </h1>
-  
-
-        
-        <a href="/2015/09/17/Game Frame/102D游戏编程技巧下/" class="archive-article-date">
-  	<time datetime="2015-09-17T15:39:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-09-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>2D游戏编程技巧下<br>
-        
-          <a class="article-more-a" href="/2015/09/17/Game Frame/102D游戏编程技巧下/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">游戏框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/09/17/Game Frame/102D游戏编程技巧下/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-Game Frame/92D游戏编程技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/13/Game Frame/92D游戏编程技巧/">92D游戏编程技巧</a>
-    </h1>
-  
-
-        
-        <a href="/2015/09/13/Game Frame/92D游戏编程技巧/" class="archive-article-date">
-  	<time datetime="2015-09-13T15:50:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-09-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>2D游戏编程技巧<br>
-        
-          <a class="article-more-a" href="/2015/09/13/Game Frame/92D游戏编程技巧/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">游戏框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/09/13/Game Frame/92D游戏编程技巧/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+</nav>
 
 
 
@@ -765,9 +459,10 @@
 
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -790,8 +485,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

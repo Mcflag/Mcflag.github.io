@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>柒夜</title>
+  <title>属性动画ViewPropertyAnimator和线程安全集合 | 柒夜</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="从零开始">
-<meta property="og:type" content="website">
-<meta property="og:title" content="柒夜">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="摘要属性动画、ViewPropertyAnimator、AnimatorListener、线程安全集合、活动的默认SharedPreferences">
+<meta name="keywords" content="Android基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="属性动画ViewPropertyAnimator和线程安全集合">
+<meta property="og:url" content="http://yoursite.com/2015/07/30/Android for Programmers/5基础组件/index.html">
 <meta property="og:site_name" content="柒夜">
-<meta property="og:description" content="从零开始">
+<meta property="og:description" content="摘要属性动画、ViewPropertyAnimator、AnimatorListener、线程安全集合、活动的默认SharedPreferences">
+<meta property="og:updated_time" content="2017-06-30T14:19:42.193Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="柒夜">
-<meta name="twitter:description" content="从零开始">
+<meta name="twitter:title" content="属性动画ViewPropertyAnimator和线程安全集合">
+<meta name="twitter:description" content="摘要属性动画、ViewPropertyAnimator、AnimatorListener、线程安全集合、活动的默认SharedPreferences">
   
     <link rel="alternative" href="/atom.xml" title="柒夜" type="application/atom+xml">
   
@@ -152,34 +154,108 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Android programming the big nerd ranch guide/Android编程权威指南笔记1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Android for Programmers/5基础组件" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+    <h1 class="article-title" itemprop="name">
+      属性动画ViewPropertyAnimator和线程安全集合
     </h1>
   
 
         
-        <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/" class="archive-article-date">
-  	<time datetime="2016-04-11T07:57:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-11</time>
+        <a href="/2015/07/30/Android for Programmers/5基础组件/" class="archive-article-date">
+  	<time datetime="2015-07-30T15:30:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-07-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Android编程权威指南笔记。</p>
-        
-          <a class="article-more-a" href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/#more">more >></a>
-        
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>属性动画、ViewPropertyAnimator、AnimatorListener、线程安全集合、活动的默认SharedPreferences</p>
+<a id="more"></a>
+<h2 id="属性动画"><a href="#属性动画" class="headerlink" title="属性动画"></a>属性动画</h2><p>属性动画（Property animation）是Android 3.0以上版本的一个新增特性。</p>
+<p>在3.0之前，只具有2种主要的动画机制：补间动画（tweened view animation）允许用户更改view的对象外观受限制的部分，比如在哪里显示，旋转特性及大小。帧动画（frame view animation），显示一系列图像。</p>
+<p>为了创建一个属性动画，需要指定：</p>
+<ul>
+<li>一个目标对象，它包含要动画的一个或者几个属性</li>
+<li>要动画的一个或者几个属性</li>
+<li>动画的持续时间</li>
+<li>动画的每一个属性的值</li>
+<li>如何随时间改变属性值——称为插入器（interpolator）</li>
+</ul>
+<p>现在有一个新的实用工具类ViewPropertyAnimator，用于简化View对象的属性动画。并允许并行地动画多个属性。</p>
+<pre><code>ImageView iv；
+iv.animate();// 该方法就能获得ViewPropertyAnimator
+</code></pre><h2 id="监听动画生命周期"><a href="#监听动画生命周期" class="headerlink" title="监听动画生命周期"></a>监听动画生命周期</h2><p>通过实现AnimatorListener接口，可以监听属性动画的生命周期事件，这个接口定义了动画启动、终止、重复和取消时调用的那些方法。如果不需要全部方法，可以扩展AnimatorListenerAdapter类并只重写所需要的监听器方法。</p>
+<p>下面看一个例子</p>
+<pre><code>LayoutInflater layoutInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+ImageView iv=(ImageView)layoutInflater.inflate(R.layout.some, null);
+
+//x()和y()设定view终点的坐标，scaleX()和scaleY()设定最终view的宽高为原始宽高的百分比。setDuration()设定动画时间，setListener()指定动画AnimatorListener监听器
+iv.animate().x(endX).y(endY).scaleX(SCALE_X).scaleY(SCALE_Y).setDuration(animationTime).setListener(
+    new AnimatorListenerAdapter(){
+        @Override
+        public void onAnimationStart(Animator animator){
+            animators.add(animator);
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animator){
+            animators.remove(animator);
+        }
+    }
+);
+</code></pre><p>当链中最后一个方法调用完毕，动画开始。如果没有设定TimeInterpolator，则默认使用LinearInterpolate——动画存续期每一个属性值的变化都是恒定的。</p>
+<h2 id="OnTouchEvent和OnClickListener处理点触事件"><a href="#OnTouchEvent和OnClickListener处理点触事件" class="headerlink" title="OnTouchEvent和OnClickListener处理点触事件"></a>OnTouchEvent和OnClickListener处理点触事件</h2><pre><code>@Override
+public boolean onTouchEvent(MotionEvent event){
+    //do some thing
+    return true;
+}
+
+@Override
+public void onClick(View v) {
+    //do some thing
+}
+</code></pre><h2 id="ConcurrentLinkedQueue和Queue"><a href="#ConcurrentLinkedQueue和Queue" class="headerlink" title="ConcurrentLinkedQueue和Queue"></a>ConcurrentLinkedQueue和Queue</h2><p>使用ConcurrentLinkedQueue类和Queue接口来维护线程安全的对象清单，它们可以并行地被多个执行线程访问。</p>
+<p>初始化新的队列，见如下的例子</p>
+<pre><code>Queue&lt;Animator&gt; animators=new ConcurrentLinkedQueue&lt;Animator&gt;();
+</code></pre><h2 id="Handler和postDelayed-方法"><a href="#Handler和postDelayed-方法" class="headerlink" title="Handler和postDelayed()方法"></a>Handler和postDelayed()方法</h2><p>通过该方法可以延迟执行某个Runnable</p>
+<pre><code>private static final int DELAY_TIME=500; // 单位是毫秒
+Handler newHandler;
+Runnable newRunnable=new Runnable(){
+    @Override
+    public void run() {
+
+    }
+};
+newHandler.postDelayed(newRunnable, DELAY_TIME);
+</code></pre>
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -199,565 +275,83 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2015/07/30/Android for Programmers/5基础组件/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
-
-
-
   
-    <article id="post-php/PHP基础函数1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
-    </h1>
+    <a href="/2015/08/01/Code Complete/代码大全笔记8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          代码大全笔记8
+        
+      </div>
+    </a>
   
-
-        
-        <a href="/2016/04/08/php/PHP基础函数1/" class="archive-article-date">
-  	<time datetime="2016-04-08T03:55:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>PHP基础函数和使用方法。</p>
-        
-          <a class="article-more-a" href="/2016/04/08/php/PHP基础函数1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/04/08/php/PHP基础函数1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
   
-    <article id="post-libgdx/libgdx教程4——控件（未完成）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+    <a href="/2015/07/26/Android for Programmers/4基础组件/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SurfaceView，GestureDetector和声音的使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
-    </h1>
-  
-
-        
-        <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/" class="archive-article-date">
-  	<time datetime="2015-10-15T14:45:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-10-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Libgdx教程，控件。<br>
-        
-          <a class="article-more-a" href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">libgdx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-libgdx/libgdx教程3——动画" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
-    </h1>
-  
-
-        
-        <a href="/2015/10/13/libgdx/libgdx教程3——动画/" class="archive-article-date">
-  	<time datetime="2015-10-13T13:52:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-10-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Libgdx教程，动画。<br>
-        
-          <a class="article-more-a" href="/2015/10/13/libgdx/libgdx教程3——动画/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">libgdx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/10/13/libgdx/libgdx教程3——动画/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-libgdx/libgdx教程2——绘制汉字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/11/libgdx/libgdx教程2——绘制汉字/">Libgdx教程2——绘制汉字</a>
-    </h1>
-  
-
-        
-        <a href="/2015/10/11/libgdx/libgdx教程2——绘制汉字/" class="archive-article-date">
-  	<time datetime="2015-10-11T02:10:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-10-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Libgdx教程，绘制汉字。<br>
-        
-          <a class="article-more-a" href="/2015/10/11/libgdx/libgdx教程2——绘制汉字/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">libgdx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/10/11/libgdx/libgdx教程2——绘制汉字/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-libgdx/libgdx教程1——图形绘制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/10/libgdx/libgdx教程1——图形绘制/">Libgdx教程1——图形绘制</a>
-    </h1>
-  
-
-        
-        <a href="/2015/10/10/libgdx/libgdx教程1——图形绘制/" class="archive-article-date">
-  	<time datetime="2015-10-10T08:21:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-10-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Libgdx教程，图形绘制。<br>
-        
-          <a class="article-more-a" href="/2015/10/10/libgdx/libgdx教程1——图形绘制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">libgdx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/10/10/libgdx/libgdx教程1——图形绘制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-Game Frame/12进入3D的世界" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/27/Game Frame/12进入3D的世界/">12进入3D的世界</a>
-    </h1>
-  
-
-        
-        <a href="/2015/09/27/Game Frame/12进入3D的世界/" class="archive-article-date">
-  	<time datetime="2015-09-27T03:51:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-09-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>进入3D世界，OpenGL ES 3D基础。<br>
-        
-          <a class="article-more-a" href="/2015/09/27/Game Frame/12进入3D的世界/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">游戏框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/09/27/Game Frame/12进入3D的世界/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-Game Frame/11SuperJump2D游戏实例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/22/Game Frame/11SuperJump2D游戏实例/">11SuperJump2D游戏实例</a>
-    </h1>
-  
-
-        
-        <a href="/2015/09/22/Game Frame/11SuperJump2D游戏实例/" class="archive-article-date">
-  	<time datetime="2015-09-21T16:04:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-09-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Super Jump 2D游戏实例，实际上这个实例重用了前面的框架，并且使用与前面实例相同的形式。下面就直接列出代码。<br>
-        
-          <a class="article-more-a" href="/2015/09/22/Game Frame/11SuperJump2D游戏实例/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">游戏框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/09/22/Game Frame/11SuperJump2D游戏实例/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-Game Frame/102D游戏编程技巧下" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/17/Game Frame/102D游戏编程技巧下/">102D游戏编程技巧下</a>
-    </h1>
-  
-
-        
-        <a href="/2015/09/17/Game Frame/102D游戏编程技巧下/" class="archive-article-date">
-  	<time datetime="2015-09-17T15:39:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-09-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>2D游戏编程技巧下<br>
-        
-          <a class="article-more-a" href="/2015/09/17/Game Frame/102D游戏编程技巧下/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">游戏框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/09/17/Game Frame/102D游戏编程技巧下/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-Game Frame/92D游戏编程技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/13/Game Frame/92D游戏编程技巧/">92D游戏编程技巧</a>
-    </h1>
-  
-
-        
-        <a href="/2015/09/13/Game Frame/92D游戏编程技巧/" class="archive-article-date">
-  	<time datetime="2015-09-13T15:50:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-09-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>2D游戏编程技巧<br>
-        
-          <a class="article-more-a" href="/2015/09/13/Game Frame/92D游戏编程技巧/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">游戏框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/09/13/Game Frame/92D游戏编程技巧/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+</nav>
 
 
 
@@ -765,9 +359,10 @@
 
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -790,8 +385,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
