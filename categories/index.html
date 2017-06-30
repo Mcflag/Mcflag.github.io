@@ -3,19 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Libgdx教程3——动画 | 柒夜</title>
+  <title>categories | 柒夜</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="摘要Libgdx教程，动画。">
-<meta name="keywords" content="libgdx">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Libgdx教程3——动画">
-<meta property="og:url" content="http://yoursite.com/2015/10/13/libgdx/libgdx教程3——动画/index.html">
+  <meta name="description" content="从零开始">
+<meta property="og:type" content="website">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://yoursite.com/categories/index.html">
 <meta property="og:site_name" content="柒夜">
-<meta property="og:description" content="摘要Libgdx教程，动画。">
-<meta property="og:updated_time" content="2017-06-30T14:15:16.888Z">
+<meta property="og:description" content="从零开始">
+<meta property="og:updated_time" content="2017-06-30T18:58:30.167Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Libgdx教程3——动画">
-<meta name="twitter:description" content="摘要Libgdx教程，动画。">
+<meta name="twitter:title" content="categories">
+<meta name="twitter:description" content="从零开始">
   
     <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
   
@@ -72,10 +71,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-libgdx/libgdx教程3——动画" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/13/libgdx/libgdx教程3——动画/" class="article-date">
-  <time datetime="2015-10-13T13:52:22.000Z" itemprop="datePublished">2015-10-13</time>
+    <a href="/categories/index.html" class="article-date">
+  <time datetime="2016-06-30T18:57:50.000Z" itemprop="datePublished">2016-07-01</time>
 </a>
     
   </div>
@@ -86,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Libgdx教程3——动画
+      categories
     </h1>
   
 
@@ -94,115 +93,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Libgdx教程，动画。<br><a id="more"></a></p>
-<h2 id="Animation类介绍"><a href="#Animation类介绍" class="headerlink" title="Animation类介绍"></a>Animation类介绍</h2><p>功能：动画是由多个帧，在设定的时间间隔序列显示，比如，一个跑步的人一个动画可以通过运行时播放这些图像无限运动。Animation类用来管理动画，设置随机播放模式和播放顺序。</p>
-<p>使用方法：animation=new Animation(float fDuration,keyFrames);</p>
-<p>第一个参数是播放每一帧的时间，后面是一个TextureRegion。使用的图片显示一个完整的动画运行周期，被称为精灵表，每一帧按照顺序排列，animation会按顺序绘制每个精灵。</p>
-<h2 id="TextureRegion-数组"><a href="#TextureRegion-数组" class="headerlink" title="TextureRegion[][]数组"></a>TextureRegion[][]数组</h2><pre><code>TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight() /FRAME_ROWS);
-</code></pre><p>它将一整张动画图片分割，将获得的纹理分为一个二维数组，前提是分割的矩形大小相等。只是这样使用起来不方便。</p>
-<h2 id="SetPlayMode-方法"><a href="#SetPlayMode-方法" class="headerlink" title="SetPlayMode()方法"></a>SetPlayMode()方法</h2><p>它是Animation类自己封装的一个方法，是用来设置播放模式的，其中它提供的模式有6种：NORMAL，REVERSED，LOOP，LOOP_REVERSED，LOOP_PINGPONG，LOOP_RANDOM。</p>
-<ul>
-<li>NORMAL：就是正常的播放模式。</li>
-<li>REVERSED：反向播放，从后向前播放。</li>
-<li>LOOP：循环播放。</li>
-<li>LOOP_REVERSED：循环反向播放。</li>
-<li>LOOP_PINGPONG：先正向播放到最后一帧反向播放。</li>
-<li>LOOP_RANDOM：循环随机播放</li>
-</ul>
-<h2 id="StateTime使用"><a href="#StateTime使用" class="headerlink" title="StateTime使用"></a>StateTime使用</h2><p>代码stateTime+=Gdx.graphics.getDeltaTime()，获取一个状态下所持续的一个时间，配合系统时间使用Gdx.graphics.getDeltaTime()，获取系统渲染时间，一般默认的是0.173秒。</p>
-<h2 id="详细实现"><a href="#详细实现" class="headerlink" title="详细实现"></a>详细实现</h2><pre><code>public class WalkAnim implements ApplicationListener {
-
-    private static final int FRAME_COLS = 6;
-    private static final int FRAME_ROWS = 5;
-
-    Animation walkAnimation;
-    Texture walkSheet;
-    TextureRegion[] walkFrames;
-    SpriteBatch batch;
-    TextureRegion currentFrame;
-
-    float stateTime;
-
-    @Override
-    public void create() {
-        walkSheet = new Texture(Gdx.files.internal(&quot;animation_sheet.png&quot;));
-        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight()
-                / FRAME_ROWS);
-        walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
-        int index = 0;
-        for (int i = 0; i &lt; FRAME_ROWS; i++) {
-            for (int j = 0; j &lt; FRAME_COLS; j++) {
-                walkFrames[index++] = tmp[i][j];
-            }
-        }
-        walkAnimation = new Animation(0.025f, walkFrames);
-        walkAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
-        batch = new SpriteBatch();
-        stateTime = 0f;
-    }
-
-    @Override
-    public void dispose() {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void render() {
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentFrame = walkAnimation.getKeyFrame(stateTime, true);
-        batch.begin();
-        batch.draw(currentFrame, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        batch.end();
-    }
-
-    @Override
-    public void resize(int arg0, int arg1) {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-}
-</code></pre>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/13/libgdx/libgdx教程3——动画/" data-id="cj4k85i8q002ris6ko29pbzz4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/categories/index.html" data-id="cj4k85i4z0001is6kewnqji9b" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/libgdx/">libgdx</a></li></ul>
-
     </footer>
   </div>
   
     
-<nav id="article-nav">
-  
-    <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Libgdx教程4——控件
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/11/libgdx/libgdx教程2——绘制汉字/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Libgdx教程2——绘制汉字</div>
-    </a>
-  
-</nav>
-
   
 </article>
 
