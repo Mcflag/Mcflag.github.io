@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>11SuperJump2D游戏实例 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要Super Jump 2D游戏实例，实际上这个实例重用了前面的框架，并且使用与前面实例相同的形式。下面就直接列出代码。">
+<meta name="keywords" content="游戏框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11SuperJump2D游戏实例">
+<meta property="og:url" content="http://yoursite.com/2015/09/22/Game Frame/11SuperJump2D游戏实例/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要Super Jump 2D游戏实例，实际上这个实例重用了前面的框架，并且使用与前面实例相同的形式。下面就直接列出代码。">
+<meta property="og:updated_time" content="2017-06-30T15:15:01.725Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11SuperJump2D游戏实例">
+<meta name="twitter:description" content="摘要Super Jump 2D游戏实例，实际上这个实例重用了前面的框架，并且使用与前面实例相同的形式。下面就直接列出代码。">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Game Frame/11SuperJump2D游戏实例" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/22/Game Frame/11SuperJump2D游戏实例/" class="article-date">
+  <time datetime="2015-09-21T16:04:35.000Z" itemprop="datePublished">2015-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      11SuperJump2D游戏实例
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Super Jump 2D游戏实例，实际上这个实例重用了前面的框架，并且使用与前面实例相同的形式。下面就直接列出代码。<br><a id="more"></a></p>
+<h2 id="Assets类"><a href="#Assets类" class="headerlink" title="Assets类"></a>Assets类</h2><pre><code>public class Assets {
+    public static Texture background;
+    public static TextureRegion backgroundRegion;
+
+    public static Texture items;
+    public static TextureRegion mainMenu;
+    public static TextureRegion pauseMenu;
+    public static TextureRegion ready;
+    public static TextureRegion gameOver;
+    public static TextureRegion highScoresRegion;
+    public static TextureRegion logo;
+    public static TextureRegion soundOn;
+    public static TextureRegion soundOff;
+    public static TextureRegion arrow;
+    public static TextureRegion pause;
+    public static TextureRegion spring;
+    public static TextureRegion castle;
+    public static Animation coinAnim;
+    public static Animation bobJump;
+    public static Animation bobFall;
+    public static TextureRegion bobHit;
+    public static Animation squirrelFly;
+    public static TextureRegion platform;
+    public static Animation brakingPlatform;
+    public static Font font;
+
+    public static Music music;
+    public static Sound jumpSound;
+    public static Sound highJumpSound;
+    public static Sound hitSound;
+    public static Sound coinSound;
+    public static Sound clickSound;
+
+    public static void load(GLGame game) {
+        background = new Texture(game, &quot;background.png&quot;);
+        backgroundRegion = new TextureRegion(background, 0, 0, 320, 480);
+
+        items = new Texture(game, &quot;items.png&quot;);
+        mainMenu = new TextureRegion(items, 0, 224, 300, 110);
+        pauseMenu = new TextureRegion(items, 224, 128, 192, 96);
+        ready = new TextureRegion(items, 320, 224, 192, 32);
+        gameOver = new TextureRegion(items, 352, 256, 160, 96);
+        highScoresRegion = new TextureRegion(Assets.items, 0, 257, 300, 110 / 3);
+        logo = new TextureRegion(items, 0, 352, 274, 142);
+        soundOff = new TextureRegion(items, 0, 0, 64, 64);
+        soundOn = new TextureRegion(items, 64, 0, 64, 64);
+        arrow = new TextureRegion(items, 0, 64, 64, 64);
+        pause = new TextureRegion(items, 64, 64, 64, 64);
+
+        spring = new TextureRegion(items, 128, 0, 32, 32);
+        castle = new TextureRegion(items, 128, 64, 64, 64);
+        coinAnim = new Animation(0.2f, new TextureRegion(items, 128, 32, 32, 32), new TextureRegion(items, 160, 32, 32, 32), new TextureRegion(items, 192, 32,
+                32, 32), new TextureRegion(items, 160, 32, 32, 32));
+        bobJump = new Animation(0.2f, new TextureRegion(items, 0, 128, 32, 32), new TextureRegion(items, 32, 128, 32, 32));
+        bobFall = new Animation(0.2f, new TextureRegion(items, 64, 128, 32, 32), new TextureRegion(items, 96, 128, 32, 32));
+        bobHit = new TextureRegion(items, 128, 128, 32, 32);
+        squirrelFly = new Animation(0.2f, new TextureRegion(items, 0, 160, 32, 32), new TextureRegion(items, 32, 160, 32, 32));
+        platform = new TextureRegion(items, 64, 160, 64, 16);
+        brakingPlatform = new Animation(0.2f, new TextureRegion(items, 64, 160, 64, 16), new TextureRegion(items, 64, 176, 64, 16), new TextureRegion(items,
+                64, 192, 64, 16), new TextureRegion(items, 64, 208, 64, 16));
+
+        font = new Font(items, 224, 0, 16, 16, 20);
+
+        music = game.getAudio().newMusic(&quot;music.mp3&quot;);
+        music.setLooping(true);
+        music.setVolume(0.5f);
+        if (Settings.soundEnabled)
+            music.play();
+        jumpSound = game.getAudio().newSound(&quot;jump.ogg&quot;);
+        highJumpSound = game.getAudio().newSound(&quot;highjump.ogg&quot;);
+        hitSound = game.getAudio().newSound(&quot;hit.ogg&quot;);
+        coinSound = game.getAudio().newSound(&quot;coin.ogg&quot;);
+        clickSound = game.getAudio().newSound(&quot;click.ogg&quot;);
+    }
+
+    public static void reload() {
+        background.reload();
+        items.reload();
+        if (Settings.soundEnabled)
+            music.play();
+    }
+
+    public static void playSound(Sound sound) {
+        if (Settings.soundEnabled)
+            sound.play(1);
+    }
+}
+</code></pre><h2 id="Settings类"><a href="#Settings类" class="headerlink" title="Settings类"></a>Settings类</h2><pre><code>public class Settings {
+    public static boolean soundEnabled = true;
+    public final static int[] highscores = new int[] { 100, 80, 50, 30, 10 };
+    public final static String file = &quot;.superjumper&quot;;
+
+    public static void load(FileIO files) {
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(files.readFile(file)));
+            soundEnabled = Boolean.parseBoolean(in.readLine());
+            for(int i = 0; i &lt; 5; i++) {
+                highscores[i] = Integer.parseInt(in.readLine());
+            }
+        } catch (IOException e) {
+            // :( It&apos;s ok we have defaults
+        } catch (NumberFormatException e) {
+            // :/ It&apos;s ok, defaults save our day
+        } finally {
+            try {
+                if (in != null)
+                    in.close();
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    public static void save(FileIO files) {
+        BufferedWriter out = null;
+        try {
+            out = new BufferedWriter(new OutputStreamWriter(
+                    files.writeFile(file)));
+            out.write(Boolean.toString(soundEnabled));
+            out.write(&quot;\n&quot;);
+            for(int i = 0; i &lt; 5; i++) {
+                out.write(Integer.toString(highscores[i]));
+                out.write(&quot;\n&quot;);
+            }
+
+        } catch (IOException e) {
+        } finally {
+            try {
+                if (out != null)
+                    out.close();
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    public static void addScore(int score) {
+        for(int i=0; i &lt; 5; i++) {
+            if(highscores[i] &lt; score) {
+                for(int j= 4; j &gt; i; j--)
+                    highscores[j] = highscores[j-1];
+                highscores[i] = score;
+                break;
+            }
+        }
+    }
+}
+</code></pre><h2 id="主活动SuperJumper类"><a href="#主活动SuperJumper类" class="headerlink" title="主活动SuperJumper类"></a>主活动SuperJumper类</h2><pre><code>public class SuperJumper extends GLGame {
+    boolean firstTimeCreate = true;
+
+    public Screen getStartScreen() {
+        return new MainMenuScreen(this);
+    }
+
+    @Override
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {         
+        super.onSurfaceCreated(gl, config);
+        if(firstTimeCreate) {
+            Settings.load(getFileIO());
+            Assets.load(this);
+            firstTimeCreate = false;            
+        } else {
+            Assets.reload();
+        }
+    }     
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(Settings.soundEnabled)
+            Assets.music.pause();
+    }
+}
+</code></pre><h2 id="Font类，点阵字体渲染类"><a href="#Font类，点阵字体渲染类" class="headerlink" title="Font类，点阵字体渲染类"></a>Font类，点阵字体渲染类</h2><pre><code>public class Font {
+    public final Texture texture;
+    public final int glyphWidth;
+    public final int glyphHeight;
+    public final TextureRegion[] glyphs = new TextureRegion[96];
+
+    public Font(Texture texture, int offsetX, int offsetY, int glyphsPerRow, int glyphWidth, int glyphHeight) {
+        this.texture = texture;
+        this.glyphWidth = glyphWidth;
+        this.glyphHeight = glyphHeight;
+        int x = offsetX;
+        int y = offsetY;
+        for (int i = 0; i &lt; 96; i++) {
+            glyphs[i] = new TextureRegion(texture, x, y, glyphWidth, glyphHeight);
+            x += glyphWidth;
+            if (x == offsetX + glyphsPerRow * glyphWidth) {
+                x = offsetX;
+                y += glyphHeight;
+            }
+        }
+    }
+
+    public void drawText(SpriteBatcher batcher, String text, float x, float y) {
+        int len = text.length();
+        for (int i = 0; i &lt; len; i++) {
+            int c = text.charAt(i) - &apos; &apos;;
+            if (c &lt; 0 || c &gt; glyphs.length - 1)
+                continue;
+
+            TextureRegion glyph = glyphs[c];
+            batcher.drawSprite(x, y, glyphWidth, glyphHeight, glyph);
+            x += glyphWidth;
+        }
+    }
+}
+</code></pre><h2 id="GLScreen"><a href="#GLScreen" class="headerlink" title="GLScreen"></a>GLScreen</h2><pre><code>public abstract class GLScreen extends Screen {
+    protected final GLGraphics glGraphics;
+    protected final GLGame glGame;
+
+    public GLScreen(Game game) {
+        super(game);
+        glGame = (GLGame) game;
+        glGraphics = ((GLGame) game).getGLGraphics();
+    }
+}
+</code></pre><h2 id="MainMenuScreen类"><a href="#MainMenuScreen类" class="headerlink" title="MainMenuScreen类"></a>MainMenuScreen类</h2><pre><code>public class MainMenuScreen extends GLScreen {
+    Camera2D guiCam;
+    SpriteBatcher batcher;
+    Rectangle soundBounds;
+    Rectangle playBounds;
+    Rectangle highscoresBounds;
+    Rectangle helpBounds;
+    Vector2 touchPoint;
+
+    public MainMenuScreen(Game game) {
+        super(game);
+        guiCam = new Camera2D(glGraphics, 320, 480);
+        batcher = new SpriteBatcher(glGraphics, 100);
+        soundBounds = new Rectangle(0, 0, 64, 64);
+        playBounds = new Rectangle(160 - 150, 200 + 18, 300, 36);
+        highscoresBounds = new Rectangle(160 - 150, 200 - 18, 300, 36);
+        helpBounds = new Rectangle(160 - 150, 200 - 18 - 36, 300, 36);
+        touchPoint = new Vector2();               
+    }       
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);                        
+            if(event.type == TouchEvent.TOUCH_UP) {
+                touchPoint.set(event.x, event.y);
+                guiCam.touchToWorld(touchPoint);
+
+                if(OverlapTester.pointInRectangle(playBounds, touchPoint)) {
+                    Assets.playSound(Assets.clickSound);
+                    game.setScreen(new GameScreen(game));
+                    return;
+                }
+                if(OverlapTester.pointInRectangle(highscoresBounds, touchPoint)) {
+                    Assets.playSound(Assets.clickSound);
+                    game.setScreen(new HighscoreScreen(game));
+                    return;
+                }
+                if(OverlapTester.pointInRectangle(helpBounds, touchPoint)) {
+                    Assets.playSound(Assets.clickSound);
+                    game.setScreen(new HelpScreen(game));
+                    return;
+                }
+                if(OverlapTester.pointInRectangle(soundBounds, touchPoint)) {
+                    Assets.playSound(Assets.clickSound);
+                    Settings.soundEnabled = !Settings.soundEnabled;
+                    if(Settings.soundEnabled) 
+                        Assets.music.play();
+                    else
+                        Assets.music.pause();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        GL10 gl = glGraphics.getGL();        
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        guiCam.setViewportAndMatrices();
+
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+
+        batcher.beginBatch(Assets.background);
+        batcher.drawSprite(160, 240, 320, 480, Assets.backgroundRegion);
+        batcher.endBatch();
+
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);               
+
+        batcher.beginBatch(Assets.items);                 
+
+        batcher.drawSprite(160, 480 - 10 - 71, 274, 142, Assets.logo);
+        batcher.drawSprite(160, 200, 300, 110, Assets.mainMenu);
+        batcher.drawSprite(32, 32, 64, 64, Settings.soundEnabled?Assets.soundOn:Assets.soundOff);
+
+        batcher.endBatch();
+
+        gl.glDisable(GL10.GL_BLEND);
+    }
+
+    @Override
+    public void pause() {        
+        Settings.save(game.getFileIO());
+    }
+
+    @Override
+    public void resume() {        
+    }       
+
+    @Override
+    public void dispose() {        
+    }
+}
+</code></pre><h2 id="HelpScreen类"><a href="#HelpScreen类" class="headerlink" title="HelpScreen类"></a>HelpScreen类</h2><pre><code>public class HelpScreen extends GLScreen {
+    Camera2D guiCam;
+    SpriteBatcher batcher;
+    Rectangle nextBounds;
+    Vector2 touchPoint;
+    Texture helpImage;
+    TextureRegion helpRegion;    
+
+    public HelpScreen(Game game) {
+        super(game);
+
+        guiCam = new Camera2D(glGraphics, 320, 480);
+        nextBounds = new Rectangle(320 - 64, 0, 64, 64);
+        touchPoint = new Vector2();
+        batcher = new SpriteBatcher(glGraphics, 1);
+    }
+
+    @Override
+    public void resume() {
+        helpImage = new Texture(glGame, &quot;help1.png&quot; );
+        helpRegion = new TextureRegion(helpImage, 0, 0, 320, 480);
+    }
+
+    @Override
+    public void pause() {
+        helpImage.dispose();
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            touchPoint.set(event.x, event.y);
+            guiCam.touchToWorld(touchPoint);
+
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(OverlapTester.pointInRectangle(nextBounds, touchPoint)) {
+                    Assets.playSound(Assets.clickSound);
+                    game.setScreen(new HelpScreen2(game));
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        GL10 gl = glGraphics.getGL();        
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        guiCam.setViewportAndMatrices();
+
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+
+        batcher.beginBatch(helpImage);
+        batcher.drawSprite(160, 240, 320, 480, helpRegion);
+        batcher.endBatch();
+
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+
+        batcher.beginBatch(Assets.items);          
+        batcher.drawSprite(320 - 32, 32, -64, 64, Assets.arrow);
+        batcher.endBatch();
+
+        gl.glDisable(GL10.GL_BLEND);
+    }
+
+    @Override
+    public void dispose() {
+    }
+}
+</code></pre><h2 id="剩下的HelpScreen类"><a href="#剩下的HelpScreen类" class="headerlink" title="剩下的HelpScreen类"></a>剩下的HelpScreen类</h2><pre><code>public class HelpScreen2 extends GLScreen {
+    Camera2D guiCam;
+    SpriteBatcher batcher;
+    Rectangle nextBounds;
+    Vector2 touchPoint;
+    Texture helpImage;
+    TextureRegion helpRegion;    
+
+    public HelpScreen2(Game game) {
+        super(game);
+
+        guiCam = new Camera2D(glGraphics, 320, 480);
+        nextBounds = new Rectangle(320 - 64, 0, 64, 64);
+        touchPoint = new Vector2();
+        batcher = new SpriteBatcher(glGraphics, 1);
+    }
+
+    @Override
+    public void resume() {
+        helpImage = new Texture(glGame, &quot;help2.png&quot; );
+        helpRegion = new TextureRegion(helpImage, 0, 0, 320, 480);
+    }
+
+    @Override
+    public void pause() {
+        helpImage.dispose();
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            touchPoint.set(event.x, event.y);
+            guiCam.touchToWorld(touchPoint);
+
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(OverlapTester.pointInRectangle(nextBounds, touchPoint)) {
+                    Assets.playSound(Assets.clickSound);
+                    game.setScreen(new HelpScreen3(game));
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        GL10 gl = glGraphics.getGL();        
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        guiCam.setViewportAndMatrices();
+
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+
+        batcher.beginBatch(helpImage);
+        batcher.drawSprite(160, 240, 320, 480, helpRegion);
+        batcher.endBatch();
+
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+
+        batcher.beginBatch(Assets.items);          
+        batcher.drawSprite(320 - 32, 32, -64, 64, Assets.arrow);
+        batcher.endBatch();
+
+        gl.glDisable(GL10.GL_BLEND);
+    }
+
+    @Override
+    public void dispose() {
+    }
+}
+
+public class HelpScreen3 extends GLScreen {
+    Camera2D guiCam;
+    SpriteBatcher batcher;
+    Rectangle nextBounds;
+    Vector2 touchPoint;
+    Texture helpImage;
+    TextureRegion helpRegion;    
+
+    public HelpScreen3(Game game) {
+        super(game);
+
+        guiCam = new Camera2D(glGraphics, 320, 480);
+        nextBounds = new Rectangle(320 - 64, 0, 64, 64);
+        touchPoint = new Vector2();
+        batcher = new SpriteBatcher(glGraphics, 1);
+    }
+
+    @Override
+    public void resume() {
+        helpImage = new Texture(glGame, &quot;help3.png&quot; );
+        helpRegion = new TextureRegion(helpImage, 0, 0, 320, 480);
+    }
+
+    @Override
+    public void pause() {
+        helpImage.dispose();
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            touchPoint.set(event.x, event.y);
+            guiCam.touchToWorld(touchPoint);
+
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(OverlapTester.pointInRectangle(nextBounds, touchPoint)) {
+                    Assets.playSound(Assets.clickSound);
+                    game.setScreen(new HelpScreen4(game));
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        GL10 gl = glGraphics.getGL();        
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        guiCam.setViewportAndMatrices();
+
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+
+        batcher.beginBatch(helpImage);
+        batcher.drawSprite(160, 240, 320, 480, helpRegion);
+        batcher.endBatch();
+
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+
+        batcher.beginBatch(Assets.items);          
+        batcher.drawSprite(320 - 32, 32, -64, 64, Assets.arrow);
+        batcher.endBatch();
+
+        gl.glDisable(GL10.GL_BLEND);
+    }
+
+    @Override
+    public void dispose() {
+    }
+}
+
+public class HelpScreen4 extends GLScreen {
+    Camera2D guiCam;
+    SpriteBatcher batcher;
+    Rectangle nextBounds;
+    Vector2 touchPoint;
+    Texture helpImage;
+    TextureRegion helpRegion;    
+
+    public HelpScreen4(Game game) {
+        super(game);
+
+        guiCam = new Camera2D(glGraphics, 320, 480);
+        nextBounds = new Rectangle(320 - 64, 0, 64, 64);
+        touchPoint = new Vector2();
+        batcher = new SpriteBatcher(glGraphics, 1);
+    }
+
+    @Override
+    public void resume() {
+        helpImage = new Texture(glGame, &quot;help4.png&quot; );
+        helpRegion = new TextureRegion(helpImage, 0, 0, 320, 480);
+    }
+
+    @Override
+    public void pause() {
+        helpImage.dispose();
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            touchPoint.set(event.x, event.y);
+            guiCam.touchToWorld(touchPoint);
+
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(OverlapTester.pointInRectangle(nextBounds, touchPoint)) {
+                    Assets.playSound(Assets.clickSound);
+                    game.setScreen(new HelpScreen5(game));
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        GL10 gl = glGraphics.getGL();        
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        guiCam.setViewportAndMatrices();
+
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+
+        batcher.beginBatch(helpImage);
+        batcher.drawSprite(160, 240, 320, 480, helpRegion);
+        batcher.endBatch();
+
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+
+        batcher.beginBatch(Assets.items);          
+        batcher.drawSprite(320 - 32, 32, -64, 64, Assets.arrow);
+        batcher.endBatch();
+
+        gl.glDisable(GL10.GL_BLEND);
+    }
+
+    @Override
+    public void dispose() {
+    }
+}
+
+public class HelpScreen5 extends GLScreen {
+    Camera2D guiCam;
+    SpriteBatcher batcher;
+    Rectangle nextBounds;
+    Vector2 touchPoint;
+    Texture helpImage;
+    TextureRegion helpRegion;    
+
+    public HelpScreen5(Game game) {
+        super(game);
+
+        guiCam = new Camera2D(glGraphics, 320, 480);
+        nextBounds = new Rectangle(320 - 64, 0, 64, 64);
+        touchPoint = new Vector2();
+        batcher = new SpriteBatcher(glGraphics, 1);
+    }
+
+    @Override
+    public void resume() {
+        helpImage = new Texture(glGame, &quot;help5.png&quot; );
+        helpRegion = new TextureRegion(helpImage, 0, 0, 320, 480);
+    }
+
+    @Override
+    public void pause() {
+        helpImage.dispose();
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            touchPoint.set(event.x, event.y);
+            guiCam.touchToWorld(touchPoint);
+
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(OverlapTester.pointInRectangle(nextBounds, touchPoint)) {
+                    Assets.playSound(Assets.clickSound);
+                    game.setScreen(new MainMenuScreen(game));
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        GL10 gl = glGraphics.getGL();        
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        guiCam.setViewportAndMatrices();
+
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+
+        batcher.beginBatch(helpImage);
+        batcher.drawSprite(160, 240, 320, 480, helpRegion);
+        batcher.endBatch();
+
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+
+        batcher.beginBatch(Assets.items);          
+        batcher.drawSprite(320 - 32, 32, -64, 64, Assets.arrow);
+        batcher.endBatch();
+
+        gl.glDisable(GL10.GL_BLEND);
+    }
+
+    @Override
+    public void dispose() {
+    }
+}
+</code></pre><h2 id="HighscoresScreen类"><a href="#HighscoresScreen类" class="headerlink" title="HighscoresScreen类"></a>HighscoresScreen类</h2><pre><code>public class HighscoreScreen extends GLScreen {
+    Camera2D guiCam;
+    SpriteBatcher batcher;
+    Rectangle backBounds;
+    Vector2 touchPoint;
+    String[] highScores;  
+    float xOffset = 0;
+
+    public HighscoreScreen(Game game) {
+        super(game);
+
+        guiCam = new Camera2D(glGraphics, 320, 480);
+        backBounds = new Rectangle(0, 0, 64, 64);
+        touchPoint = new Vector2();
+        batcher = new SpriteBatcher(glGraphics, 100);
+        highScores = new String[5];        
+        for(int i = 0; i &lt; 5; i++) {
+            highScores[i] = (i + 1) + &quot;. &quot; + Settings.highscores[i];
+            xOffset = Math.max(highScores[i].length() * Assets.font.glyphWidth, xOffset);
+        }        
+        xOffset = 160 - xOffset / 2;
+    }    
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            touchPoint.set(event.x, event.y);
+            guiCam.touchToWorld(touchPoint);
+
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(OverlapTester.pointInRectangle(backBounds, touchPoint)) {
+                    game.setScreen(new MainMenuScreen(game));
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        GL10 gl = glGraphics.getGL();        
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        guiCam.setViewportAndMatrices();
+
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+
+        batcher.beginBatch(Assets.background);
+        batcher.drawSprite(160, 240, 320, 480, Assets.backgroundRegion);
+        batcher.endBatch();
+
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+
+        batcher.beginBatch(Assets.items);
+        batcher.drawSprite(160, 360, 300, 33, Assets.highScoresRegion);
+
+        float y = 240;
+        for(int i = 4; i &gt;= 0; i--) {
+            Assets.font.drawText(batcher, highScores[i], xOffset, y);
+            y += Assets.font.glyphHeight;
+        }
+
+        batcher.drawSprite(32, 32, 64, 64, Assets.arrow);
+        batcher.endBatch();
+
+        gl.glDisable(GL10.GL_BLEND);
+    }
+
+    @Override
+    public void resume() {        
+    }
+
+    @Override
+    public void pause() {        
+    }
+
+    @Override
+    public void dispose() {
+    }
+}
+</code></pre><h2 id="世界的模拟类"><a href="#世界的模拟类" class="headerlink" title="世界的模拟类"></a>世界的模拟类</h2><p><strong>Spring类</strong></p>
+<pre><code>public class Spring extends GameObject {
+    public static float SPRING_WIDTH = 0.3f;
+    public static float SPRING_HEIGHT = 0.3f;
+
+    public Spring(float x, float y) {
+        super(x, y, SPRING_WIDTH, SPRING_HEIGHT);
+    }        
+}
+</code></pre><p><strong>Coin类</strong></p>
+<pre><code>public class Coin extends GameObject {
+    public static final float COIN_WIDTH = 0.5f;
+    public static final float COIN_HEIGHT = 0.8f;
+    public static final int COIN_SCORE = 10;
+
+    float stateTime;
+    public Coin(float x, float y) {
+        super(x, y, COIN_WIDTH, COIN_HEIGHT);
+        stateTime = 0;
+    }
+
+    public void update(float deltaTime) {
+        stateTime += deltaTime;
+    }
+}
+</code></pre><p><strong>Castle类</strong></p>
+<pre><code>public class Castle extends GameObject {
+    public static float CASTLE_WIDTH = 1.7f;
+    public static float CASTLE_HEIGHT = 1.7f;
+
+    public Castle(float x, float y) {
+        super(x, y, CASTLE_WIDTH, CASTLE_HEIGHT);
+    }
+
+}
+</code></pre><p><strong>Squirrel类</strong></p>
+<pre><code>public class Squirrel extends DynamicGameObject {
+    public static final float SQUIRREL_WIDTH = 1;
+    public static final float SQUIRREL_HEIGHT = 0.6f;
+    public static final float SQUIRREL_VELOCITY = 3f;
+
+    float stateTime = 0;
+
+    public Squirrel(float x, float y) {
+        super(x, y, SQUIRREL_WIDTH, SQUIRREL_HEIGHT);
+        velocity.set(SQUIRREL_VELOCITY, 0);
+    }
+
+    public void update(float deltaTime) {
+        position.add(velocity.x * deltaTime, velocity.y * deltaTime);
+        bounds.lowerLeft.set(position).sub(SQUIRREL_WIDTH / 2, SQUIRREL_HEIGHT / 2);
+
+        if(position.x &lt; SQUIRREL_WIDTH / 2 ) {
+            position.x = SQUIRREL_WIDTH / 2;
+            velocity.x = SQUIRREL_VELOCITY;
+        }
+        if(position.x &gt; World.WORLD_WIDTH - SQUIRREL_WIDTH / 2) {
+            position.x = World.WORLD_WIDTH - SQUIRREL_WIDTH / 2;
+            velocity.x = -SQUIRREL_VELOCITY;
+        }
+        stateTime += deltaTime;
+    }
+}
+</code></pre><p><strong>Platform类</strong></p>
+<pre><code>public class Platform extends DynamicGameObject {
+    public static final float PLATFORM_WIDTH = 2;
+    public static final float PLATFORM_HEIGHT = 0.5f;
+    public static final int PLATFORM_TYPE_STATIC = 0;
+    public static final int PLATFORM_TYPE_MOVING = 1;
+    public static final int PLATFORM_STATE_NORMAL = 0;
+    public static final int PLATFORM_STATE_PULVERIZING = 1;
+    public static final float PLATFORM_PULVERIZE_TIME = 0.2f * 4;
+    public static final float PLATFORM_VELOCITY = 2;
+
+    int type;
+    int state;
+    float stateTime;
+
+    public Platform(int type, float x, float y) {
+        super(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        this.type = type;
+        this.state = PLATFORM_STATE_NORMAL;
+        this.stateTime = 0;
+        if(type == PLATFORM_TYPE_MOVING) {
+            velocity.x = PLATFORM_VELOCITY;
+        }
+    }
+
+    public void update(float deltaTime) {
+        if(type == PLATFORM_TYPE_MOVING) {
+            position.add(velocity.x * deltaTime, 0);
+            bounds.lowerLeft.set(position).sub(PLATFORM_WIDTH / 2, PLATFORM_HEIGHT / 2);
+
+            if(position.x &lt; PLATFORM_WIDTH / 2) {
+                velocity.x = -velocity.x;
+                position.x = PLATFORM_WIDTH / 2;
+            }
+            if(position.x &gt; World.WORLD_WIDTH - PLATFORM_WIDTH / 2) {
+                velocity.x = -velocity.x;
+                position.x = World.WORLD_WIDTH - PLATFORM_WIDTH / 2;
+            }            
+        }
+
+        stateTime += deltaTime;        
+    }
+
+    public void pulverize() {
+        state = PLATFORM_STATE_PULVERIZING;
+        stateTime = 0;
+        velocity.x = 0;
+    }
+}
+</code></pre><p><strong>Bob类</strong></p>
+<pre><code>public class Bob extends DynamicGameObject{
+    public static final int BOB_STATE_JUMP = 0;
+    public static final int BOB_STATE_FALL = 1;
+    public static final int BOB_STATE_HIT = 2;
+    public static final float BOB_JUMP_VELOCITY = 11;    
+    public static final float BOB_MOVE_VELOCITY = 20;
+    public static final float BOB_WIDTH = 0.8f;
+    public static final float BOB_HEIGHT = 0.8f;
+
+    int state;
+    float stateTime;    
+
+    public Bob(float x, float y) {
+        super(x, y, BOB_WIDTH, BOB_HEIGHT);
+        state = BOB_STATE_FALL;
+        stateTime = 0;        
+    }
+
+    public void update(float deltaTime) {     
+        velocity.add(World.gravity.x * deltaTime, World.gravity.y * deltaTime);
+        position.add(velocity.x * deltaTime, velocity.y * deltaTime);
+        bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
+
+        if(velocity.y &gt; 0 &amp;&amp; state != BOB_STATE_HIT) {
+            if(state != BOB_STATE_JUMP) {
+                state = BOB_STATE_JUMP;
+                stateTime = 0;
+            }
+        }
+
+        if(velocity.y &lt; 0 &amp;&amp; state != BOB_STATE_HIT) {
+            if(state != BOB_STATE_FALL) {
+                state = BOB_STATE_FALL;
+                stateTime = 0;
+            }
+        }
+
+        if(position.x &lt; 0)
+            position.x = World.WORLD_WIDTH;
+        if(position.x &gt; World.WORLD_WIDTH)
+            position.x = 0;
+
+        stateTime += deltaTime;
+    }
+
+    public void hitSquirrel() {
+        velocity.set(0,0);
+        state = BOB_STATE_HIT;        
+        stateTime = 0;
+    }
+
+    public void hitPlatform() {
+        velocity.y = BOB_JUMP_VELOCITY;
+        state = BOB_STATE_JUMP;
+        stateTime = 0;
+    }
+
+    public void hitSpring() {
+        velocity.y = BOB_JUMP_VELOCITY * 1.5f;
+        state = BOB_STATE_JUMP;
+        stateTime = 0;   
+    }
+}
+</code></pre><p><strong>World类</strong></p>
+<pre><code>public class World {
+    public interface WorldListener {
+        public void jump();
+        public void highJump();
+        public void hit();
+        public void coin();
+    }
+
+    public static final float WORLD_WIDTH = 10;
+    public static final float WORLD_HEIGHT = 15 * 20;    
+    public static final int WORLD_STATE_RUNNING = 0;
+    public static final int WORLD_STATE_NEXT_LEVEL = 1;
+    public static final int WORLD_STATE_GAME_OVER = 2;
+    public static final Vector2 gravity = new Vector2(0, -12);
+
+    public final Bob bob;           
+    public final List&lt;Platform&gt; platforms;
+    public final List&lt;Spring&gt; springs;
+    public final List&lt;Squirrel&gt; squirrels;
+    public final List&lt;Coin&gt; coins;
+    public Castle castle;    
+    public final WorldListener listener;
+    public final Random rand;
+
+    public float heightSoFar;
+    public int score;    
+    public int state;
+
+    public World(WorldListener listener) {
+        this.bob = new Bob(5, 1);        
+        this.platforms = new ArrayList&lt;Platform&gt;();
+        this.springs = new ArrayList&lt;Spring&gt;();
+        this.squirrels = new ArrayList&lt;Squirrel&gt;();
+        this.coins = new ArrayList&lt;Coin&gt;();        
+        this.listener = listener;
+        rand = new Random();
+        generateLevel();
+
+        this.heightSoFar = 0;
+        this.score = 0;
+        this.state = WORLD_STATE_RUNNING;
+    }
+
+    private void generateLevel() {
+        float y = Platform.PLATFORM_HEIGHT / 2;
+        float maxJumpHeight = Bob.BOB_JUMP_VELOCITY * Bob.BOB_JUMP_VELOCITY
+                / (2 * -gravity.y);
+        while (y &lt; WORLD_HEIGHT - WORLD_WIDTH / 2) {
+            int type = rand.nextFloat() &gt; 0.8f ? Platform.PLATFORM_TYPE_MOVING
+                    : Platform.PLATFORM_TYPE_STATIC;
+            float x = rand.nextFloat()
+                    * (WORLD_WIDTH - Platform.PLATFORM_WIDTH)
+                    + Platform.PLATFORM_WIDTH / 2;
+
+            Platform platform = new Platform(type, x, y);
+            platforms.add(platform);
+
+            if (rand.nextFloat() &gt; 0.9f
+                    &amp;&amp; type != Platform.PLATFORM_TYPE_MOVING) {
+                Spring spring = new Spring(platform.position.x,
+                        platform.position.y + Platform.PLATFORM_HEIGHT / 2
+                                + Spring.SPRING_HEIGHT / 2);
+                springs.add(spring);
+            }
+
+            if (y &gt; WORLD_HEIGHT / 3 &amp;&amp; rand.nextFloat() &gt; 0.8f) {
+                Squirrel squirrel = new Squirrel(platform.position.x
+                        + rand.nextFloat(), platform.position.y
+                        + Squirrel.SQUIRREL_HEIGHT + rand.nextFloat() * 2);
+                squirrels.add(squirrel);
+            }
+
+            if (rand.nextFloat() &gt; 0.6f) {
+                Coin coin = new Coin(platform.position.x + rand.nextFloat(),
+                        platform.position.y + Coin.COIN_HEIGHT
+                                + rand.nextFloat() * 3);
+                coins.add(coin);
+            }
+
+            y += (maxJumpHeight - 0.5f);
+            y -= rand.nextFloat() * (maxJumpHeight / 3);
+        }
+
+        castle = new Castle(WORLD_WIDTH / 2, y);
+    }
+
+    public void update(float deltaTime, float accelX) {
+        updateBob(deltaTime, accelX);
+        updatePlatforms(deltaTime);
+        updateSquirrels(deltaTime);
+        updateCoins(deltaTime);
+        if (bob.state != Bob.BOB_STATE_HIT)
+            checkCollisions();
+        checkGameOver();
+    }
+
+    private void updateBob(float deltaTime, float accelX) {
+        if (bob.state != Bob.BOB_STATE_HIT &amp;&amp; bob.position.y &lt;= 0.5f)
+            bob.hitPlatform();
+        if (bob.state != Bob.BOB_STATE_HIT)
+            bob.velocity.x = -accelX / 10 * Bob.BOB_MOVE_VELOCITY;
+        bob.update(deltaTime);
+        heightSoFar = Math.max(bob.position.y, heightSoFar);
+    }
+
+    private void updatePlatforms(float deltaTime) {
+        int len = platforms.size();
+        for (int i = 0; i &lt; len; i++) {
+            Platform platform = platforms.get(i);
+            platform.update(deltaTime);
+            if (platform.state == Platform.PLATFORM_STATE_PULVERIZING
+                    &amp;&amp; platform.stateTime &gt; Platform.PLATFORM_PULVERIZE_TIME) {
+                platforms.remove(platform);
+                len = platforms.size();
+            }
+        }
+    }
+
+    private void updateSquirrels(float deltaTime) {
+        int len = squirrels.size();
+        for (int i = 0; i &lt; len; i++) {
+            Squirrel squirrel = squirrels.get(i);
+            squirrel.update(deltaTime);
+        }
+    }
+
+    private void updateCoins(float deltaTime) {
+        int len = coins.size();
+        for (int i = 0; i &lt; len; i++) {
+            Coin coin = coins.get(i);
+            coin.update(deltaTime);
+        }
+    }
+
+    private void checkCollisions() {
+        checkPlatformCollisions();
+        checkSquirrelCollisions();
+        checkItemCollisions();
+        checkCastleCollisions();
+    }
+
+    private void checkPlatformCollisions() {
+        if (bob.velocity.y &gt; 0)
+            return;
+
+        int len = platforms.size();
+        for (int i = 0; i &lt; len; i++) {
+            Platform platform = platforms.get(i);
+            if (bob.position.y &gt; platform.position.y) {
+                if (OverlapTester
+                        .overlapRectangles(bob.bounds, platform.bounds)) {
+                    bob.hitPlatform();
+                    listener.jump();
+                    if (rand.nextFloat() &gt; 0.5f) {
+                        platform.pulverize();
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    private void checkSquirrelCollisions() {
+        int len = squirrels.size();
+        for (int i = 0; i &lt; len; i++) {
+            Squirrel squirrel = squirrels.get(i);
+            if (OverlapTester.overlapRectangles(squirrel.bounds, bob.bounds)) {
+                bob.hitSquirrel();
+                listener.hit();
+            }
+        }
+    }
+
+    private void checkItemCollisions() {
+        int len = coins.size();
+        for (int i = 0; i &lt; len; i++) {
+            Coin coin = coins.get(i);
+            if (OverlapTester.overlapRectangles(bob.bounds, coin.bounds)) {
+                coins.remove(coin);
+                len = coins.size();
+                listener.coin();
+                score += Coin.COIN_SCORE;
+            }
+
+        }
+
+        if (bob.velocity.y &gt; 0)
+            return;
+
+        len = springs.size();
+        for (int i = 0; i &lt; len; i++) {
+            Spring spring = springs.get(i);
+            if (bob.position.y &gt; spring.position.y) {
+                if (OverlapTester.overlapRectangles(bob.bounds, spring.bounds)) {
+                    bob.hitSpring();
+                    listener.highJump();
+                }
+            }
+        }
+    }
+
+    private void checkCastleCollisions() {
+        if (OverlapTester.overlapRectangles(castle.bounds, bob.bounds)) {
+            state = WORLD_STATE_NEXT_LEVEL;
+        }
+    }
+
+    private void checkGameOver() {
+        if (heightSoFar - 7.5f &gt; bob.position.y) {
+            state = WORLD_STATE_GAME_OVER;
+        }
+    }
+}
+</code></pre><h2 id="最后的游戏画面GameScreen类"><a href="#最后的游戏画面GameScreen类" class="headerlink" title="最后的游戏画面GameScreen类"></a>最后的游戏画面GameScreen类</h2><pre><code>public class GameScreen extends GLScreen {
+    static final int GAME_READY = 0;    
+    static final int GAME_RUNNING = 1;
+    static final int GAME_PAUSED = 2;
+    static final int GAME_LEVEL_END = 3;
+    static final int GAME_OVER = 4;
+
+    int state;
+    Camera2D guiCam;
+    Vector2 touchPoint;
+    SpriteBatcher batcher;    
+    World world;
+    WorldListener worldListener;
+    WorldRenderer renderer;    
+    Rectangle pauseBounds;
+    Rectangle resumeBounds;
+    Rectangle quitBounds;
+    int lastScore;
+    String scoreString;    
+
+    public GameScreen(Game game) {
+        super(game);
+        state = GAME_READY;
+        guiCam = new Camera2D(glGraphics, 320, 480);
+        touchPoint = new Vector2();
+        batcher = new SpriteBatcher(glGraphics, 1000);
+        worldListener = new WorldListener() {
+            public void jump() {            
+                Assets.playSound(Assets.jumpSound);
+            }
+
+            public void highJump() {
+                Assets.playSound(Assets.highJumpSound);
+            }
+
+            public void hit() {
+                Assets.playSound(Assets.hitSound);
+            }
+
+            public void coin() {
+                Assets.playSound(Assets.coinSound);
+            }                      
+        };
+        world = new World(worldListener);
+        renderer = new WorldRenderer(glGraphics, batcher, world);
+        pauseBounds = new Rectangle(320- 64, 480- 64, 64, 64);
+        resumeBounds = new Rectangle(160 - 96, 240, 192, 36);
+        quitBounds = new Rectangle(160 - 96, 240 - 36, 192, 36);
+        lastScore = 0;
+        scoreString = &quot;score: 0&quot;;
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        if(deltaTime &gt; 0.1f)
+            deltaTime = 0.1f;
+
+        switch(state) {
+        case GAME_READY:
+            updateReady();
+            break;
+        case GAME_RUNNING:
+            updateRunning(deltaTime);
+            break;
+        case GAME_PAUSED:
+            updatePaused();
+            break;
+        case GAME_LEVEL_END:
+            updateLevelEnd();
+            break;
+        case GAME_OVER:
+            updateGameOver();
+            break;
+        }
+    }
+
+    private void updateReady() {
+        if(game.getInput().getTouchEvents().size() &gt; 0) {
+            state = GAME_RUNNING;
+        }
+    }
+
+    private void updateRunning(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if(event.type != TouchEvent.TOUCH_UP)
+                continue;
+
+            touchPoint.set(event.x, event.y);
+            guiCam.touchToWorld(touchPoint);
+
+            if(OverlapTester.pointInRectangle(pauseBounds, touchPoint)) {
+                Assets.playSound(Assets.clickSound);
+                state = GAME_PAUSED;
+                return;
+            }            
+        }
+
+        world.update(deltaTime, game.getInput().getAccelX());
+        if(world.score != lastScore) {
+            lastScore = world.score;
+            scoreString = &quot;&quot; + lastScore;
+        }
+        if(world.state == World.WORLD_STATE_NEXT_LEVEL) {
+            state = GAME_LEVEL_END;        
+        }
+        if(world.state == World.WORLD_STATE_GAME_OVER) {
+            state = GAME_OVER;
+            if(lastScore &gt;= Settings.highscores[4]) 
+                scoreString = &quot;new highscore: &quot; + lastScore;
+            else
+                scoreString = &quot;score: &quot; + lastScore;
+            Settings.addScore(lastScore);
+            Settings.save(game.getFileIO());
+        }
+    }
+
+    private void updatePaused() {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if(event.type != TouchEvent.TOUCH_UP)
+                continue;
+
+            touchPoint.set(event.x, event.y);
+            guiCam.touchToWorld(touchPoint);
+
+            if(OverlapTester.pointInRectangle(resumeBounds, touchPoint)) {
+                Assets.playSound(Assets.clickSound);
+                state = GAME_RUNNING;
+                return;
+            }
+
+            if(OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
+                Assets.playSound(Assets.clickSound);
+                game.setScreen(new MainMenuScreen(game));
+                return;
+
+            }
+        }
+    }
+
+    private void updateLevelEnd() {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {                   
+            TouchEvent event = touchEvents.get(i);
+            if(event.type != TouchEvent.TOUCH_UP)
+                continue;
+            world = new World(worldListener);
+            renderer = new WorldRenderer(glGraphics, batcher, world);
+            world.score = lastScore;
+            state = GAME_READY;
+        }
+    }
+
+    private void updateGameOver() {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {                   
+            TouchEvent event = touchEvents.get(i);
+            if(event.type != TouchEvent.TOUCH_UP)
+                continue;
+            game.setScreen(new MainMenuScreen(game));
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        GL10 gl = glGraphics.getGL();
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+
+        renderer.render();
+
+        guiCam.setViewportAndMatrices();
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        batcher.beginBatch(Assets.items);
+        switch(state) {
+        case GAME_READY:
+            presentReady();
+            break;
+        case GAME_RUNNING:
+            presentRunning();
+            break;
+        case GAME_PAUSED:
+            presentPaused();
+            break;
+        case GAME_LEVEL_END:
+            presentLevelEnd();
+            break;
+        case GAME_OVER:
+            presentGameOver();
+            break;
+        }
+        batcher.endBatch();
+        gl.glDisable(GL10.GL_BLEND);
+    }
+
+    private void presentReady() {
+        batcher.drawSprite(160, 240, 192, 32, Assets.ready);
+    }
+
+    private void presentRunning() {
+        batcher.drawSprite(320 - 32, 480 - 32, 64, 64, Assets.pause);
+        Assets.font.drawText(batcher, scoreString, 16, 480-20);
+    }
+
+    private void presentPaused() {        
+        batcher.drawSprite(160, 240, 192, 96, Assets.pauseMenu);
+        Assets.font.drawText(batcher, scoreString, 16, 480-20);
+    }
+
+    private void presentLevelEnd() {
+        String topText = &quot;the princess is ...&quot;;
+        String bottomText = &quot;in another castle!&quot;;
+        float topWidth = Assets.font.glyphWidth * topText.length();
+        float bottomWidth = Assets.font.glyphWidth * bottomText.length();
+        Assets.font.drawText(batcher, topText, 160 - topWidth / 2, 480 - 40);
+        Assets.font.drawText(batcher, bottomText, 160 - bottomWidth / 2, 40);
+    }
+
+    private void presentGameOver() {
+        batcher.drawSprite(160, 240, 160, 96, Assets.gameOver);        
+        float scoreWidth = Assets.font.glyphWidth * scoreString.length();
+        Assets.font.drawText(batcher, scoreString, 160 - scoreWidth / 2, 480-20);
+    }
+
+    @Override
+    public void pause() {
+        if(state == GAME_RUNNING)
+            state = GAME_PAUSED;
+    }
+
+    @Override
+    public void resume() {        
+    }
+
+    @Override
+    public void dispose() {       
+    }
+}
+</code></pre><h2 id="渲染游戏画面的WorldRenderer类"><a href="#渲染游戏画面的WorldRenderer类" class="headerlink" title="渲染游戏画面的WorldRenderer类"></a>渲染游戏画面的WorldRenderer类</h2><pre><code>public class WorldRenderer {
+    static final float FRUSTUM_WIDTH = 10;
+    static final float FRUSTUM_HEIGHT = 15;    
+    GLGraphics glGraphics;
+    World world;
+    Camera2D cam;
+    SpriteBatcher batcher;    
+
+    public WorldRenderer(GLGraphics glGraphics, SpriteBatcher batcher, World world) {
+        this.glGraphics = glGraphics;
+        this.world = world;
+        this.cam = new Camera2D(glGraphics, FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
+        this.batcher = batcher;        
+    }
+
+    public void render() {
+        if(world.bob.position.y &gt; cam.position.y )
+            cam.position.y = world.bob.position.y;
+        cam.setViewportAndMatrices();
+        renderBackground();
+        renderObjects();        
+    }
+
+    public void renderBackground() {
+        batcher.beginBatch(Assets.background);
+        batcher.drawSprite(cam.position.x, cam.position.y,
+                           FRUSTUM_WIDTH, FRUSTUM_HEIGHT, 
+                           Assets.backgroundRegion);
+        batcher.endBatch();
+    }
+
+    public void renderObjects() {
+        GL10 gl = glGraphics.getGL();
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+
+        batcher.beginBatch(Assets.items);
+        renderBob();
+        renderPlatforms();
+        renderItems();
+        renderSquirrels();
+        renderCastle();
+        batcher.endBatch();
+        gl.glDisable(GL10.GL_BLEND);
+    }
+
+    private void renderBob() {
+        TextureRegion keyFrame;
+        switch(world.bob.state) {
+        case Bob.BOB_STATE_FALL:
+            keyFrame = Assets.bobFall.getKeyFrame(world.bob.stateTime, Animation.ANIMATION_LOOPING);
+            break;
+        case Bob.BOB_STATE_JUMP:
+            keyFrame = Assets.bobJump.getKeyFrame(world.bob.stateTime, Animation.ANIMATION_LOOPING);
+            break;
+        case Bob.BOB_STATE_HIT:
+        default:
+            keyFrame = Assets.bobHit;                       
+        }
+
+        float side = world.bob.velocity.x &lt; 0? -1: 1;        
+        batcher.drawSprite(world.bob.position.x, world.bob.position.y, side * 1, 1, keyFrame);        
+    }
+
+    private void renderPlatforms() {
+        int len = world.platforms.size();
+        for(int i = 0; i &lt; len; i++) {
+            Platform platform = world.platforms.get(i);
+            TextureRegion keyFrame = Assets.platform;
+            if(platform.state == Platform.PLATFORM_STATE_PULVERIZING) {                
+                keyFrame = Assets.brakingPlatform.getKeyFrame(platform.stateTime, Animation.ANIMATION_NONLOOPING);
+            }            
+
+            batcher.drawSprite(platform.position.x, platform.position.y, 
+                               2, 0.5f, keyFrame);            
+        }
+    }
+
+    private void renderItems() {
+        int len = world.springs.size();
+        for(int i = 0; i &lt; len; i++) {
+            Spring spring = world.springs.get(i);            
+            batcher.drawSprite(spring.position.x, spring.position.y, 1, 1, Assets.spring);
+        }
+
+        len = world.coins.size();
+        for(int i = 0; i &lt; len; i++) {
+            Coin coin = world.coins.get(i);
+            TextureRegion keyFrame = Assets.coinAnim.getKeyFrame(coin.stateTime, Animation.ANIMATION_LOOPING);
+            batcher.drawSprite(coin.position.x, coin.position.y, 1, 1, keyFrame);
+        }
+    }
+
+    private void renderSquirrels() {
+        int len = world.squirrels.size();
+        for(int i = 0; i &lt; len; i++) {
+            Squirrel squirrel = world.squirrels.get(i);
+            TextureRegion keyFrame = Assets.squirrelFly.getKeyFrame(squirrel.stateTime, Animation.ANIMATION_LOOPING);
+            float side = squirrel.velocity.x &lt; 0?-1:1;
+            batcher.drawSprite(squirrel.position.x, squirrel.position.y, side * 1, 1, keyFrame);
+        }
+    }
+
+    private void renderCastle() {
+        Castle castle = world.castle;
+        batcher.drawSprite(castle.position.x, castle.position.y, 2, 2, Assets.castle);
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/09/22/Game Frame/11SuperJump2D游戏实例/" data-id="cj4k7witf001rto6k7cd62dib" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/游戏框架/">游戏框架</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/09/27/Game Frame/12进入3D的世界/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          12进入3D的世界
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/17/Game Frame/102D游戏编程技巧下/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">102D游戏编程技巧下</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

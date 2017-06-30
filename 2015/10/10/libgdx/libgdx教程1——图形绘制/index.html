@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Libgdx教程1——图形绘制 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要Libgdx教程，图形绘制。">
+<meta name="keywords" content="libgdx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Libgdx教程1——图形绘制">
+<meta property="og:url" content="http://yoursite.com/2015/10/10/libgdx/libgdx教程1——图形绘制/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要Libgdx教程，图形绘制。">
+<meta property="og:updated_time" content="2017-06-30T14:14:25.328Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Libgdx教程1——图形绘制">
+<meta name="twitter:description" content="摘要Libgdx教程，图形绘制。">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-libgdx/libgdx教程1——图形绘制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/10/libgdx/libgdx教程1——图形绘制/" class="article-date">
+  <time datetime="2015-10-10T08:21:38.000Z" itemprop="datePublished">2015-10-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Libgdx教程1——图形绘制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Libgdx教程，图形绘制。<br><a id="more"></a></p>
+<h2 id="libgdx的环境"><a href="#libgdx的环境" class="headerlink" title="libgdx的环境"></a>libgdx的环境</h2><p>下载的libgdx文件包里有libgdx.so库，放在libs文件夹中，android下再放入gdx.jar和gdx-backend-android.jar两个文件即可。</p>
+<p>项目的主要Activity需要继承自AndroidApplication，onCreate方法中可以进行初始的设定。比如：</p>
+<pre><code>public class MainActivity extends AndroidApplication {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+        config.useAccelerometer = false;
+        config.useCompass = false;
+        config.useWakelock = true;
+        initialize(new FirstGame(), config);
+    }
+}
+</code></pre><p>里面的FirstGame类是一个显示一个屏幕的类。其逻辑实质是接收操作，并显示绘制图形到屏幕上。它需要实现一个ApplicationListener。</p>
+<pre><code>public class FirstGame implements ApplicationListener {
+
+    private SpriteBatch batch;
+
+    @Override
+    public void create() {
+        spriteBatch = new SpriteBatch();
+    }
+
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void render() {
+        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);//清屏
+        spriteBatch.begin();
+        spriteBatch.end();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+    }
+
+    @Override
+    public void resume() {
+    }
+}
+</code></pre><h2 id="Texture类，纹理"><a href="#Texture类，纹理" class="headerlink" title="Texture类，纹理"></a>Texture类，纹理</h2><p>API定义：图片从原始格式解码并上传到GPU就被称为纹理。</p>
+<p>功能：作为容器承装获取到的目的图片，从逻辑上可以当做一张图片。</p>
+<p>Texture一般作为参数。获取图片的方法常用方法是使用类似Gdx.files.internal(“data/Potato.jpg”)的方法。读取的文件必须要注明格式。</p>
+<p>Gdx.files是libgdx的文件模块，主要提供5大功能：读取文件，写入文件，复制文件，移动文件，列出文件和目录。</p>
+<ul>
+<li>Classpath：路径相对于classpath，文件通常为只读。</li>
+<li>Internal：内部文件路径相对于程序根目录或者android的assets文件夹。</li>
+<li>External：外部文件路径是相对于SD卡根目录。</li>
+<li>Absolute：绝对路径。</li>
+<li>assets文件夹本身就是存储资源的文件夹，相比resource文件夹，它其中的资源不会生成R中的ID，用来放图片很合适。</li>
+</ul>
+<p>用Gdx.files.internal(“data/Potato.jpg”)获取图片，调用batch.draw(texture,x,y,width,height)方法绘制图形。x，y是绘图起点坐标，左下角为原点，height和width是图形大小，绘制方向是由下向上，由左至右。</p>
+<h2 id="SpriteBatch类"><a href="#SpriteBatch类" class="headerlink" title="SpriteBatch类"></a>SpriteBatch类</h2><p>API定义：SpriteBatch用于绘制二维矩形参考纹理（区域），SpriteBatch类可用于批量绘图命令和优化处理的GPU。</p>
+<p>功能用途：SpriteBatch可以把许多相同纹理一起描述并一起送入GPU，同时赋予纹理和坐标以便每个图形的绘制。使用SpriteBatch来完成纹理映射并在屏幕上显示被纹理映射的四边形的所有工作。它使得在屏幕上绘制图形极为简单，并且经过优化。由于SpriteBatch可以同时处理多个绘制请求、使用GPU进行渲染加速并序列化请求，所以只要启动它就行。</p>
+<p>使用SpriteBatch：声明类名，然后实例化绘制时分3步，先调用begin()，然后调用draw()，最后调用end()结束。</p>
+<pre><code>private Texture texture;
+private Sprite sprite;
+private SpriteBatch batch;
+
+@Override
+public void create(){
+    float w=Gdx.graphics.getWidth();
+    float h=Gdx.graphics.getHeight();
+
+    batch=new SpriteBatch();
+    texture=new Texture(Gdx.files.internal(&quot;data/Potato.jpg&quot;));
+    texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+}
+
+@Override
+public void render(){
+    Gdx.gl.glClearColor(1,1,1,1);//设置背景色为白色
+    Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);//清屏
+    batch.begin();
+    batch.draw(texture,x,y,w,h);
+    batch.end();
+}
+</code></pre><h2 id="TextureRegion类"><a href="#TextureRegion类" class="headerlink" title="TextureRegion类"></a>TextureRegion类</h2><p>API定义：定义了一个矩形区域的纹理，使用坐标系统是x轴指向右，y轴指向下，左上角是原点。</p>
+<p>功能：作为得到纹理的一部分而进行使用的类。在一个游戏里，必然有很多需要绘制的元素，如果每个元素都要转换成一张纹理，对GPU的资源消耗是很大的，因为在绘制前，GPU都要把图片载入显存并绑定到OpenGL上，然后OpenGL再绘制需要的纹理并在不同纹理间切换，而绑定和切换的代价都是很昂贵的。TextureRgion能解决这个问题，它从一个纹理上切割出一个区域并让SpriteBatch作用于该区域。这样，一张纹理上可以包含多个需要绘制的元素，而只有与该元素对应的那部分才会绘制出来。包含多个绘制元素的纹理也称为sprite sheet。</p>
+<p>TextureRegion一般都是截取texture，然后定义截取起点（x，y）随后再定义宽高（width，height），如果宽高是正数，那么就是沿x，y正方向截取，如果是负就是沿x，y负方向截取，方向只和宽高的正负有关。比如：</p>
+<pre><code>TextureRegion textureRegion1 = new TextureRegion(texture, 0, 0, 48, 48);
+TextureRegion textureRegion2 = new TextureRegion(texture, 48, 48, -48, -48);
+</code></pre><p>如果要被分割的纹理区域大小相等且没有间隔，可以用一种更简单的方式来创建TextureRegion：</p>
+<pre><code>TextureRegion[][] regions = TextureRegion.split(texture, 64, 64);
+</code></pre><p>仍然可以使用SpriteBatch来绘制，</p>
+<pre><code>batch.draw(textureRegion,0,0,width,height);
+</code></pre><h2 id="Sprite类"><a href="#Sprite类" class="headerlink" title="Sprite类"></a>Sprite类</h2><p>API定义：持有几何形状，颜色和纹理信息来绘制2D图形。增加了旋转缩放的动画。</p>
+<p>功能：继承自TextureRegion，多了指定位置，颜色，旋转。</p>
+<pre><code>public SpriteBatch batch;
+public Texture texture;
+public Sprite sprite;
+
+@Override
+public void create(){
+    batch=new SpriteBatch();
+    texture=new Texture(Gdx.files.internal(&quot;data/Potato.jpg&quot;));
+    TextureRegion region=new TextureRegion(texture,512,0,512,512);
+    sprite=new Sprite(region);
+    sprite.setSize(120,120);//设置绘制的大小
+    sprite.setOrigin(sprite.getWidth()/2,sprite.getHeight()/2);//置旋转的中心点
+    sprite.setRotation(50);//这个是以上面设置的中心点为中心，旋转一定角度的设置
+    sprite.setPosition(150,110);//起始位置设置为（150,110）
+    sprite.setColor(1,1,1,1);//设置颜色
+}
+
+@Override
+public void dispose() {
+    batch.dispose();
+    texture.dispose();
+}
+
+@Override
+public void render() {
+    Gdx.gl.glClearColor(1, 1, 1, 1);// 设置背景颜色为白色
+    Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);// 清屏
+    batch.begin();
+    sprite.draw(batch);
+    batch.end();
+}
+</code></pre><h2 id="清屏"><a href="#清屏" class="headerlink" title="清屏"></a>清屏</h2><p>OpenGL绘制纹理时需要进行清屏的操作，否则会显示前一张纹理。不过既可以在在清屏前设置背景为白色也可以不设置直接清屏。</p>
+<pre><code>Gdx.gl.glClearColor(1,1,1,1);//设置清屏颜色为白色
+Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);//清屏
+</code></pre><h2 id="关于混合的问题"><a href="#关于混合的问题" class="headerlink" title="关于混合的问题"></a>关于混合的问题</h2><p>默认是开启了混合的，意味着图形绘制完成时半透明的部分已经被混合了，当混合被关闭时任何已经在场景中的东西会被纹理代替，这适合绘制大背景。</p>
+<pre><code>batch.disableBlending();
+backgroundSprite.draw(batch);
+batch.enableBlending();
+</code></pre><h2 id="关于性能优化"><a href="#关于性能优化" class="headerlink" title="关于性能优化"></a>关于性能优化</h2><p>SpriteBatch有个构造函数可以指定最大缓冲数目，如果数值过低会造成额外的GPU调用，过高又会占用过多的内存。</p>
+<p>在SpriteBatch有个字段为maxSpritesInBatch，可以先设置一个很高的缓冲数目，然后观察maxSpritesInBatch的值以确定合适的缓冲值。</p>
+<p>还有一个字段renderCalls，在end被调用时，它的值表示在begin和end之间几何声明被送入GPU的次数。</p>
+<p>还有一个构造函数可以指定缓冲大小和数量，合理的设置可以极大地提供性能。</p>
+<h2 id="Texture-TextureRegion-Sprite-SpriteBatch的比较"><a href="#Texture-TextureRegion-Sprite-SpriteBatch的比较" class="headerlink" title="Texture,TextureRegion,Sprite,SpriteBatch的比较"></a>Texture,TextureRegion,Sprite,SpriteBatch的比较</h2><ul>
+<li>Texture :保存在GPU缓冲中的一张纹理。</li>
+<li>TextureRegion： 定义了一块矩形区域的纹理。主要作用是从一块纹理中择取需要使用的矩形区域。</li>
+<li>Sprite：Holds the geometry, color, and texture information for drawing 2D。这个类是继承于TextureRegion，是对TextureRegion的功能的扩展，相比增加了旋转，动画等效果。</li>
+<li>SpriteBatch：A SpriteBatch is used to draw 2D rectangles that reference a texture (region). 主要处理对纹理的绘画，绘画前的优化等。</li>
+</ul>
+<p>从源码中可以知道：Sprite可以使用TextureRegion构造，TextureRegion可以使用Texture构造。所以SpriteBatch在底层最终操作的还是Texture。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/10/libgdx/libgdx教程1——图形绘制/" data-id="cj4k7wiu2002mto6klcsmlsl1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/libgdx/">libgdx</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/11/libgdx/libgdx教程2——绘制汉字/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Libgdx教程2——绘制汉字
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/27/Game Frame/12进入3D的世界/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">12进入3D的世界</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

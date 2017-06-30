@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>12进入3D的世界 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要进入3D世界，OpenGL ES 3D基础。">
+<meta name="keywords" content="游戏框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="12进入3D的世界">
+<meta property="og:url" content="http://yoursite.com/2015/09/27/Game Frame/12进入3D的世界/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要进入3D世界，OpenGL ES 3D基础。">
+<meta property="og:updated_time" content="2017-06-30T15:15:14.534Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="12进入3D的世界">
+<meta name="twitter:description" content="摘要进入3D世界，OpenGL ES 3D基础。">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Game Frame/12进入3D的世界" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/27/Game Frame/12进入3D的世界/" class="article-date">
+  <time datetime="2015-09-27T03:51:36.000Z" itemprop="datePublished">2015-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      12进入3D的世界
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>进入3D世界，OpenGL ES 3D基础。<br><a id="more"></a></p>
+<h2 id="3D与2D的区别"><a href="#3D与2D的区别" class="headerlink" title="3D与2D的区别"></a>3D与2D的区别</h2><ul>
+<li>3D空间不光有x、y坐标，还有z坐标。</li>
+<li>3D中不再使用正交投影，而使用透视投影。距离照相机越远，被观察物越小。</li>
+<li>旋转、平移或缩放可以在3个方向上任意移动顶点。</li>
+<li>可以在3D空间中定义一个具有任意位置和朝向的照相机。</li>
+<li>对对象的三角形渲染顺序非常重要，离照相机较近的对象必须覆盖离照相机远的对象。</li>
+</ul>
+<h2 id="3D中的顶点"><a href="#3D中的顶点" class="headerlink" title="3D中的顶点"></a>3D中的顶点</h2><p>使用一个类存储顶点和处理繁琐的细节。Vertices3类代码：</p>
+<pre><code>public class Vertices3 {
+    final GLGraphics glGraphics;
+    final boolean hasColor;
+    final boolean hasTexCoords;
+    final boolean hasNormals;
+    final int vertexSize;
+    final ByteBuffer vertices;
+    final ShortBuffer indices;
+
+    public Vertices3(GLGraphics glGraphics, int maxVertices, int maxIndices,
+            boolean hasColor, boolean hasTexCoords, boolean hasNormals) {
+        this.glGraphics = glGraphics;
+        this.hasColor = hasColor;
+        this.hasTexCoords = hasTexCoords;
+        this.hasNormals = hasNormals;
+        this.vertexSize = (3 + (hasColor ? 4 : 0) + (hasTexCoords ? 2 : 0) + (hasNormals ? 3    : 0)) * 4;
+
+        this.vertices = ByteBuffer.allocateDirect(maxVertices * vertexSize);
+        this.vertices.order(ByteOrder.nativeOrder());
+
+        if (maxIndices &gt; 0) {
+            ByteBuffer buffer = ByteBuffer.allocateDirect(maxIndices * Short.SIZE / 8);
+            buffer.order(ByteOrder.nativeOrder());
+            this.indices = buffer.asShortBuffer();
+        } else {
+            this.indices = null;
+        }
+    }
+
+    public void setVertices(float[] vertices, int offset, int length) {
+        JniUtils.copy(this.vertices, vertices, offset, length);
+        this.vertices.position(0);
+        this.vertices.limit(length * 4);
+    }
+
+    public void setIndices(short[] indices, int offset, int length) {
+        this.indices.clear();
+        this.indices.put(indices, offset, length);
+        this.indices.flip();
+    }
+
+    public void bind() {
+        GL10 gl = glGraphics.getGL();
+
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+        vertices.position(0);
+        gl.glVertexPointer(3, GL10.GL_FLOAT, vertexSize, vertices);
+
+        if (hasColor) {
+            gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+            vertices.position(12);
+            gl.glColorPointer(4, GL10.GL_FLOAT, vertexSize, vertices);
+        }
+
+        if (hasTexCoords) {
+            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+            vertices.position(hasColor ? 28 : 12);
+            gl.glTexCoordPointer(2, GL10.GL_FLOAT, vertexSize, vertices);
+        }
+
+        if (hasNormals) {
+            gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+            int offset = 12;
+            if (hasColor)
+                offset += 16;
+            if (hasTexCoords)
+                offset += 8;
+            vertices.position(offset);
+            gl.glNormalPointer(GL10.GL_FLOAT, vertexSize, vertices);
+        }
+    }
+
+    public void draw(int primitiveType, int offset, int numVertices) {
+        GL10 gl = glGraphics.getGL();
+
+        if (indices != null) {
+            indices.position(offset);
+            gl.glDrawElements(primitiveType, numVertices,
+                    GL10.GL_UNSIGNED_SHORT, indices);
+        } else {
+            gl.glDrawArrays(primitiveType, offset, numVertices);
+        }
+    }
+
+    public void unbind() {
+        GL10 gl = glGraphics.getGL();
+        if (hasTexCoords)
+            gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+
+        if (hasColor)
+            gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
+
+        if (hasNormals)
+            gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
+    }
+
+    public int getNumIndices() {
+        return indices.limit();
+    }
+
+    public int getNumVertices() {
+        return vertices.limit() / (vertexSize / 4);
+    }
+}
+</code></pre><p>这个类与Vertices基本相同：</p>
+<ul>
+<li>在构造函数中，由于顶点位置为3个浮点数而不是原来的两个，所以vertexSize的计算发生了变化。</li>
+<li>在bind()方法中调用glVertexPointer()的第一个参数来告诉OpenGL顶点为3D坐标而不是2D的。</li>
+<li>还需要调整vertices.position()调用中的偏移量来设置颜色和纹理坐标这两个可选参数。</li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/09/27/Game Frame/12进入3D的世界/" data-id="cj4k7witd001oto6kh8a3svt3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/游戏框架/">游戏框架</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/10/libgdx/libgdx教程1——图形绘制/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Libgdx教程1——图形绘制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/22/Game Frame/11SuperJump2D游戏实例/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">11SuperJump2D游戏实例</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

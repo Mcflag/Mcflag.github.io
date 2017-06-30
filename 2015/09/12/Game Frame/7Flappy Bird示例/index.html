@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>7Flappy Bird示例 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要Flappy Bird小游戏的实现。">
+<meta name="keywords" content="游戏框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7Flappy Bird示例">
+<meta property="og:url" content="http://yoursite.com/2015/09/12/Game Frame/7Flappy Bird示例/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要Flappy Bird小游戏的实现。">
+<meta property="og:updated_time" content="2017-06-30T15:13:10.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7Flappy Bird示例">
+<meta name="twitter:description" content="摘要Flappy Bird小游戏的实现。">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Game Frame/7Flappy Bird示例" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/12/Game Frame/7Flappy Bird示例/" class="article-date">
+  <time datetime="2015-09-12T13:19:43.000Z" itemprop="datePublished">2015-09-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      7Flappy Bird示例
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Flappy Bird小游戏的实现。<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>项目依然使用前面写的框架。下面主要是加载资源，跳转界面以及实现游戏逻辑。</p>
+<h2 id="Assets类，静态加载资源"><a href="#Assets类，静态加载资源" class="headerlink" title="Assets类，静态加载资源"></a>Assets类，静态加载资源</h2><pre><code>public class Assets {
+    public static Pixmap background;
+    public static Pixmap bird;
+    public static Pixmap mainMenu;
+    public static Pixmap buttons;
+    public static Pixmap ready;
+    public static Pixmap pause;
+    public static Pixmap gameOver;
+    public static Pixmap floor1;
+    public static Pixmap floor2;
+    public static Pixmap pipe1;
+    public static Pixmap pipe2;
+
+    // 十个数字
+    public static Pixmap n0;
+    public static Pixmap n1;
+    public static Pixmap n2;
+    public static Pixmap n3;
+    public static Pixmap n4;
+    public static Pixmap n5;
+    public static Pixmap n6;
+    public static Pixmap n7;
+    public static Pixmap n8;
+    public static Pixmap n9;
+
+    public static Sound click;
+    public static Sound eat;
+    public static Sound bitten;
+
+    public static Pixmap getNumber(int i) {
+        switch (i) {
+        case 1:
+            return n1;
+        case 2:
+            return n2;
+        case 3:
+            return n3;
+        case 4:
+            return n4;
+        case 5:
+            return n5;
+        case 6:
+            return n6;
+        case 7:
+            return n7;
+        case 8:
+            return n8;
+        case 9:
+            return n9;
+        default:
+            return n0;
+        }
+    }
+}
+</code></pre><h2 id="LoadingScreen类，加载资源"><a href="#LoadingScreen类，加载资源" class="headerlink" title="LoadingScreen类，加载资源"></a>LoadingScreen类，加载资源</h2><pre><code>public class LoadingScreen extends Screen {
+    public LoadingScreen(Game game) {
+        super(game);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        Graphics g = game.getGraphics();
+        Assets.background = g.newPixmap(&quot;flappybird/bg1.png&quot;, PixmapFormat.RGB565);
+        Assets.bird = g.newPixmap(&quot;flappybird/b1.png&quot;, PixmapFormat.ARGB4444);
+        Assets.mainMenu = g.newPixmap(&quot;flappybird/mainmenu.png&quot;, PixmapFormat.ARGB4444);
+        Assets.buttons = g.newPixmap(&quot;flappybird/buttons.png&quot;, PixmapFormat.ARGB4444);
+
+        Assets.ready = g.newPixmap(&quot;flappybird/ready.png&quot;, PixmapFormat.ARGB4444);
+        Assets.pause = g.newPixmap(&quot;flappybird/pausemenu.png&quot;, PixmapFormat.ARGB4444);
+        Assets.gameOver = g.newPixmap(&quot;flappybird/gameover.png&quot;, PixmapFormat.ARGB4444);
+
+        Assets.floor1 = g.newPixmap(&quot;flappybird/d1.png&quot;, PixmapFormat.ARGB4444);
+        Assets.floor2 = g.newPixmap(&quot;flappybird/d2.png&quot;, PixmapFormat.ARGB4444);
+        Assets.pipe1 = g.newPixmap(&quot;flappybird/g2.png&quot;, PixmapFormat.ARGB4444);
+        Assets.pipe2 = g.newPixmap(&quot;flappybird/g1.png&quot;, PixmapFormat.ARGB4444);
+
+        Assets.n0 = g.newPixmap(&quot;flappybird/n0.png&quot;, PixmapFormat.ARGB4444);
+        Assets.n1 = g.newPixmap(&quot;flappybird/n1.png&quot;, PixmapFormat.ARGB4444);
+        Assets.n2 = g.newPixmap(&quot;flappybird/n2.png&quot;, PixmapFormat.ARGB4444);
+        Assets.n3 = g.newPixmap(&quot;flappybird/n3.png&quot;, PixmapFormat.ARGB4444);
+        Assets.n4 = g.newPixmap(&quot;flappybird/n4.png&quot;, PixmapFormat.ARGB4444);
+        Assets.n5 = g.newPixmap(&quot;flappybird/n5.png&quot;, PixmapFormat.ARGB4444);
+        Assets.n6 = g.newPixmap(&quot;flappybird/n6.png&quot;, PixmapFormat.ARGB4444);
+        Assets.n7 = g.newPixmap(&quot;flappybird/n7.png&quot;, PixmapFormat.ARGB4444);
+        Assets.n8 = g.newPixmap(&quot;flappybird/n8.png&quot;, PixmapFormat.ARGB4444);
+        Assets.n9 = g.newPixmap(&quot;flappybird/n9.png&quot;, PixmapFormat.ARGB4444);
+
+        Assets.click = game.getAudio().newSound(&quot;flappybird/click.ogg&quot;);
+        Assets.eat = game.getAudio().newSound(&quot;flappybird/eat.ogg&quot;);
+        Assets.bitten = game.getAudio().newSound(&quot;flappybird/bitten.ogg&quot;);
+        Settings.load(game.getFileIO());
+        game.setScreen(new MainMenuScreen(game));
+    }
+
+    @Override
+    public void present(float deltaTime) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+}
+</code></pre><h2 id="MainMenuScreen类，主界面"><a href="#MainMenuScreen类，主界面" class="headerlink" title="MainMenuScreen类，主界面"></a>MainMenuScreen类，主界面</h2><pre><code>public class MainMenuScreen extends Screen{
+    public MainMenuScreen(Game game) {
+        super(game);               
+    }   
+
+    @Override
+    public void update(float deltaTime) {
+        Graphics g = game.getGraphics();
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();       
+
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(inBounds(event, 0, g.getHeight() - 64, 64, 64)) {
+                    Settings.soundEnabled = !Settings.soundEnabled;
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                }
+                if(inBounds(event, 64, 220, 192, 42) ) {
+                    game.setScreen(new GameScreen(game));
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                    return;
+                }
+                if(inBounds(event, 64, 220 + 42, 192, 42) ) {
+                    game.setScreen(new HighscoreScreen(game));
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                    return;
+                }
+            }
+        }
+    }
+
+    private boolean inBounds(TouchEvent event, int x, int y, int width, int height) {
+        if(event.x &gt; x &amp;&amp; event.x &lt; x + width - 1 &amp;&amp; event.y &gt; y &amp;&amp; event.y &lt; y + height - 1) 
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.background, 0, 0);
+        g.drawPixmap(Assets.mainMenu, 64, 220);
+        if(Settings.soundEnabled)
+            g.drawPixmap(Assets.buttons, 0, 416, 0, 0, 64, 64);
+        else
+            g.drawPixmap(Assets.buttons, 0, 416, 64, 0, 64, 64);
+    }
+
+    @Override
+    public void pause() {        
+        Settings.save(game.getFileIO());
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+}
+</code></pre><h2 id="HighscoreScreen类"><a href="#HighscoreScreen类" class="headerlink" title="HighscoreScreen类"></a>HighscoreScreen类</h2><pre><code>public class HighscoreScreen extends Screen {
+    String lines[] = new String[5];
+
+    public HighscoreScreen(Game game) {
+        super(game);
+
+        for (int i = 0; i &lt; 5; i++) {
+            lines[i] = &quot;&quot; + (i + 1) + &quot;. &quot; + Settings.highscores[i];
+        }
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+
+        int len = touchEvents.size();
+        for (int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if (event.type == TouchEvent.TOUCH_UP) {
+                if (event.x &lt; 64 &amp;&amp; event.y &gt; 416) {
+                    if (Settings.soundEnabled)
+                        Assets.click.play(1);
+                    game.setScreen(new MainMenuScreen(game));
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.background, 0, 0);
+        g.drawPixmap(Assets.mainMenu, 64, 20, 0, 42, 196, 42);
+
+        int y = 100;
+        for (int i = 0; i &lt; 5; i++) {
+            drawText(g, lines[i], 20, y);
+            y += 50;
+        }
+
+        g.drawPixmap(Assets.buttons, 0, 416, 64, 64, 64, 64);
+    }
+
+    public void drawText(Graphics g, String line, int x, int y) {
+        int len = line.length();
+        for (int i = 0; i &lt; len; i++) {
+            char character = line.charAt(i);
+
+            if (character == &apos; &apos;) {
+                x += 20;
+                continue;
+            }
+
+            int srcX = 0;
+            int srcWidth = 0;
+            if (character == &apos;.&apos;) {
+                // srcX = 200;
+                // srcWidth = 10;
+                x += 20;
+                continue;
+            } else {
+                srcX = (character - &apos;0&apos;) * 20;
+                srcWidth = 20;
+            }
+            int name = 0;
+            if ((character - &apos;0&apos;) &gt;= 0 &amp;&amp; (character - &apos;0&apos;) &lt;= 9) {
+                name = character - &apos;0&apos;;
+            }
+            g.drawPixmap(Assets.getNumber(name), x, y);
+
+            // g.drawPixmap(Assets.numbers, x, y, srcX, 0, srcWidth, 32);
+            x += srcWidth;
+        }
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+}
+</code></pre><h2 id="Settings类"><a href="#Settings类" class="headerlink" title="Settings类"></a>Settings类</h2><pre><code>public class Settings {
+    public static boolean soundEnabled = false;
+    public static int[] highscores = new int[] { 10, 8, 5, 3, 1 };
+
+    public static void load(FileIO files) {
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(files.readFile(&quot;.bird&quot;)));
+            soundEnabled = Boolean.parseBoolean(in.readLine());
+            for (int i = 0; i &lt; 5; i++) {
+                highscores[i] = Integer.parseInt(in.readLine());
+            }
+        } catch (IOException e) {
+            // :( It&apos;s ok we have defaults
+        } catch (NumberFormatException e) {
+            // :/ It&apos;s ok, defaults save our day
+        } finally {
+            try {
+                if (in != null)
+                    in.close();
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    public static void save(FileIO files) {
+        BufferedWriter out = null;
+        try {
+            out = new BufferedWriter(new OutputStreamWriter(files.writeFile(&quot;.bird&quot;)));
+            out.write(Boolean.toString(soundEnabled));
+            out.write(&quot;\n&quot;);
+            for (int i = 0; i &lt; 5; i++) {
+                out.write(Integer.toString(highscores[i]));
+                out.write(&quot;\n&quot;);
+            }
+
+        } catch (IOException e) {
+        } finally {
+            try {
+                if (out != null)
+                    out.close();
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    public static void addScore(int score) {
+        for (int i = 0; i &lt; 5; i++) {
+            if (highscores[i] &lt; score) {
+                for (int j = 4; j &gt; i; j--)
+                    highscores[j] = highscores[j - 1];
+                highscores[i] = score;
+                break;
+            }
+        }
+    }
+}
+</code></pre><h2 id="FlappyBirdGame类，游戏启动的入口"><a href="#FlappyBirdGame类，游戏启动的入口" class="headerlink" title="FlappyBirdGame类，游戏启动的入口"></a>FlappyBirdGame类，游戏启动的入口</h2><pre><code>public class FlappyBirdGame extends AndroidGame{
+    @Override
+    public Screen getStartScreen() {
+        return new LoadingScreen(this);
+    }
+}
+</code></pre><h2 id="游戏世界的抽象"><a href="#游戏世界的抽象" class="headerlink" title="游戏世界的抽象"></a>游戏世界的抽象</h2><p>Bird类：</p>
+<pre><code>public class Bird {
+
+    public static final int width = 34;
+    public static final int height = 24;
+
+    public int x;
+    public int y;
+    public Rect birdRect;
+
+    public Bird(int x, int y) {
+        this.x = x;
+        this.y = y;
+        birdRect = new Rect(x, y, x + width, y + height);
+    }
+
+    public void moveUpAndDown(int deltaY) {
+        y = y + deltaY;
+        birdRect = new Rect(x, y, x + width, y + height);
+    }
+
+    public boolean checkOverScreen() {
+        if (y &lt;= 0 || y &gt;= 365) {
+            return true;
+        }
+        return false;
+    }
+}
+</code></pre><p>Pipe类：</p>
+<pre><code>public class Pipe {
+
+    public int left;
+    public int gapY;
+    public int gapHeight;
+
+    public Rect upRect;
+    public Rect downRect;
+
+    public boolean isScore = false;
+    public boolean first = true;
+
+    public Pipe(int x, int gapY, int gapHeight) {
+        left = x;
+        this.gapY = gapY;
+        this.gapHeight = gapHeight;
+
+        upRect = new Rect(left, 0, left + 52, gapY);
+        downRect = new Rect(left, gapY + gapHeight, left + 52, 480);
+    }
+
+    public void update(int x) {
+        left = left - x;
+        upRect.set(left, 0, left + 52, gapY);
+        downRect.set(left, gapY + gapHeight, left + 52, 480);
+        checkIsScore();
+    }
+
+    public void checkIsScore() {
+        if (left + 52 &lt; 80 &amp;&amp; first) {
+            isScore = true;
+        }
+    }
+
+    public void scoreOver() {
+        isScore = false;
+        first = false;
+    }
+}
+</code></pre><p>Floor类：</p>
+<pre><code>public class Floor {
+
+    private int state = 1;
+
+    private int x;
+    private int y;
+
+    public Floor(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+}
+</code></pre><h2 id="World类：整合世界"><a href="#World类：整合世界" class="headerlink" title="World类：整合世界"></a>World类：整合世界</h2><pre><code>public class World {
+    static final int SCORE_INCREMENT = 1;
+
+    public static final int startX = 80;
+    public static final int startY = 200;
+    public static final int floorStartX = 0;
+    public static final int floorStartY = 384;
+    public static final int pipeStartX = 250;
+
+    private static final float TICK_INITIAL = 0.08f;
+
+    public Bird bird;
+    public Floor floor;
+    public ArrayList&lt;Pipe&gt; pipes;
+    public boolean gameOver = false;
+    public int score = 0;
+    public int deltaY = 0;
+    public float gravity = 0;
+    public static float velocityY = 0;
+    public static int pipeVelocity = 10;
+
+    float tickTime = 0;
+    static float tick = TICK_INITIAL;
+    Random random;
+    int randNumY = 0;
+    int randNumHeight = 0;
+
+    public World(float g) {
+        bird = new Bird(startX, startY);
+        floor = new Floor(floorStartX, floorStartY);
+        pipes = new ArrayList&lt;Pipe&gt;();
+        gravity = g;
+        Random random = new Random();
+        randNumHeight = random.nextInt(151) + 50;
+        randNumY = random.nextInt(278 - randNumHeight) + 45;
+        pipes.add(new Pipe(pipeStartX, randNumY, randNumHeight));
+    }
+
+    public void addNewPipe() {
+
+    }
+
+    public void setGravity(float gravity) {
+        this.gravity = gravity;
+    }
+
+    public void update(float deltaTime) {
+        if (gameOver)
+            return;
+
+        tickTime += deltaTime;
+
+        while (tickTime &gt; tick) {
+            tickTime -= tick;
+
+            velocityY += gravity * tick;
+            deltaY = (int) (velocityY * tick);
+            bird.moveUpAndDown(deltaY);
+            if (floor.getState() == 1) {
+                floor.setState(2);
+            } else if (floor.getState() == 2) {
+                floor.setState(1);
+            }
+            if (bird.checkOverScreen()) {
+                gameOver = true;
+                return;
+            }
+            for (int i = 0; i &lt; pipes.size(); i++) {
+                pipes.get(i).update(pipeVelocity);
+                if (i == 0) {
+                    if (pipes.get(i).left &lt;= -52) {
+                        pipes.remove(i);
+                    }
+                }
+                if (i == pipes.size() - 1) {
+                    if (pipes.get(i).left &lt;= 60) {
+                        Random random = new Random();
+                        randNumHeight = random.nextInt(151) + 50;
+                        randNumY = random.nextInt(278 - randNumHeight) + 45;
+                        pipes.add(new Pipe(320, randNumY, randNumHeight));
+                    }
+                }
+                if (pipes.get(i).isScore) {
+                    score += 1;
+                    pipes.get(i).scoreOver();
+                }
+                if (checkBirdPipeCollision(bird.birdRect, pipes.get(i).upRect) || checkBirdPipeCollision(bird.birdRect, pipes.get(i).downRect)) {
+                    gameOver = true;
+                    return;
+                }
+            }
+        }
+    }
+
+    private boolean checkBirdPipeCollision(Rect a, Rect b) {
+        if (a.right &lt; b.left || a.left &gt; b.right || a.top &gt; b.bottom || a.bottom &lt; b.top) {
+            // 没有重合
+            return false;
+        } else {
+            // 有重合
+            return true;
+        }
+    }
+
+    public void reset() {
+        velocityY = 0;
+        score = 0;
+    }
+}
+</code></pre><h2 id="GameScreen类，实现主循环"><a href="#GameScreen类，实现主循环" class="headerlink" title="GameScreen类，实现主循环"></a>GameScreen类，实现主循环</h2><pre><code>public class GameScreen extends Screen {
+
+    public static final float GRAVITY = 140.0f;
+
+    enum GameState {
+        Ready, Running, Paused, GameOver
+    }
+
+    GameState state = GameState.Ready;
+    World world;
+    int oldScore = 0;
+    String score = &quot;0&quot;;
+
+    public GameScreen(Game game) {
+        super(game);
+        world = new World(GRAVITY);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+
+        if (state == GameState.Ready)
+            updateReady(touchEvents);
+        if (state == GameState.Running)
+            updateRunning(touchEvents, deltaTime);
+        if (state == GameState.Paused)
+            updatePaused(touchEvents);
+        if (state == GameState.GameOver)
+            updateGameOver(touchEvents);
+    }
+
+    private void updateReady(List&lt;TouchEvent&gt; touchEvents) {
+        if (touchEvents.size() &gt; 0) {
+            world.reset();
+            state = GameState.Running;
+        }
+    }
+
+    private void updateRunning(List&lt;TouchEvent&gt; touchEvents, float deltaTime) {
+        int len = touchEvents.size();
+        for (int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if (event.type == TouchEvent.TOUCH_UP) {
+                if (event.x &lt; 64 &amp;&amp; event.y &lt; 64) {
+                    if (Settings.soundEnabled)
+                        Assets.click.play(1);
+                    state = GameState.Paused;
+                    return;
+                }
+                world.setGravity(GRAVITY);
+            } else if (event.type == TouchEvent.TOUCH_DOWN) {
+                if (event.x &lt; 64 &amp;&amp; event.y &lt; 64) {
+
+                } else {
+                    world.setGravity(-GRAVITY);
+                }
+            }
+        }
+
+        world.update(deltaTime);
+        if (world.gameOver) {
+            if (Settings.soundEnabled)
+                Assets.bitten.play(1);
+            state = GameState.GameOver;
+        }
+        if (oldScore != world.score) {
+            oldScore = world.score;
+            score = &quot;&quot; + oldScore;
+            if (Settings.soundEnabled)
+                Assets.eat.play(1);
+        }
+    }
+
+    private void updatePaused(List&lt;TouchEvent&gt; touchEvents) {
+        int len = touchEvents.size();
+        for (int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if (event.type == TouchEvent.TOUCH_UP) {
+                if (event.x &gt; 80 &amp;&amp; event.x &lt;= 240) {
+                    if (event.y &gt; 100 &amp;&amp; event.y &lt;= 148) {
+                        if (Settings.soundEnabled)
+                            Assets.click.play(1);
+                        state = GameState.Running;
+                        return;
+                    }
+                    if (event.y &gt; 148 &amp;&amp; event.y &lt; 196) {
+                        if (Settings.soundEnabled)
+                            Assets.click.play(1);
+                        game.setScreen(new MainMenuScreen(game));
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private void updateGameOver(List&lt;TouchEvent&gt; touchEvents) {
+        int len = touchEvents.size();
+        for (int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if (event.type == TouchEvent.TOUCH_UP) {
+                if (event.x &gt;= 128 &amp;&amp; event.x &lt;= 192 &amp;&amp; event.y &gt;= 200 &amp;&amp; event.y &lt;= 264) {
+                    if (Settings.soundEnabled)
+                        Assets.click.play(1);
+                    game.setScreen(new MainMenuScreen(game));
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.background, 0, 0);
+        drawWorld(world);
+        if (state == GameState.Ready)
+            drawReadyUI();
+        if (state == GameState.Running)
+            drawRunningUI();
+        if (state == GameState.Paused)
+            drawPausedUI();
+        if (state == GameState.GameOver)
+            drawGameOverUI();
+
+        drawText(g, score, g.getWidth() / 2 - score.length() * 20 / 2, g.getHeight() - 42);
+    }
+
+    private void drawWorld(World world) {
+        Graphics g = game.getGraphics();
+        Bird bird = world.bird;
+        Floor floor = world.floor;
+
+        Pixmap birdPixmap = null;
+        birdPixmap = Assets.bird;
+        g.drawPixmap(birdPixmap, bird.x, bird.y);
+        for (int i = 0; i &lt; world.pipes.size(); i++) {
+            if (world.pipes.get(i).left &lt; 0) {
+                g.drawPixmap(Assets.pipe1, //
+                        0, //
+                        0, //
+                        -world.pipes.get(i).left, //
+                        320 - world.pipes.get(i).gapY, //
+                        52 + world.pipes.get(i).left, //
+                        world.pipes.get(i).gapY //
+                );
+                g.drawPixmap(Assets.pipe2, //
+                        0, //
+                        world.pipes.get(i).downRect.top, //
+                        -world.pipes.get(i).left, //
+                        0, //
+                        52 + world.pipes.get(i).left, //
+                        321 //
+                );
+
+            } else {
+                g.drawPixmap(Assets.pipe1, //
+                        world.pipes.get(i).left, //
+                        0, //
+                        0, //
+                        320 - world.pipes.get(i).gapY, //
+                        52,//
+                        world.pipes.get(i).gapY //
+                );
+                g.drawPixmap(Assets.pipe2, //
+                        world.pipes.get(i).left, //
+                        world.pipes.get(i).downRect.top, //
+                        0, //
+                        0, //
+                        52, //
+                        321 //
+                );
+            }
+        }
+
+        if (floor.getState() == 1) {
+            g.drawPixmap(Assets.floor1, 0, 384, 0, 0, 320, 112);
+        } else if (floor.getState() == 2) {
+            g.drawPixmap(Assets.floor2, 0, 384, 0, 0, 320, 112);
+        }
+    }
+
+    private void drawReadyUI() {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.ready, 47, 100);
+    }
+
+    private void drawRunningUI() {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.buttons, 0, 0, 64, 128, 64, 64);
+    }
+
+    private void drawPausedUI() {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.pause, 80, 100);
+    }
+
+    private void drawGameOverUI() {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.gameOver, 62, 100);
+        g.drawPixmap(Assets.buttons, 128, 200, 0, 128, 64, 64);
+    }
+
+    public void drawText(Graphics g, String line, int x, int y) {
+        int len = line.length();
+        for (int i = 0; i &lt; len; i++) {
+            char character = line.charAt(i);
+
+            if (character == &apos; &apos;) {
+                x += 20;
+                continue;
+            }
+
+            int srcX = 0;
+            int srcWidth = 0;
+            if (character == &apos;.&apos;) {
+                x += 20;
+                continue;
+            } else {
+                srcX = (character - &apos;0&apos;) * 20;
+                srcWidth = 20;
+            }
+            int name = 0;
+            if ((character - &apos;0&apos;) &gt;= 0 &amp;&amp; (character - &apos;0&apos;) &lt;= 9) {
+                name = character - &apos;0&apos;;
+            }
+            g.drawPixmap(Assets.getNumber(name), x, y);
+            x += srcWidth;
+        }
+    }
+
+    @Override
+    public void pause() {
+        if (state == GameState.Running)
+            state = GameState.Paused;
+
+        if (world.gameOver) {
+            Settings.addScore(world.score);
+            Settings.save(game.getFileIO());
+        }
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+}            
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/09/12/Game Frame/7Flappy Bird示例/" data-id="cj4k7witu0026to6kwqhdfe2q" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/游戏框架/">游戏框架</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/09/12/Game Frame/8OpenGL示例下/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          8OpenGL示例下
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/06/Game Frame/6OpenGL示例/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">6OpenGL示例</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

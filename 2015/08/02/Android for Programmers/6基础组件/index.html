@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>二维图形，SensorManager，Toast及多点触摸事件 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要二维图形，SensorManager，Toast及多点触摸事件的使用。">
+<meta name="keywords" content="Android基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二维图形，SensorManager，Toast及多点触摸事件">
+<meta property="og:url" content="http://yoursite.com/2015/08/02/Android for Programmers/6基础组件/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要二维图形，SensorManager，Toast及多点触摸事件的使用。">
+<meta property="og:updated_time" content="2017-06-30T14:20:04.224Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二维图形，SensorManager，Toast及多点触摸事件">
+<meta name="twitter:description" content="摘要二维图形，SensorManager，Toast及多点触摸事件的使用。">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android for Programmers/6基础组件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/02/Android for Programmers/6基础组件/" class="article-date">
+  <time datetime="2015-08-01T18:12:31.000Z" itemprop="datePublished">2015-08-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      二维图形，SensorManager，Toast及多点触摸事件
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>二维图形，SensorManager，Toast及多点触摸事件的使用。</p>
+<a id="more"></a>
+<h2 id="AtomicBoolean的使用"><a href="#AtomicBoolean的使用" class="headerlink" title="AtomicBoolean的使用"></a>AtomicBoolean的使用</h2><p>在Android中，传感器事件是在与GUI事件分开的执行线程中处理的，因此，当传感器已经触发过一次在屏幕上处理显示后，传感器可能会再次触发。为了防止这种现象，使用一个AtomicBoolean对象来指明当前状态。AtomicBoolean以线程安全的方式管理一个boolean值，以便能够从多个执行线程访问它。当AtomicBoolean的值为true时，就不允许传感器事件。</p>
+<pre><code>AtomicBoolean dialogIsDisplayed=new AtomicBoolean();
+</code></pre><p>AtomicBoolean值的获得和设置需要使用get()和set()方法。</p>
+<pre><code>dialogIsDisplayed.get();
+dialogIsDisplayed.set(true);
+</code></pre><h2 id="SensorEventManager的使用"><a href="#SensorEventManager的使用" class="headerlink" title="SensorEventManager的使用"></a>SensorEventManager的使用</h2><p>目前Android所支持的其他传感器包括重力，陀螺仪，光线，线性加速度，磁场，压力，接近度，旋转量及温度。为了获得传感器事件，需要使用SensorManager设备的一个引用，来注册必须由应用接收的传感器变化，并将SensorEventListener指定成处理这些传感器变化事件。</p>
+<pre><code>SensorManager sensorManager;
+sensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
+sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
+</code></pre><p>这里注册的listener的方法是SensorManager.registerListener(SensorEventListener listener, Sensor sensor, int rate)，解除注册listener的方法为：</p>
+<pre><code>sensorManager.unregisterListener(sensroEventListener,sensorManager.getDefaultSensor(SensorManager.SENSOR_ACCELEROMETER));
+sensorManager=null;
+</code></pre><p>设定listener的方法：</p>
+<pre><code>private SensorEventListener sensorEventListener=new SensorEventListener() {
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        //得到3个轴上的加速度
+        float x=event.values[0];
+        float y=event.values[1];
+        float z=event.values[2];
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+};
+</code></pre><h2 id="创建定制的Dialog"><a href="#创建定制的Dialog" class="headerlink" title="创建定制的Dialog"></a>创建定制的Dialog</h2><p>Dialog可以显示定制的GUI。</p>
+<pre><code>AlertDialog.Builder builder=new AlertDialog.Builder(this);
+builder.setMessage(&quot;erase&quot;);
+builder.setCancelable(true);
+
+builder.setPositiveButton(&quot;OK&quot;,
+    new DialogInterface.OnClickListener(){
+        public void onClick(DialogInterface dialog,int id){
+            //do something
+        }
+    }
+);
+
+builder.setNegativeButton(&quot;Cancel&quot;,
+    new DialogInterface.OnClickListener(){
+        public void onClick(DialogInterface dialog,int id){
+            //do something
+            dialog.cancel();
+        }
+    }
+);
+</code></pre><h2 id="Menu菜单的使用"><a href="#Menu菜单的使用" class="headerlink" title="Menu菜单的使用"></a>Menu菜单的使用</h2><p>使用onCreateOptionsMenu方法创建菜单，使用onOptionsItemSelected方法处理选项。</p>
+<pre><code>@Override
+public boolean onCreateOptionsMenu(Menu menu){
+    super.onCreateOptionsMenu(Menu);
+    menu.add(Menu.NONE, COLOR_MENU_ID, Menu.NONE, &quot;Color&quot;);
+    menu.add(Menu.NONE, WIDTH_MENU_ID, Menu.NONE, &quot;Width&quot;);
+    return true;
+}
+
+@Override
+public boolean onOptionsItemSelected(MenuItem item){
+    switch(item.getItemId()){
+    case COLOR_MENU_ID:
+        showColorDialog();
+        return true;
+    case WIDTH_MENU_ID:
+        showWidthDialog();
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
+}
+</code></pre><h2 id="使用Color里的方法得到Red，Green，Blue，Alpha的分量"><a href="#使用Color里的方法得到Red，Green，Blue，Alpha的分量" class="headerlink" title="使用Color里的方法得到Red，Green，Blue，Alpha的分量"></a>使用Color里的方法得到Red，Green，Blue，Alpha的分量</h2><p>Paint的getColor()方法返回的是颜色值，是一个int类型。</p>
+<pre><code>Paint paint;
+final int color=paint.getColor();
+alphaSeekBar.setProgress(Color.alpha(color));
+redSeekBar.setProgress(Color.red(color));
+greenSeekBar.setProgress(Color.green(color));
+blueSeekBar.setProgress(Color.blue(color));
+</code></pre><h2 id="使用Bitmap和Canvas绘图"><a href="#使用Bitmap和Canvas绘图" class="headerlink" title="使用Bitmap和Canvas绘图"></a>使用Bitmap和Canvas绘图</h2><p>先创建Bitmap，Bitmap的Config属性有3种设置：ARGB_8888，ARGB_4444，RGB_565。</p>
+<pre><code>Bitmap bitmap=Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+bitmap.eraseColor(Color.WHITE);//使用白色作为背景色
+</code></pre><p>创建Canvas在Bitmap上进行绘制</p>
+<pre><code>Canvas canvas=new Canvas(bitmap);
+</code></pre><p>设置paint</p>
+<pre><code>Paint paint=new Paint();
+p.setColor(Color.Black);
+p.setStrokeCap(Paint.Cap.ROUND);//指定线末端的外观，现在是圆形的
+p.setStrokeWidth(10);
+</code></pre><p>画图</p>
+<pre><code>canvas.drawLine(30, 50, 370, 50, p);
+ImageView iamgeView.setImageView(bitmap);
+</code></pre><p>Paint其他的方法</p>
+<pre><code>Paint paint=new Paint();
+paint.setAntiAlias(true);//设置抗锯齿
+paint.setColor(Color.BLACK);
+paint.setStyle(Paint.Style.STROKE);//solid line
+paint.setStrokeWidth(5);//line width
+paint.setStrokeCap(Paint.Cap.ROUND);
+</code></pre><p>得到Path和Point</p>
+<pre><code>Path path;
+Point point;
+path.quadTo(point.x, point.y, newX, newY);//这个方法是画一个二次贝塞尔曲线
+</code></pre><h2 id="OnTouchEvent方法"><a href="#OnTouchEvent方法" class="headerlink" title="OnTouchEvent方法"></a>OnTouchEvent方法</h2><p>MotionEvent的getActionMasked方法返回一个int值，表示MotionEvent的类型，判断如何处理每一个事件。getActionIndex方法返回int索引值，表示是哪一个手指引起的事件。</p>
+<pre><code>int action=event.getActionMasked();
+int actionIndex=event.getActionIndex();
+int pointerID=event.getPointerId(i);
+int pointerIndex=event.findPointerIndex(pointerID);
+</code></pre><h2 id="保存图片"><a href="#保存图片" class="headerlink" title="保存图片"></a>保存图片</h2><p>将图片以文件的形式保存到图片库中，有可能图片不会立即显示在图片库中。使用ContentValues类实现。</p>
+<pre><code>ContentValues values=new ContentValues();
+values.put(Images.Media.TITLE, fileName);
+values.put(Images.Media.DATE_ADDED,System.currentTimeMillis());
+values.put(Images.Media.MIME_TYPE,&quot;image/jpg&quot;);//MIME类型就是设定某种扩展名的文件用一种应用程序来打开的方式类型
+
+Uri uri=getContext().getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values);
+
+try{
+    OutputStream out=getContext().getContentResolver().openOutputStream(Uri);
+    //表示以JPEG格式压缩，压缩质量100%，并且将得到的数据流保存在OutputStream中
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+    out.flush();
+    out.close();
+}
+</code></pre><h2 id="使用Toast"><a href="#使用Toast" class="headerlink" title="使用Toast"></a>使用Toast</h2><p>Toast可用于短时间显示消息，然后消息会从屏幕上消失。</p>
+<pre><code>//第三个参数表示显示时间长短
+Toast message=Toast.makeText(getContext(),&quot;saved&quot;,Toast.LENGTH_SHORT);
+//表示将以第二个和第三个参数指定的坐标居中显示
+message.setGravity(Gravity.CENTER, message.getXOffset()/2,message.getYOffset()/2);
+message.show();
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/02/Android for Programmers/6基础组件/" data-id="cj4k7wirf0006to6kfuzvlpta" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android基础/">Android基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/08/04/Android for Programmers/7基础组件/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ListActivity与Adapter以及SQLite的使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/08/01/Code Complete/代码大全笔记8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">代码大全笔记8</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

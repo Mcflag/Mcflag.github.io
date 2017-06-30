@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>代码大全笔记6 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要主要描述如何设计出好的子程序。">
+<meta name="keywords" content="代码大全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码大全笔记6">
+<meta property="og:url" content="http://yoursite.com/2015/06/19/Code Complete/代码大全笔记6/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要主要描述如何设计出好的子程序。">
+<meta property="og:updated_time" content="2017-06-30T15:07:53.237Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码大全笔记6">
+<meta name="twitter:description" content="摘要主要描述如何设计出好的子程序。">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Code Complete/代码大全笔记6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/19/Code Complete/代码大全笔记6/" class="article-date">
+  <time datetime="2015-06-19T13:51:22.000Z" itemprop="datePublished">2015-06-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      代码大全笔记6
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>主要描述如何设计出好的子程序。</p>
+<a id="more"></a>
+<h2 id="创建子程序的正当理由"><a href="#创建子程序的正当理由" class="headerlink" title="创建子程序的正当理由"></a>创建子程序的正当理由</h2><ul>
+<li>降低复杂度</li>
+<li>引入中间易懂的抽象</li>
+<li>避免代码重复</li>
+<li>支持子类化</li>
+<li>隐藏顺序</li>
+<li>隐藏指针操作</li>
+<li>提高可移植性</li>
+<li>简化复杂的布尔判断</li>
+<li>改善性能</li>
+<li>确保所有的子程序都很小<br>除此之外，创建类的很多理由也是创建子程序的理由</li>
+<li>隔离复杂度</li>
+<li>隐藏实现细节</li>
+<li>限制变化所带来的影响</li>
+<li>隐藏全局数据</li>
+<li>形成中央控制点</li>
+<li>促成可重用的代码</li>
+<li>达到特定的重构目的</li>
+</ul>
+<h2 id="在子程序层上设计（内聚性）"><a href="#在子程序层上设计（内聚性）" class="headerlink" title="在子程序层上设计（内聚性）"></a>在子程序层上设计（内聚性）</h2><p>功能的内聚性是最好的一种内聚性，其他还有并不是太理想的内聚性，如顺序上的内聚性，通信上的内聚性，临时的内聚性。<br>而不可取的内聚性有：过程上的内聚性，逻辑上的内聚性，巧合的内聚性。</p>
+<h2 id="好的子程序名字"><a href="#好的子程序名字" class="headerlink" title="好的子程序名字"></a>好的子程序名字</h2><p>描述子程序所做的所有事情，避免使用无意义的模糊或表述不清的动词，不要仅通过数字来形成不同的子程序名字，根据需要确定子程序名字的长度，给函数命名时要对返回值有所描述，给过程起名时使用语气强烈的动词加宾语的形式，准确使用对仗词，为常用操作确立命名规则。</p>
+<h2 id="子程序可以写多长"><a href="#子程序可以写多长" class="headerlink" title="子程序可以写多长"></a>子程序可以写多长</h2><p>理论上子程序最好约50-150行。根据研究平均长度在100到150行的代码需要修改的几率最低。</p>
+<h2 id="如何使用子程序参数"><a href="#如何使用子程序参数" class="headerlink" title="如何使用子程序参数"></a>如何使用子程序参数</h2><ul>
+<li>按照输入-修改-输出的顺序排列参数。</li>
+<li>考虑自己创建in和out关键字。</li>
+<li>如果几个子程序都用了类似的一些参数，应该让这些参数的排列顺序保持一致</li>
+<li>使用所有的参数</li>
+<li>把状态或出错变量放在最后</li>
+<li>不要把子程序的参数用做工作变量。</li>
+<li>在接口中对参数的假定加以说明</li>
+<li>把子程序的参数个数限制在大约7个以内</li>
+<li>考虑对参数采用某种表示输入、修改、输出的命名规则。</li>
+<li>为子程序传递用以维持其接口抽象的变量或对象</li>
+<li>使用具名参数</li>
+<li>确保实际参数与形式参数相匹配。</li>
+</ul>
+<h2 id="使用函数时要特别考虑的问题"><a href="#使用函数时要特别考虑的问题" class="headerlink" title="使用函数时要特别考虑的问题"></a>使用函数时要特别考虑的问题</h2><p>什么时候使用函数，什么时候使用过程：如果一个子程序的主要用途就是返回由其名字所指明的返回值，那么就应该使用函数，否则就应该使用过程。<br>设置函数的返回值：检查所有可能的返回路径，不要返回指向局部数据的引用或指针。</p>
+<h2 id="宏子程序和内联子程序"><a href="#宏子程序和内联子程序" class="headerlink" title="宏子程序和内联子程序"></a>宏子程序和内联子程序</h2><p>把宏表达式整个包含在括号内，把含有多条语句的宏用大括号括起来，用给子程序命名的方法来给展开后代码形如子程序的宏命名以便在需要是用子程序来替代宏。<br>内联子程序：节制使用inline子程序，因为inline违反了封装原则。</p>
+<h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
+<li>创建子程序最主要的目的是提高程序的可管理性，当然也有其他一些好的理由，其中，节省代码空间只是一个次要的原因，提高可读性，可靠性和可修改性等原因都更重要一些。</li>
+<li>有时候，把一些简单的操作写成独立的子程序也非常有价值。</li>
+<li>子程序可以按照其内聚性分为很多类，而你应该让大多数子程序具有功能上的内聚性，这是最佳的一种内聚性。</li>
+<li>子程序的名字是他的质量的指示器，如果名字糟糕但恰如其分，那就说明这个子程序设计的很差劲。如果名字糟糕而又不准确，那么它就反映不出程序是干什么的，不管怎样，糟糕的名字都意味着程序需要修改。</li>
+<li>只有在某个子程序的主要目的是返回由其名字所描述的特定结果时，才应该使用函数。</li>
+<li>细心的程序员会非常谨慎的使用宏，而且只有在万不得已时才使用。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/06/19/Code Complete/代码大全笔记6/" data-id="cj4k7wit5001gto6kafwi3uot" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码大全/">代码大全</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/06/28/Code Complete/代码大全笔记7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          代码大全笔记7
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/06/10/Code Complete/代码大全笔记5/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">代码大全笔记5</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

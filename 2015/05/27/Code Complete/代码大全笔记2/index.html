@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>代码大全笔记2 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要进入到架构层时需要考虑的各种问题">
+<meta name="keywords" content="代码大全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码大全笔记2">
+<meta property="og:url" content="http://yoursite.com/2015/05/27/Code Complete/代码大全笔记2/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要进入到架构层时需要考虑的各种问题">
+<meta property="og:updated_time" content="2017-06-30T15:06:44.390Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码大全笔记2">
+<meta name="twitter:description" content="摘要进入到架构层时需要考虑的各种问题">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Code Complete/代码大全笔记2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/27/Code Complete/代码大全笔记2/" class="article-date">
+  <time datetime="2015-05-27T14:27:44.000Z" itemprop="datePublished">2015-05-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      代码大全笔记2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>进入到架构层时需要考虑的各种问题<br><a id="more"></a></p>
+<h3 id="架构的先决条件"><a href="#架构的先决条件" class="headerlink" title="架构的先决条件"></a>架构的先决条件</h3><p>软件架构是软件设计的高层部分，是用于支撑更细节的设计的框架。把架构作为前期准备，是因为架构的质量决定了系统的概念完整性。</p>
+<h3 id="架构的典型组成部分"><a href="#架构的典型组成部分" class="headerlink" title="架构的典型组成部分"></a>架构的典型组成部分</h3><ol>
+<li><p><strong>程序组织</strong><br>系统架构首先要以概括的形式对有关系统做一个综述。应该定义程序的主要构造块，明确各块的责任，明确每个构造块的通信规则。</p>
+</li>
+<li><p><strong>主要的类</strong><br>定义需要用到的主要的类，指出每个主要的类的责任以及如何与其他类交互。包含对类的继承体系，状态转换，对象持久化等描述。只需要说明构成系统80%行为的那20%的类。</p>
+</li>
+<li><p><strong>数据设计</strong><br>描述所用到的主要文件和数据表的设计，应该定义所用数据库的高层组织结构和内容。</p>
+</li>
+<li><p><strong>业务规则</strong><br>如果架构依赖于特定的业务规则，就需要详细描述这些规则，并描述这些规则对系统设计的影响。</p>
+</li>
+<li><p><strong>用户界面设计</strong><br>用户界面通常在需求阶段进行详细说明，如果没有，就在架构中进行详细说明。</p>
+</li>
+<li><p><strong>资源管理</strong><br>架构应该描述一份管理稀缺资源的计划。包括数据库连接，线程，句柄（handle）等。</p>
+</li>
+<li><p><strong>安全性</strong><br>架构应该描述实现设计层面和代码层面的安全性方法。需要建立威胁模型，编码时将安全性牢记在心，包括处理缓冲区的方法，处理非受信数据的规则，加密，错误消息的细致程度，保护内存中的秘密数据。</p>
+</li>
+<li><p><strong>性能</strong><br>如果需要关注性能，就在需求中详细定义。架构应该可以提供估计的数据，如果有达不到的性能目标的风险，也应指出。</p>
+</li>
+<li><p><strong>可伸缩性</strong><br>指系统增长以满足未来需求的能力。可能有应对用户数量，服务器数量，网络节点数量，数据库记录数，数据库记录的长度，交易量等的增长。</p>
+</li>
+<li><p><strong>互用性</strong><br>如果系统会与其他软件或硬件共享数据或者资源，需要描述如何完成这个任务。</p>
+</li>
+<li><p><strong>国际化或本地化</strong><br>一般是提示，状态显示，错误和帮助信息等文字内容，需要支持不同的地域文化。</p>
+</li>
+<li><p><strong>输入输出</strong><br>应详细定义读取策略，是先做后座还是即时做，而且应该描述在哪一层检测I/O错误，在字段，记录，流或者文件的层次。</p>
+</li>
+<li><p><strong>错误处理</strong><br>最好在架构层对待错误处理。错误处理是进行纠正还是仅仅检测；是主动还是被动的；程序如何传播错误；错误消息的处理有什么约定；如何处理异常；在什么层次上处理错误；每个类在验证其输入数据的有效性方面负有何种责任；希望使用运行环境的错误处理还是建立一套自己的机制。</p>
+</li>
+<li><p><strong>容错性</strong><br>架构还应该定义所期望的容错种类，包括检测错误，如果可能的话从错误中恢复，如果不能恢复，则包容不利影响。一般的策略有：系统在检测到错误时退回去，再试一次；系统拥有一套辅助代码，以备在主代码出错时使用；系统使用一个虚假值代替错误的值。</p>
+</li>
+<li><p><strong>架构的可行性</strong><br>关注系统的各种能力，例如能否达到性能目标，能够在有限的资源下运转，实现环境是否有足够的支持。</p>
+</li>
+<li><p><strong>过度工程</strong><br>健壮性是指系统在检测到错误后继续运行的能力。架构需要指出应当为了健壮性进行过度工程，还是做出简单的能工作的东西。</p>
+</li>
+<li><p><strong>关于买还是造的决策</strong><br>大量的功能都有现成的解决方案。需要取舍是买还是从头构建。</p>
+</li>
+<li><p><strong>关于复用的决策</strong><br>如果开发计划提倡使用已经存在的软件，测试用例，数据格式或其他原料，架构应该说明。</p>
+</li>
+<li><p><strong>变更策略</strong><br>架构面临的主要挑战是让架构足够灵活，能够适应可能出现的变化。</p>
+</li>
+<li><p><strong>架构的总体质量</strong><br>架构应该是带有少许特别附加物的精炼且完整的概念体系。</p>
+</li>
+</ol>
+<h3 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h3><ul>
+<li>构建活动的目的在于降低风险。</li>
+<li>如果想开发高质量软件，必须由始至终关注质量。在初期就开始关注正面效果更大。</li>
+<li>需要让参与者知道在编程之前进行充分的准备是非常重要的。</li>
+<li>使用迭代式还是序列式开发有重大影响。</li>
+<li>需要明确的问题定义，以便确定在构建期间解决的是目标问题。</li>
+<li>需要良好的需求分析工作，需求变更如果发生在构建之后，成本会非常高。</li>
+<li>需要良好的架构设计，确保用正确的方法解决正确的问题。</li>
+<li>理解项目前期准备所采用的方法，并相应的选择构建方法。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/05/27/Code Complete/代码大全笔记2/" data-id="cj4k7wit10018to6k4yolc7zy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码大全/">代码大全</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/05/28/Code Complete/代码大全笔记3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          代码大全笔记3
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/05/26/Code Complete/代码大全笔记1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">代码大全笔记1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

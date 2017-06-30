@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android官方培训教程1——ActionBar的使用 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要ActionBar的使用">
+<meta name="keywords" content="Android官方培训教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android官方培训教程1——ActionBar的使用">
+<meta property="og:url" content="http://yoursite.com/2015/08/30/Android官方培训教程/Android官方培训教程1——ActionBar的使用/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要ActionBar的使用">
+<meta property="og:updated_time" content="2017-06-30T14:50:20.799Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android官方培训教程1——ActionBar的使用">
+<meta name="twitter:description" content="摘要ActionBar的使用">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android官方培训教程/Android官方培训教程1——ActionBar的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/30/Android官方培训教程/Android官方培训教程1——ActionBar的使用/" class="article-date">
+  <time datetime="2015-08-30T07:18:10.000Z" itemprop="datePublished">2015-08-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android官方培训教程1——ActionBar的使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>ActionBar的使用<br><a id="more"></a></p>
+<h2 id="添加Action-Bar"><a href="#添加Action-Bar" class="headerlink" title="添加Action Bar"></a>添加Action Bar</h2><p>Action Bar是你可以为activity实现的最重要的设计元素之一。它提供了多种 UI 特性，可以让你的 app 和其他 Android app 保持较多的一致性，为用户所熟悉。核心的功能包括：</p>
+<ul>
+<li>一个专门的空间用来显示你的app的标识，并且还可以指出目前所处在app的哪个页面。</li>
+<li>以一种可预见的方式访问重要的操作（比如检索）。</li>
+<li>支持导航和视图切换（通过Tabs和下拉列表）</li>
+</ul>
+<p>Action bar 最基本的形式，就是为 activity 显示标题，并且在标题左边显示一个 app icon。即使在这样简单的形式下，对于所有的 activity 来说，action bar 对告知用户他们当前所处的位置十分有用，并为你的 app 维护了持续的同一标识。</p>
+<p>只要app使用了Theme.Holo主题，所有的 activity 都显示 action bar。</p>
+<h2 id="添加Action按钮"><a href="#添加Action按钮" class="headerlink" title="添加Action按钮"></a>添加Action按钮</h2><p>Action bar 允许你为当前上下文中最重要的操作添加按钮。那些直接出现在 action bar 中的 icon 和文本或按钮被称作action buttons(操作按钮)。安排不下的或不足够重要的操作被隐藏在 action overflow 中，action overflow就是三个竖向点的“更多”按钮。</p>
+<h2 id="在-XML-中指定操作"><a href="#在-XML-中指定操作" class="headerlink" title="在 XML 中指定操作"></a>在 XML 中指定操作</h2><p>所有的操作按钮和 action overflow 中其他可用的条目都被定义在 菜单资源 的 XML 文件中。通过在项目的 res/menu 目录中新增一个 XML 文件来为 action bar 添加操作。为你想添加到 action bar 中的每个条目添加一个 &lt;item&gt; 元素。例如：res/menu/main_activity_actions.xml</p>
+<pre><code>&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; &gt;
+    &lt;!-- 搜索, 应该作为动作按钮展示--&gt;    
+    &lt;item android:id=&quot;@+id/action_search&quot;
+        android:icon=&quot;@drawable/ic_action_search&quot;
+        android:title=&quot;@string/action_search&quot;
+        android:showAsAction=&quot;ifRoom&quot; /&gt;
+    &lt;!-- 设置, 在溢出菜单中展示 --&gt;
+    &lt;item android:id=&quot;@+id/action_settings&quot;
+        android:title=&quot;@string/action_settings&quot;
+        android:showAsAction=&quot;never&quot; /&gt;
+&lt;/menu&gt;
+</code></pre><p>如果你为了兼容 Android 2.1 的版本使用了 Support 库，在 android 命名空间下 showAsAction 属性是不可用的。</p>
+<h2 id="为Action-Bar添加操作"><a href="#为Action-Bar添加操作" class="headerlink" title="为Action Bar添加操作"></a>为Action Bar添加操作</h2><p>为 action bar 布局菜单条目，是通过在 activity 中实现 onCreateOptionsMenu() 回调方法来 inflate 菜单资源从而获取Menu 对象。例如：</p>
+<pre><code>@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    // 为ActionBar扩展菜单项
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.main_activity_actions, menu);
+    return super.onCreateOptionsMenu(menu);
+}
+</code></pre><h2 id="为操作按钮添加响应事件"><a href="#为操作按钮添加响应事件" class="headerlink" title="为操作按钮添加响应事件"></a>为操作按钮添加响应事件</h2><p>当用户按下某一个操作按钮或者action overflow中的其他条目，系统将调用activity中onOptionsItemSelected()回调方法。在该方法的实现里面调用MenuItem的getItemId()来判断哪个条目被按下-返回的ID会匹配你声明对应的&lt;item&gt;元素中 &lt;android:id&gt; 属性的值。</p>
+<pre><code>@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+    // 处理动作按钮的点击事件
+    switch (item.getItemId()) {
+    case R.id.action_search:
+        openSearch();
+        return true;
+    case R.id.action_settings:
+        openSettings();
+        return true;
+    default:
+        return super.onOptionsItemSelected(item);
+    }
+}
+</code></pre><h2 id="为下级-Activity-添加向上按钮"><a href="#为下级-Activity-添加向上按钮" class="headerlink" title="为下级 Activity 添加向上按钮"></a>为下级 Activity 添加向上按钮</h2><p>在不是主要入口的其他所有屏中（activity 不位于主屏时），需要在 action bar 中为用户提供一个导航到逻辑父屏的up button(向上按钮)。</p>
+<p>当运行在 Android 4.1(API level 16) 或更高版本，或者使用 Support 库中的 ActionBarActivity 时，实现向上导航需要你在 manifest 文件中声明父 activity ，同时在 action bar 中设置向上按钮可用。如何在 manifest 中声明一个 activity 的父辈，例如：</p>
+<pre><code>&lt;!-- 主 main/home 活动 (没有上级活动) --&gt;
+&lt;activity
+    android:name=&quot;com.example.myfirstapp.MainActivity&quot; ...&gt;
+    ...
+&lt;/activity&gt;
+&lt;!-- 主活动的一个子活动--&gt;
+&lt;activity
+    android:name=&quot;com.example.myfirstapp.DisplayMessageActivity&quot;
+    android:label=&quot;@string/title_activity_display_message&quot;
+    android:parentActivityName=&quot;com.example.myfirstapp.MainActivity&quot; &gt;
+    &lt;!-- meta-data 用于支持 support 4.0 以及以下来指明上级活动 --&gt;
+    &lt;meta-data
+        android:name=&quot;android.support.PARENT_ACTIVITY&quot;
+        android:value=&quot;com.example.myfirstapp.MainActivity&quot; /&gt;
+&lt;/activity&gt;
+</code></pre><p>然后，通过调用setDisplayHomeAsUpEnabled() 来把 app icon 设置成可用的向上按钮：</p>
+<pre><code>@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_displaymessage);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    // 如果你的minSdkVersion属性是11或更高, 应该这么用:
+    // getActionBar().setDisplayHomeAsUpEnabled(true);
+}
+</code></pre><p>由于系统已经知道 MainActivity 是 DisplayMessageActivity 的父 activity，当用户按下向上按钮时，系统会导航到恰当的父 activity - 你不需要去处理向上按钮的事件。</p>
+<h2 id="自定义Action-Bar背景"><a href="#自定义Action-Bar背景" class="headerlink" title="自定义Action Bar背景"></a>自定义Action Bar背景</h2><p>为 activity 创建一个自定义主题，通过重写 actionBarStyle 属性来改变 action bar 的背景。actionBarStyle 属性指向另一个样式；在该样式里，通过指定一个 drawable 资源来重写 background 属性。如果你的 app 使用了 navigation tabs 或 split action bar ，你也可以通过分别设置 backgroundStacked 和 backgroundSplit 属性来为这些条指定背景。</p>
+<p>当仅支持 Android 3.0 和更高版本时，你可以像下面这样定义 action bar 的背景：res/values/themes.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;!-- 应用于程序或者活动的主题 --&gt;
+    &lt;style name=&quot;CustomActionBarTheme&quot;
+        parent=&quot;@android:style/Theme.Holo.Light.DarkActionBar&quot;&gt;
+        &lt;item name=&quot;android:actionBarStyle&quot;&gt;@style/MyActionBar&lt;/item&gt;
+    &lt;/style&gt;
+    &lt;!-- ActionBar 样式 --&gt;
+    &lt;style name=&quot;MyActionBar&quot;
+        parent=&quot;@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse&quot;&gt;
+        &lt;item name=&quot;android:background&quot;&gt;@drawable/actionbar_background&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre><p>然后，将你的主题应用到你的 app 全局或单个的 activity 之中：</p>
+<pre><code>&lt;application android:theme=&quot;@style/CustomActionBarTheme&quot; /&gt;
+</code></pre><p>当支持 Android 2.1 和更高res/values/themes.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;!-- 应用于程序或者活动的主题 --&gt;
+    &lt;style name=&quot;CustomActionBarTheme&quot;
+        parent=&quot;@style/Theme.AppCompat.Light.DarkActionBar&quot;&gt;
+        &lt;item name=&quot;android:actionBarStyle&quot;&gt;@style/MyActionBar&lt;/item&gt;
+        &lt;!-- 支持库兼容 --&gt;
+        &lt;item name=&quot;actionBarStyle&quot;&gt;@style/MyActionBar&lt;/item&gt;
+    &lt;/style&gt;
+    &lt;!-- ActionBar 样式 --&gt;
+    &lt;style name=&quot;MyActionBar&quot;
+        parent=&quot;@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse&quot;&gt;
+        &lt;item name=&quot;android:background&quot;&gt;@drawable/actionbar_background&lt;/item&gt;
+        &lt;!-- 支持库兼容 --&gt;
+        &lt;item name=&quot;background&quot;&gt;@drawable/actionbar_background&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre><h2 id="自定义Action-Bar文本颜色"><a href="#自定义Action-Bar文本颜色" class="headerlink" title="自定义Action Bar文本颜色"></a>自定义Action Bar文本颜色</h2><p>修改 action bar 中的文本颜色，你需要分别重写每个元素的属性：</p>
+<ul>
+<li><p>Action bar 的标题：创建一种自定义样式，并指定 textColor 属性；同时，在你的自定义 actionBarStyle 中为titleTextStyle 属性指定为刚才的自定义样式。</p>
+<blockquote>
+<p>Note：被应用到 titleTextStyle 的自定义样式应该使用 TextAppearance.Holo.Widget.ActionBar.Title 作为父样式。</p>
+</blockquote>
+</li>
+<li><p>Action bar tabs：在你的 activity 主题中重写 actionBarTabTextStyle</p>
+</li>
+<li>Action 按钮：在你的 activity 主题中重写 actionMenuTextColor</li>
+</ul>
+<h2 id="自定义-Tab-Indicator"><a href="#自定义-Tab-Indicator" class="headerlink" title="自定义 Tab Indicator"></a>自定义 Tab Indicator</h2><p>为 activity 创建一个自定义主题，通过重写 actionBarTabStyle 属性来改变 navigation tabs 使用的指示器。actionBarTabStyle 属性指向另一个样式资源；在该样式资源里，通过指定一个state-list drawable 来重写background 属性。</p>
+<p>例如，这是一个状态列表 drawable，为一个 action bar tab 的多种不同状态分别指定背景图片：res/drawable/actionbar_tab_indicator.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+&lt;!-- 按钮没有按下的状态 --&gt;
+    &lt;!-- 没有焦点的状态 --&gt;
+    &lt;item android:state_focused=&quot;false&quot; android:state_selected=&quot;false&quot;
+        android:state_pressed=&quot;false&quot;
+        android:drawable=&quot;@drawable/tab_unselected&quot; /&gt;
+    &lt;item android:state_focused=&quot;false&quot; android:state_selected=&quot;true&quot;
+        android:state_pressed=&quot;false&quot;
+        android:drawable=&quot;@drawable/tab_selected&quot; /&gt;
+
+    &lt;!-- 有焦点的状态 (例如D-Pad控制或者鼠标经过) --&gt;
+    &lt;item android:state_focused=&quot;true&quot; android:state_selected=&quot;false&quot;
+        android:state_pressed=&quot;false&quot;
+        android:drawable=&quot;@drawable/tab_unselected_focused&quot; /&gt;
+    &lt;item android:state_focused=&quot;true&quot; android:state_selected=&quot;true&quot;
+        android:state_pressed=&quot;false&quot;
+        android:drawable=&quot;@drawable/tab_selected_focused&quot; /&gt;
+
+&lt;!-- 按钮按下的状态D --&gt;
+    &lt;!-- 没有焦点的状态 --&gt;
+    &lt;item android:state_focused=&quot;false&quot; android:state_selected=&quot;false&quot;
+        android:state_pressed=&quot;true&quot;
+        android:drawable=&quot;@drawable/tab_unselected_pressed&quot; /&gt;
+    &lt;item android:state_focused=&quot;false&quot; android:state_selected=&quot;true&quot;
+        android:state_pressed=&quot;true&quot;
+        android:drawable=&quot;@drawable/tab_selected_pressed&quot; /&gt;
+
+    &lt;!--有焦点的状态 (例如D-Pad控制或者鼠标经过)--&gt;
+    &lt;item android:state_focused=&quot;true&quot; android:state_selected=&quot;false&quot;
+        android:state_pressed=&quot;true&quot;
+        android:drawable=&quot;@drawable/tab_unselected_pressed&quot; /&gt;
+    &lt;item android:state_focused=&quot;true&quot; android:state_selected=&quot;true&quot;
+        android:state_pressed=&quot;true&quot;
+        android:drawable=&quot;@drawable/tab_selected_pressed&quot; /&gt;
+&lt;/selector&gt;
+</code></pre><p>当仅支持 Android 3.0 和更高时，你的样式 XML 文件应该是这样的：res/values/themes.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;!-- 应用于程序或活动的主题 --&gt;
+    &lt;style name=&quot;CustomActionBarTheme&quot;
+        parent=&quot;@style/Theme.Holo&quot;&gt;
+        &lt;item name=&quot;android:actionBarTabStyle&quot;&gt;@style/MyActionBarTabs&lt;/item&gt;
+    &lt;/style&gt;
+    &lt;!-- ActionBar tabs 标签样式 --&gt;
+    &lt;style name=&quot;MyActionBarTabs&quot;
+        parent=&quot;@style/Widget.Holo.ActionBar.TabView&quot;&gt;
+        &lt;!-- 标签指示器 --&gt;
+        &lt;item name=&quot;android:background&quot;&gt;@drawable/actionbar_tab_indicator&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre><p>当使用 Support 库支持 Android 2.1 和更高时，你的样式 XML 文件应该是这样的：res/values/themes.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;!-- 应用于程序或活动的主题 --&gt;
+    &lt;style name=&quot;CustomActionBarTheme&quot;
+        parent=&quot;@style/Theme.AppCompat&quot;&gt;
+        &lt;item name=&quot;android:actionBarTabStyle&quot;&gt;@style/MyActionBarTabs&lt;/item&gt;
+        &lt;!-- 支持库兼容 --&gt;
+        &lt;item name=&quot;actionBarTabStyle&quot;&gt;@style/MyActionBarTabs&lt;/item&gt;
+    &lt;/style&gt;
+    &lt;!-- ActionBar tabs 样式 --&gt;
+    &lt;style name=&quot;MyActionBarTabs&quot;
+        parent=&quot;@style/Widget.AppCompat.ActionBar.TabView&quot;&gt;
+        &lt;!-- 标签指示器 --&gt;
+        &lt;item name=&quot;android:background&quot;&gt;@drawable/actionbar_tab_indicator&lt;/item&gt;
+        &lt;!-- 支持库兼容 --&gt;
+        &lt;item name=&quot;background&quot;&gt;@drawable/actionbar_tab_indicator&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre><h2 id="ActionBar的覆盖叠加"><a href="#ActionBar的覆盖叠加" class="headerlink" title="ActionBar的覆盖叠加"></a>ActionBar的覆盖叠加</h2><p>默认情况下，action bar 显示在 activity 窗口的顶部，会稍微地减少其他布局的有效空间。如果在用户交互过程中你要隐藏和显示 action bar，可以通过调用 ActionBar 中的 hide()和show()来实现。但是，这将会导致 activity 基于新尺寸重新计算与绘制布局。</p>
+<p>为了避免在 action bar 隐藏和显示过程中调整布局的大小，可以为 action bar 启用叠加模式(overlay mode)。在叠加模式下，所有可用的空间都会被用来布局就像ActionBar不存在一样，并且 action bar 会叠加在你的布局之上。这样布局顶部就会有点被遮挡，但当 action bar 隐藏或显示时，系统不再需要调整布局而是无缝过渡。</p>
+<p>要为 action bar 启用叠加模式，需要自定义一个主题，该主题继承于已经存在的 action bar 主题，并设置android:windowActionBarOverlay 属性的值为 true 。</p>
+<p>如果 minSdkVersion 为 11 或更高，自定义主题必须继承 Theme.Holo 主题（或者它的子主题）。例如：</p>
+<pre><code>&lt;resources&gt;
+    &lt;!-- 为程序或者活动应用的主题样式 --&gt;
+    &lt;style name=&quot;CustomActionBarTheme&quot;
+        parent=&quot;@android:style/Theme.Holo&quot;&gt;
+        &lt;item name=&quot;android:windowActionBarOverlay&quot;&gt;true&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre><p>如果为了兼容运行在 Android 3.0 以下版本的设备而使用了 Support 库，自定义主题必须继承 Theme.AppCompat 主题（或者它的子主题）。例如：</p>
+<pre><code>&lt;resources&gt;
+    &lt;!-- 为程序或者活动应用的主题样式 --&gt;
+    &lt;style name=&quot;CustomActionBarTheme&quot;
+        parent=&quot;@android:style/Theme.AppCompat&quot;&gt;
+        &lt;item name=&quot;android:windowActionBarOverlay&quot;&gt;true&lt;/item&gt;
+        &lt;!-- 兼容支持库 --&gt;
+        &lt;item name=&quot;windowActionBarOverlay&quot;&gt;true&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre><p>请注意，这主题包含两种不同的 windowActionBarOverlay 式样定义：一个带 android: 前缀，另一个不带。带前缀的适用于包含该式样的 Android 系统版本，不带前缀的适用于通过从 Support 库中读取式样的旧版本。</p>
+<p>指定布局的顶部边距，当 action bar 启用叠加模式时，它可能会遮挡住本应保持可见状态的布局。为了确保这些布局始终位于 action bar 下部，可以使用 actionBarSize 属性来指定顶部margin或padding的高度来到达。例如：</p>
+<pre><code>&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:paddingTop=&quot;?android:attr/actionBarSize&quot;&gt;
+    ...
+&lt;/RelativeLayout&gt;
+</code></pre><p>如果在 action bar 中使用 Support 库，需要移除 android: 前缀。例如：</p>
+<pre><code>&lt;!-- 兼容支持库 --&gt;
+&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:paddingTop=&quot;?attr/actionBarSize&quot;&gt;
+    ...
+&lt;/RelativeLayout&gt;
+</code></pre><p>在这种情况下，不带前缀的 ?attr/actionBarSize 适用于包括Android 3.0 和更高的所有版本。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/30/Android官方培训教程/Android官方培训教程1——ActionBar的使用/" data-id="cj4k7wirq000ito6kxd7qy7h2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/08/30/Android官方培训教程/Android官方培训教程2——兼容不同的设备/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android官方培训教程2——兼容不同的设备
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/08/30/Game Frame/1游戏框架简述/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">1游戏框架简述</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

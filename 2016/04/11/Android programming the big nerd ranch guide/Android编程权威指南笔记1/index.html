@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android编程权威指南笔记1 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要Android编程权威指南笔记。">
+<meta name="keywords" content="Android基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南笔记1">
+<meta property="og:url" content="http://yoursite.com/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要Android编程权威指南笔记。">
+<meta property="og:updated_time" content="2017-06-30T14:17:58.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android编程权威指南笔记1">
+<meta name="twitter:description" content="摘要Android编程权威指南笔记。">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android programming the big nerd ranch guide/Android编程权威指南笔记1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/" class="article-date">
+  <time datetime="2016-04-11T07:57:43.000Z" itemprop="datePublished">2016-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android编程权威指南笔记1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Android编程权威指南笔记。</p>
+<a id="more"></a>
+<h2 id="设备旋转前保存数据"><a href="#设备旋转前保存数据" class="headerlink" title="设备旋转前保存数据"></a>设备旋转前保存数据</h2><p>设备旋转后原本的Activity会被销毁然后重建，但是这时原本的数据就会丢失。对于某些情况来说，旋转后的Activity需要加载旋转前的数据，这时就需要使用onSaveInstanceState()方法，该方法在onPause()、onStop()、onDestroy()之前调用。</p>
+<p>方法onSaveInstanceState()默认的实现要求所有activity的视图将自身状态数据保存在Bundle对象中。</p>
+<p>可以通过重写onSaveInstanceState()方法，将一些数据保存在Bundle中，在onCreate()方法中取出这些数据。</p>
+<pre><code>@Override
+public void onSaveInstanceState(Bundle savedInstanceState){
+    super.onSaveInstanceState(savedInstanceState);
+    savedInstanceState.putInt(&quot;key&quot;,&quot;value&quot;);
+}
+</code></pre><p>在onCreate()方法中加入检查存储的bundle信息</p>
+<pre><code>String s=&quot;&quot;;
+if(savedInstanceState!=null){
+    s=savedInstanceState.getString(&quot;key&quot;,&quot;&quot;);
+}
+</code></pre><p>注意：在Bundle中存储和恢复的数据类型只能是基本数据类型，以及可以实现Serializable接口的对象，创建自己的定制类时，如需在onSaveInstanceState()方法中保存类对象，要记得实现Serializable接口。</p>
+<h2 id="从子activity中获取返回结果"><a href="#从子activity中获取返回结果" class="headerlink" title="从子activity中获取返回结果"></a>从子activity中获取返回结果</h2><p>如需要从子activity中获取返回信息时，可调用以下activity方法：startActivityForResult(Intent intent,int requestCode)。</p>
+<p>子activity设置返回结果有以下两种方法可供调用：</p>
+<pre><code>public final void setResult(int resultCode);
+public final void setResult(int resultCode,Intent data);
+</code></pre><p>通常来说，参数result code可以是以下两个预定义常量中的任何一个：</p>
+<pre><code>Activity.RESULT_OK;
+Activity.RESULT_CANCELED;
+</code></pre><p>如果子activity不调用setResult()方法，用户后退的话父activity则会收到Activity.RESULT_CANCELED的结果代码。</p>
+<p>处理返回结果，覆盖onActivityResult()方法获取子activity返回的数据。</p>
+<pre><code>@Override
+protected void onActivityResult(int requestCode,int resultCode,Intent data){
+    if(data==null){
+        return;
+    }
+    mFlag=data.getBooleanExtra(&quot;DATABACK&quot;,false);
+}
+</code></pre><h2 id="Android编译版本"><a href="#Android编译版本" class="headerlink" title="Android编译版本"></a>Android编译版本</h2><p>在使用高版本的api时候需要提前检查Android设备版本。可以使用如下条件语句：</p>
+<pre><code>if(Build.VERSION.SDK_INT&gt;=Build.VERSION_CODES.HONEYCOMB)
+</code></pre><p>让AndroidLint不再提示兼容性问题，使高版本的api在低版本的SKD不报错。比如：</p>
+<pre><code>@TargetApi(11)
+</code></pre><h2 id="UUID的使用"><a href="#UUID的使用" class="headerlink" title="UUID的使用"></a>UUID的使用</h2><p>UUID含义是通用唯一识别码，创建模型层的时候添加一个UUID。</p>
+<pre><code>private UUID mID；
+mID=UUID.randomUUID();
+</code></pre><h2 id="托管的两种方式"><a href="#托管的两种方式" class="headerlink" title="托管的两种方式"></a>托管的两种方式</h2><p>在activity中托管一个UI fragment，有如下两种方式：添加fragment到activity布局中，在activity代码中添加fragment。</p>
+<p>第一种方式即使用布局fragment，这种方式灵活性不够，添加fragment到activity布局中，就等同于将fragment及其视图与activity与视图绑定在一起，且在activity的生命周期过程中，无法切换fragment视图。</p>
+<p>第二种方式可以灵活的添加和移除fragment。实际使用方式，定义容器视图。在布局容器中添加FrameLayout，添加到activity的布局main.xml中。</p>
+<pre><code>&lt;FrameLayout android:id=&quot;@+id/fragmentContainer&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+/&gt;
+</code></pre><p>创建UI fragment，创建一个UI fragment的步骤与创建一个activity的步骤相同，具体步骤如下所示：通过定义布局文件中的组件，组装界面；创建fragment类并设置其视图为定义的布局；通过代码的方式，连接布局文件中生成的组件。</p>
+<p>fragment的视图布局文件使用fragment_view.xml。这个文件与activity的布局文件一样。在Fragment里面使用即可。</p>
+<pre><code>public class OtherFragment extends Fragment{
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater,ViewGroup parent,Bundle savedInstanceState){
+        View v=inflater.inflate(R.layout.fragment_view, parent, false);
+        return v;
+    }
+}
+</code></pre><p>添加UI Fragment到FragmentManager，也就是说将Fragment添加到Activity。FragmentManager类负责管理fragment并将它们的视图添加到activity的视图层级结构中。FragmentManager类具体管理的是：fragment队列，fragment事务的回退栈。</p>
+<pre><code>public class MainActivity extends FragmentActivity{
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        FragmentManager fm=getSupportFragmentManager();
+        Fragment fragment=fm.findFragmentById(R.id.fragmentContainer);
+
+        if(fragment==null){
+            fragment=new OtherFragment();
+            fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit(); 
+        }
+    }
+}
+</code></pre><h2 id="Fragment的详细解释"><a href="#Fragment的详细解释" class="headerlink" title="Fragment的详细解释"></a>Fragment的详细解释</h2><p>fragment事务被用来添加、移除、附加、分离或替换fragment队列中的fragment。FragmentManager管理着fragment事务的回退栈。FragmentManager.beginTransaction()方法创建并返回FragmentTransaction实例。FragmentTransaction类使用了一个fluent interface接口方法，由此可得到一个FragmentTransaction队列。</p>
+<p>这里做的事情可以理解为创建一个新的fragment事务，加入一个添加操作，然后提交该事务。add()方法有两个参数，容器视图资源ID和新创建的Fragment。容器视图资源ID有两点作用：告知FragmentManager，fragment视图应该出现在activity视图的什么地方；是FragmentManager队列中fragment的唯一标识符。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/" data-id="cj4k7wiro000eto6kacee2ey0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android基础/">Android基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          GitHub Pages + Hexo搭建博客
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/08/php/PHP基础函数1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">PHP基础函数1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

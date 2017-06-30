@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ListActivity与Adapter以及SQLite的使用 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要ListActivity、AdapterView、适配器、多个活动、SQLite、GUI样式、菜单资源及MenuInflater。">
+<meta name="keywords" content="Android基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ListActivity与Adapter以及SQLite的使用">
+<meta property="og:url" content="http://yoursite.com/2015/08/04/Android for Programmers/7基础组件/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要ListActivity、AdapterView、适配器、多个活动、SQLite、GUI样式、菜单资源及MenuInflater。">
+<meta property="og:updated_time" content="2017-06-30T14:20:30.408Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ListActivity与Adapter以及SQLite的使用">
+<meta name="twitter:description" content="摘要ListActivity、AdapterView、适配器、多个活动、SQLite、GUI样式、菜单资源及MenuInflater。">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android for Programmers/7基础组件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/04/Android for Programmers/7基础组件/" class="article-date">
+  <time datetime="2015-08-03T16:30:29.000Z" itemprop="datePublished">2015-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ListActivity与Adapter以及SQLite的使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>ListActivity、AdapterView、适配器、多个活动、SQLite、GUI样式、菜单资源及MenuInflater。</p>
+<a id="more"></a>
+<h2 id="使用style-xml文件定义style元素"><a href="#使用style-xml文件定义style元素" class="headerlink" title="使用style.xml文件定义style元素"></a>使用style.xml文件定义style元素</h2><p>资源文件都使用&lt;resources&gt;标签，style元素使用&lt;style&gt;标签。与此类似的所有的属性都可以放在style里面定义，</p>
+<pre><code>&lt;resources&gt;
+    &lt;style name=&quot;SomeStyle&quot;&gt;
+        &lt;item name=&quot;android:layout_width&quot;&gt;wrap_content&lt;/item&gt;
+        &lt;item name=&quot;android:layout_height&quot;&gt;wrap_content&lt;/item&gt;
+        &lt;item name=&quot;android:gravity&quot;&gt;center&lt;/item&gt;
+        &lt;item name=&quot;android:layout_margin&quot;&gt;5dpt&lt;/item&gt;
+        &lt;item name=&quot;android:background&quot;&gt;@drawable/somebackground&lt;/item&gt;
+        &lt;item name=&quot;android:textColor&quot;&gt;@android:color/white&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre><p>在view中使用定义的style</p>
+<pre><code>&lt;view 
+    style=&quot;@style/SomeStyle&quot;/&gt;
+</code></pre><h2 id="在XML中用menu资源定义应用的MenuItem"><a href="#在XML中用menu资源定义应用的MenuItem" class="headerlink" title="在XML中用menu资源定义应用的MenuItem"></a>在XML中用menu资源定义应用的MenuItem</h2><p>每一个menu资源XML文件都包含一个根menu元素，里面嵌套的每一个item都代表一个MenuItem。需要为每一个item指定一个android:id属性，以便能够在程序中用对应的MenuItem交互。其他的item属性还包括：</p>
+<ul>
+<li>android:title和android:titleCondensed表示标题文本和如果显示不了完整的情况下显示的紧凑型标题文本。</li>
+<li>android:icon指定一个Drawable属性，表示显示的图片。</li>
+<li>andorid:orderInCategory决定MenuItem出现的顺序。</li>
+</ul>
+<p>下面是示例代码：</p>
+<pre><code>&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;item android:id=&quot;@+id/item1&quot;
+        android:title=&quot;item1&quot;
+        android:icon=&quot;@drawable/item1&quot;
+        android:titleCondensed=&quot;1&quot;
+        android:orderInCategory=&quot;1&quot;&gt;
+    &lt;/item&gt;
+    &lt;item android:id=&quot;@+id/item2&quot;
+        android:title=&quot;item2&quot;
+        android:icon=&quot;@drawable/item2&quot;
+        android:titleCondensed=&quot;2&quot;
+        android:orderInCategory=&quot;2&quot;&gt;
+    &lt;/item&gt;
+&lt;/menu&gt;
+</code></pre><p>代码end</p>
+<h2 id="ListActivity类和ListView"><a href="#ListActivity类和ListView" class="headerlink" title="ListActivity类和ListView"></a>ListActivity类和ListView</h2><p>ListActivity是只包含一个ListView的类。可以使用CursorAdapter作为适配器填充ListView。并且ListActivity是内置ListView。ListView需要设置adapter和OnItemClickListener。同时要使用SimpleCursorAdapter，必须先定义两个数组，分别包含需要映射成GUI组件的列名称及GUI组件的资源ID。SimpleCursorAdapter的构造函数接收如下参数：</p>
+<ul>
+<li>运行ListView所在的Context</li>
+<li>用来显示ListView中每一项的布局的资源ID</li>
+<li>提供数据访问的Cursor，可以提供null，并且在后面指定它</li>
+<li>包含要显示的列名称的String数组</li>
+<li>包含对应的GUI资源ID的int数组</li>
+</ul>
+<p>实例代码如下：</p>
+<pre><code>ListView lv=getListView();
+lv.setOnitemClickListener(viewListener);
+
+String[] from=new String[]{&quot;name&quot;};
+int[] to=new int[]{R.id.to};
+CursorAdapter mAdapter=new SimpleCursorAdapter(this,R.layout.listview,null,from,to);
+setListAdapter(mAdapter);
+</code></pre><p>当Cursor类不再需要时</p>
+<pre><code>Cursor cursor=mAdapter.getCursor();
+if(cursor!=null){
+    cursor.deactivate();
+}
+mAdapter.changeCursor(null);
+</code></pre><h2 id="AsyncTask的使用方法"><a href="#AsyncTask的使用方法" class="headerlink" title="AsyncTask的使用方法"></a>AsyncTask的使用方法</h2><p>创建一个新的AsyncTask，并且执行它。AsyncTask会在一个单独的线程中执行任务，这里的execute方法的实参表明任务不会接收任何实参，这个方法会接收可变数量的实参，随后它们作为实参被传递给人物的doInBackground方法。每次执行如下方法，都会创建一个新的AsyncTask对象，因为每一个AsyncTask只能执行一次，所以这样是必须的。</p>
+<p>AsyncTask是一个要求三个参数的泛型类型：</p>
+<ul>
+<li>第一个参数是变长参数表的类型，用于AsyncTask的doInBackground方法。当调用execute方法，doInBackground方法会在一个单独执行线程中执行任务。</li>
+<li>第二个参数是变长参数表的类型，用于AsyncTask的onProgressUpdate方法。这个方法在GUI线程中执行，并用来从长时间运行的任务中接收特定类型的过渡性更新数据。</li>
+<li>第三个参数是任务结果的类型，它会被传递给AsyncTask的onPostExecute方法。</li>
+</ul>
+<p>doInBackground方法使用databaseConnector来打开数据库连接。</p>
+<pre><code>private class GetTask extends AsyncTask&lt;Object, Object, Cursor&gt;{
+    DatabaseConnector databaseConnector = new DatabaseConnector(AddressBook.this);
+
+    @Override
+    protected Cursor doInBackgroudn(Object... params){
+        databaseConnector.open();
+
+        return databaseConnector.getAllContacts();
+    }
+
+    @Override
+    protected void onPostExecute(Cursor result){
+        contactAdapter.changeCursor(result);
+        databaseConnector.close();
+    }
+}
+</code></pre><p>创建新的AsyncTask，并执行它。</p>
+<pre><code>Bundle extras = getIntent().getExtras();
+rowID = extras.getLong(&quot;row_id&quot;);
+
+new GetTask().execute(rowID);
+</code></pre><h2 id="重写onCreateOptionsMenu和onOptionsItemSelected，使用MenuInflater"><a href="#重写onCreateOptionsMenu和onOptionsItemSelected，使用MenuInflater" class="headerlink" title="重写onCreateOptionsMenu和onOptionsItemSelected，使用MenuInflater"></a>重写onCreateOptionsMenu和onOptionsItemSelected，使用MenuInflater</h2><p>使用MenuInflater填充菜单。</p>
+<pre><code>@Override
+public boolean onCreateOptionsMenu(Menu menu){
+    super.onCreateOptionsMenu(menu);
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.address_menu, menu);
+    return true;
+}
+
+@Override
+public boolean onOptionsItemSelected(MenuItem item){
+    Intent addNew = new Intent(this, EditActivity.class);
+    startActivity(addNew);
+    return super.onOptionsItemSelected(item);
+}
+</code></pre><h2 id="实现OnItemClickListener接口"><a href="#实现OnItemClickListener接口" class="headerlink" title="实现OnItemClickListener接口"></a>实现OnItemClickListener接口</h2><p>Menu的OnItemClickListener方法的参数</p>
+<ul>
+<li>与用户交互的AdapterView引用</li>
+<li>点触的列表项的根View的引用</li>
+<li>ListView中点触的列表项的索引</li>
+<li>所选择列表项的唯一long类型的ID，这里即为Cursor中的行ID</li>
+</ul>
+<p>下面是示例代码</p>
+<pre><code>OnItemClickListener viewContactListener=new OnItemClickListener(){
+    @Override
+    public void onItemClick(AdapterView&lt;?&gt; arg0, View arg1, int arg2, long arg3){
+        Intent viewContact=new Intent(this, ViewContact.class);
+        viewContact.putExtra(ROW_ID, arg3);
+        startActivity(viewContact);
+    }
+}
+</code></pre><p>代码end</p>
+<h2 id="DatabaseConnector的实用工具类"><a href="#DatabaseConnector的实用工具类" class="headerlink" title="DatabaseConnector的实用工具类"></a>DatabaseConnector的实用工具类</h2><p>实用DatabaseConnector工具类管理与SQLite的交互。</p>
+<pre><code>public class DatabaseConnector{
+    private SQLiteDatabase database;
+    private DatabaseOpenHelper databaseOpenHelper;
+
+    public DatabaseConnector(Context context){
+        databaseOpenHelper-new DatabaseOpenHelper(context, DATABASE_NAME, null, 1);
+    }
+
+    public void open() throws SQLException{
+        database=databaseOpenHelper.getWritableDatabase();
+    }
+
+    public void close(){
+        if(database!=null){
+            database.close();
+        }
+    }
+
+    public void insertContact(String name, String phone){
+        ContentValues newContact=new ContentValues();
+        newContact.put(&quot;name&quot;, name);
+        newContact.put(&quot;phone&quot;, phone);
+
+        open();
+        database.insert(&quot;contacts&quot;, null, newContact);
+        close();
+    }
+
+    public void updateContact(long id, String name, String phone){
+        ContentValues editContact=new ContentValues();
+        editContact.put(&quot;name&quot;, name);
+        editContact.put(&quot;phone&quot;, phone);
+
+        open();
+        database.update(&quot;contacts&quot;, editContact, &quot;_id=&quot;+id, null);
+        close();
+    }
+
+    publci Cursor getAllContacts(){
+        return database.query(&quot;contacts&quot;, new String[]{&quot;_id&quot;, &quot;name&quot;}, null, null, null, null, &quot;name&quot;);
+    }
+
+    public Cursor getOneContact(long id){
+        return database.query(&quot;contacts&quot;, null, &quot;_id=&quot;+id, null, null, null, null);
+    }
+
+    public void deleteContact(long id){
+        open();
+        database.delete(&quot;contacts&quot;, &quot;_id=&quot;+id, null);
+        close();
+    }
+}
+</code></pre><p>getAllContacts方法使用SQLiteDatabase的query方法，取得一个Cursor游标，它的实参如下</p>
+<ul>
+<li>要查询的表名称</li>
+<li>需返回的列名称的一个String数组</li>
+<li>一个SQL WHERE子句，或者是返回全部行的null</li>
+<li>实参的String数组会替换WHERE子句里的实参值中的问号占位符。如果WHERE子句中没有实参，则会使用null代替。</li>
+<li>一个SQL GROUP BY子句（不包含关键字GROUP BY）或者null（如果不希望分组结果）</li>
+<li>SQL HAVING子句（不包含HAVING），指定结果中要包含来自于GROUP BY子句中的哪些组，如果GROUP BY子句为null，则这里也为null。</li>
+<li>SQL ORDER BY子句（不包含关键字ORDER BY），指定结果顺序，或者为null（不指定顺序）</li>
+</ul>
+<h2 id="扩展SQLiteOpenHelper"><a href="#扩展SQLiteOpenHelper" class="headerlink" title="扩展SQLiteOpenHelper"></a>扩展SQLiteOpenHelper</h2><p>使用SQLiteOpenHelper帮助应用创建数据库并管理版本的变化情况。它要求有如下的4个实参。</p>
+<ul>
+<li>Context，包含需创建和打开的数据库。</li>
+<li>数据库名称，如果希望使用内存数据库，则为null</li>
+<li>所使用的CursorFactory，null表示希望使用默认的SQLite CursorFactory</li>
+<li>数据库版本号，从1开始。</li>
+</ul>
+<p>实例代码如下：</p>
+<pre><code>private class DatabaseOpenHelper extends SQLiteOpenHelper{
+    public DatabaseOpenHelper(Context context, String name, CursorFactory factory, int version){
+        super(context, name, factory, version);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db){
+        String createQuery=&quot;CREATE TABLE contacts&quot;+&quot;(_id integer primary key autoincrement,&quot;+&quot;name TEXT, phone TEXT);&quot;;
+
+        db.execSQL(createQuery);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/04/Android for Programmers/7基础组件/" data-id="cj4k7wiri0009to6krb0wx0ho" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android基础/">Android基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/08/30/Game Frame/1游戏框架简述/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          1游戏框架简述
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/08/02/Android for Programmers/6基础组件/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">二维图形，SensorManager，Toast及多点触摸事件</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

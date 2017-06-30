@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>算法导论笔记2 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要对于算法的分析方法">
+<meta name="keywords" content="算法导论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法导论笔记2">
+<meta property="og:url" content="http://yoursite.com/2015/05/23/Introduction to Algorithms/算法导论笔记2/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要对于算法的分析方法">
+<meta property="og:updated_time" content="2017-06-30T14:16:55.560Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法导论笔记2">
+<meta name="twitter:description" content="摘要对于算法的分析方法">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Introduction to Algorithms/算法导论笔记2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/23/Introduction to Algorithms/算法导论笔记2/" class="article-date">
+  <time datetime="2015-05-22T16:29:10.000Z" itemprop="datePublished">2015-05-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      算法导论笔记2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>对于算法的分析方法<br><a id="more"></a></p>
+<h3 id="2-2-分析算法"><a href="#2-2-分析算法" class="headerlink" title="2.2 分析算法"></a>2.2 分析算法</h3><p>在大多数计算机中，将一个整数左移一位，等价于将该整数乘以2。于是左移k位等价于将该整数乘以2^k</p>
+<h3 id="插入排序算法的分析"><a href="#插入排序算法的分析" class="headerlink" title="插入排序算法的分析"></a>插入排序算法的分析</h3><p>输入规模：输入规模大小会影响运行速度。<br>一个算法在特定输入上的运行时间是指执行的基本操作数或步数。</p>
+<p>当插入排序的输入时最佳情况下，即输入已排好序的情况，运行时间为an+b，因此它是n的线性函数。<br>当输入是反向排序的情况下，每个循环都需要完全执行，运行时间为an^2+bn+c，是n的二次函数。</p>
+<p>一般分析算法时需要考虑最坏情况，与平均情况。<br>如插入排序的平均情况，每次循环时，一半输入大，一半输入小，每次的运行时间是最坏情况的t/2，其实仍然是n的二次函数。<br>而且每个算法所针对的平均情况各异，有的并不明显，将会使用随机化算法和概率分析来研究算法的优劣。</p>
+<p>增长量级<br>在实际分析算法中，经常抽象并忽略实际的运行代价。真正感兴趣的是运行时间的增长率或增长量级。<br>虽然并不确定高量级的算法一定慢于低量级的算法，但是对于足够大的输入，低量级比高量级算法运行的更快。<br>插入排序的量级可以写成θ(n^2),对于大量输入，比θ(n^3)的算法应该更快</p>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><h4 id="1-用θ记号表示n-3-1000-100n-2-100n-3"><a href="#1-用θ记号表示n-3-1000-100n-2-100n-3" class="headerlink" title="1. 用θ记号表示n^3/1000-100n^2-100n+3"></a>1. 用θ记号表示n^3/1000-100n^2-100n+3</h4><p>实际上就是θ(n^3)。</p>
+<h4 id="2-选择算法。"><a href="#2-选择算法。" class="headerlink" title="2. 选择算法。"></a>2. 选择算法。</h4><blockquote>
+<p>对于A数组中的n个数，首先找出A中最小元素与A[1]元素交换，然后找出A中次小元素与A[2]交换，依次进行。</p>
+</blockquote>
+<p>伪代码</p>
+<pre><code>int temp=0;
+int flag=0;
+for(int i=0;i&lt;=n-2;i++){
+    flag=i;
+    for(int j=i+1;j&lt;=n-1;j++){
+        if(a[flag]&gt;a[j]){
+            flag=j;
+        }
+    }
+    temp=a[i];
+    a[i]=a[flag];
+    a[flag]=temp;
+}
+</code></pre><p>第一次循环，将从第2个开始的所有数中最小的放到第1个位置。<br>对于第j次循环，将从j+1开始到n的数中最小的放到第j个位置，在j之前的数一定比a[j]小。<br>因为对于执行第n-1次循环时，如果a[n]&lt;a[n-1]时，交换两个数，那么第n个数必定是最大的数，也就没必要对最后一个元素执行循环。<br>最好的情况输入已经排序，除了不需执行交换外赋值外，两层循环仍然需要执行，因此运行时间是θ(n^2)，<br>最坏的情况输入反向排序，运行时间也是θ(n^2)。</p>
+<h4 id="3-线性查找问题"><a href="#3-线性查找问题" class="headerlink" title="3. 线性查找问题"></a>3. 线性查找问题</h4><blockquote>
+<p>要查找的元素等可能的为数组中任意元素，平均需要检查序列的多少元素，最坏的情况如何。</p>
+</blockquote>
+<p>平均需要查找n/2的元素，最坏的情况需要查找全部元素。但是实际循环只有一层，不论如何运行时间为θ(n)。</p>
+<h4 id="4-如何修改几乎任意算法来使之具有良好的最好情况运行时间。"><a href="#4-如何修改几乎任意算法来使之具有良好的最好情况运行时间。" class="headerlink" title="4. 如何修改几乎任意算法来使之具有良好的最好情况运行时间。"></a>4. 如何修改几乎任意算法来使之具有良好的最好情况运行时间。</h4><p>可以修改算法使之符合某些特定情况，或者已经进行过预先的处理，并且可以尽量减少循环的嵌套，来减少针对最好情况的运行时间。<br>但是这种针对最好情况的运行时间并不能作为算法优劣的主要考量。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/05/23/Introduction to Algorithms/算法导论笔记2/" data-id="cj4k7witx002ato6kx95b2s8b" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法导论/">算法导论</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/05/24/Android for Programmers/1基础组件/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          TableLayout,SeekBar及EditText的监听
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/05/21/Introduction to Algorithms/算法导论笔记1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">算法导论笔记1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android官方培训教程2——兼容不同的设备 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要兼容不同的设备">
+<meta name="keywords" content="Android官方培训教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android官方培训教程2——兼容不同的设备">
+<meta property="og:url" content="http://yoursite.com/2015/08/30/Android官方培训教程/Android官方培训教程2——兼容不同的设备/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要兼容不同的设备">
+<meta property="og:updated_time" content="2017-06-30T14:50:36.583Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android官方培训教程2——兼容不同的设备">
+<meta name="twitter:description" content="摘要兼容不同的设备">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android官方培训教程/Android官方培训教程2——兼容不同的设备" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/30/Android官方培训教程/Android官方培训教程2——兼容不同的设备/" class="article-date">
+  <time datetime="2015-08-30T07:24:22.000Z" itemprop="datePublished">2015-08-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android官方培训教程2——兼容不同的设备
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>兼容不同的设备<br><a id="more"></a></p>
+<h2 id="适配不同的语言"><a href="#适配不同的语言" class="headerlink" title="适配不同的语言"></a>适配不同的语言</h2><p>把UI中的字符串存储在外部文件，通过代码提取，这是一种很好的做法。Android可以通过工程中的资源目录轻松实现这一功能。</p>
+<p>如果你使用Android SDK Tools来创建工程，则在工程的根目录会创建一个 res/ 的目录，目录中包含所有资源类型的子目录。其中包含工程的默认文件比如 res/values/strings.xml ，用来保存你的字符串值。</p>
+<p>为了支持多国语言，在 res/ 中创建一个额外的 values 目录以连字符和ISO国家代码结尾命名，比如 values-es/ 是为语言代码为”es”的区域设置的简单的资源文件的目录。Android会在运行时根据设备的区域设置，加载相应的资源。详见Providing Alternative Resources。若你决定支持某种语言，则需要创建资源子目录和字符串资源文件，例如:</p>
+<pre><code>MyProject/
+    res/
+        values/
+            strings.xml
+        values-es/
+            strings.xml
+        values-fr/
+            strings.xml
+</code></pre><p>添加不同区域语言的字符串值到相应的文件。在运行时，Android系统会根据用户设备当前的区域设置，使用相应的字符串资源。例如下面列举了几个不同语言对应不同的字符串资源文件。英语(默认区域语言)，/values/strings.xml :</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;string name=&quot;title&quot;&gt;My Application&lt;/string&gt;
+    &lt;string name=&quot;hello_world&quot;&gt;Hello World!&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre><p>西班牙语， /values-es/strings.xml :</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;string name=&quot;title&quot;&gt;Mi Aplicación&lt;/string&gt;
+    &lt;string name=&quot;hello_world&quot;&gt;Hola Mundo!&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre><p>法语， /values-fr/strings.xml :</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;string name=&quot;title&quot;&gt;Mon Application&lt;/string&gt;
+    &lt;string name=&quot;hello_world&quot;&gt;Bonjour le monde !&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre><h2 id="适配不同的屏幕"><a href="#适配不同的屏幕" class="headerlink" title="适配不同的屏幕"></a>适配不同的屏幕</h2><p>Android将设备屏幕归类为两种常规属性：尺寸和分辨率。你应该想到你的app会被安装在各种屏幕尺寸和分辨率的设备中。这样，你的app就应该包含一些可选资源，针对不同的屏幕尺寸和分辨率，来优化你的app外观。</p>
+<ul>
+<li>有4种普遍尺寸：小(small)，普通(normal)，大(large)，超大(xlarge)</li>
+<li>4种普遍分辨率：低精度(ldpi), 中精度(mdpi), 高精度(hdpi), 超高精度(xhdpi)</li>
+</ul>
+<p>声明针对不同屏幕所用的layout和bitmap，你必须把这些可选资源放置在独立的目录中，与你适配不同语言时的做法类似。同样要注意屏幕的方向(横向或纵向)也是一种需要考虑的屏幕尺寸变化，所以许多app会修改layout，来针对不同的屏幕方向优化用户体验。</p>
+<h3 id="创建不同的layout"><a href="#创建不同的layout" class="headerlink" title="创建不同的layout"></a>创建不同的layout</h3><p>为了针对不同的屏幕去优化用户体验，你需要对每一种将要支持的屏幕尺寸，创建唯一的XML文件。每一种layout需要保存在相应的资源目录中，目录以 -&lt;screen_size&gt; 为后缀命名。例如，对大尺寸屏幕(large screens)，一个唯一的layout文件应该保存在 res/layout-large/ 中。</p>
+<blockquote>
+<p>Note:为了匹配合适的屏幕尺寸Android会自动地测量你的layout文件。所以你不需要因不同的屏幕尺寸去担心UI元素的大小，而应该专注于layout结构对用户体验的影响。(比如关键视图相对于同级视图的尺寸或位置)</p>
+</blockquote>
+<p>例如，这个工程包含一个默认layout和一个适配大屏幕的layout：</p>
+<pre><code>MyProject/
+    res/
+        layout/
+            main.xml
+        layout-large/
+            main.xml
+</code></pre><p>layout文件的名字必须完全一样，为了对相应的屏幕尺寸提供最优的UI，文件的内容不同。系统会根据你的app所运行的设备屏幕尺寸，在与之对应的layout目录中加载layout。另一个例子，这一个工程中有为适配横向屏幕的layout:</p>
+<pre><code>MyProject/
+    res/
+        layout/
+            main.xml
+        layout-land/
+            main.xml
+</code></pre><p>默认的， layout/main.xml 文件用作竖屏的layout。如果你想给横屏提供一个特殊的layout，也适配于大屏幕，那么你需要使用 large 和 land 修饰符。</p>
+<pre><code>MyProject/
+    res/
+        layout/ # default (portrait)
+            main.xml
+        layout-land/ # landscape
+            main.xml
+        layout-large/ # large (portrait)
+            main.xml
+        layout-large-land/ # large landscape
+            main.xml
+</code></pre><h3 id="创建不同的bitmap"><a href="#创建不同的bitmap" class="headerlink" title="创建不同的bitmap"></a>创建不同的bitmap</h3><p>你应该为4种普遍分辨率:低，中，高，超高精度，都提供相适配的bitmap资源。这能帮助你在所有屏幕分辨率中都能有良好的画质和效果。要生成这些图像，你应该从原始的矢量图像资源着手，然后根据下列尺寸比例，生成各种密度下的图像。</p>
+<ul>
+<li>xhdpi: 2.0</li>
+<li>hdpi: 1.5</li>
+<li>mdpi: 1.0 (基准)</li>
+<li>ldpi: 0.75</li>
+</ul>
+<p>这意味着，如果你针对xhdpi的设备生成了一张200x200的图像，同样的你应该为hdpi生成150x150,为mdpi生成100x100, 和为ldpi生成75x75的图片资源。然后，将这些文件放入相应的drawable资源目录中:</p>
+<pre><code>MyProject/
+    res/
+        drawable-xhdpi/
+            awesomeimage.png
+        drawable-hdpi/
+            awesomeimage.png
+        drawable-mdpi/
+            awesomeimage.png
+        drawable-ldpi/
+            awesomeimage.png
+</code></pre><h2 id="适配不同的系统版本"><a href="#适配不同的系统版本" class="headerlink" title="适配不同的系统版本"></a>适配不同的系统版本</h2><p>指定最小和目标API级别,AndroidManifest.xml文件中描述了你的app的细节，并且标明app支持哪些Android版本。具体来说， &lt;uses-sdk&gt; 元素中的 minSdkVersion 和 targetSdkVersion 属性，标明在设计和测试app时，最低兼容API的级别和最高适用的API级别(这个最高的级别是需要通过你的测试的)。例如：</p>
+<pre><code>&lt;uses-sdk android:minSdkVersion=&quot;4&quot; android:targetSdkVersion=&quot;15&quot; /&gt;
+</code></pre><p>Android在Build常量类中提供了对每一个版本的唯一代号，在你的app中使用这些代号可以建立条件，保证依赖于高级别的API的代码，只会在这些API在当前系统中可用时，才会执行。</p>
+<pre><code>private void setUpActionBar() {
+    // Make sure we&apos;re running on Honeycomb or higher to use ActionBar APIs
+    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) {
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+}
+</code></pre><p>使用平台风格和主题。Android提供了用户体验主题，为app提供基础操作系统的外观和体验。这些主题可以在manifest文件中被应用于你的app中.通过使用内置的风格和主题，你的app自然地随着Android新版本的发布，自动适配最新的外观和体验。</p>
+<p>使你的activity看起来像对话框:</p>
+<pre><code>&lt;activity android:theme=&quot;@android:style/Theme.Dialog&quot;&gt;
+</code></pre><p>使你的activity有一个透明背景:</p>
+<pre><code>&lt;activity android:theme=&quot;@android:style/Theme.Translucent&quot;&gt;
+</code></pre><p>应用在 /res/values/styles.xml 中定义的自定义主题:</p>
+<pre><code>&lt;activity android:theme=&quot;@style/CustomTheme&quot;&gt;
+</code></pre><p>使整个app应用一个主题(全部activities)在元素中添加 android:theme 属性:</p>
+<pre><code>&lt;application android:theme=&quot;@style/CustomTheme&quot;&gt;
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/30/Android官方培训教程/Android官方培训教程2——兼容不同的设备/" data-id="cj4k7wirs000lto6k4ogcmch3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/08/30/Android官方培训教程/Android官方培训教程3——管理Activity的生命周期/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android官方培训教程3——管理Activity的生命周期
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/08/30/Android官方培训教程/Android官方培训教程1——ActionBar的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android官方培训教程1——ActionBar的使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>3游戏框架的实现 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要游戏框架中接口的实现">
+<meta name="keywords" content="游戏框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3游戏框架的实现">
+<meta property="og:url" content="http://yoursite.com/2015/09/03/Game Frame/3游戏框架的实现/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要游戏框架中接口的实现">
+<meta property="og:updated_time" content="2017-06-30T15:10:58.829Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3游戏框架的实现">
+<meta name="twitter:description" content="摘要游戏框架中接口的实现">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Game Frame/3游戏框架的实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/03/Game Frame/3游戏框架的实现/" class="article-date">
+  <time datetime="2015-09-03T03:23:53.000Z" itemprop="datePublished">2015-09-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      3游戏框架的实现
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>游戏框架中接口的实现<br><a id="more"></a></p>
+<h2 id="开发最佳实践"><a href="#开发最佳实践" class="headerlink" title="开发最佳实践"></a>开发最佳实践</h2><p>Android（更确切地说是Dalvik）有时会有一些奇怪的性能特征，下面是一些重要的最佳实践：</p>
+<ul>
+<li>垃圾回收器是最大的敌人。一旦垃圾回收器得到CPU时间以处理清除工作，它将会让整个系统停止600ms。因此应尽量避免创建太多对象，在内部循环中尤其如此。</li>
+<li>要避免在一些不太明显地方创建对象。不要使用迭代器，因为它们会创建新对象，不要使用任何标准的Set或Map集合类，因为在每个插入操作中它们都将创建新的对象，而应该使用由Android API提供的SparseArray类。用SpringBuffer来替代使用String的“+”运算符连接字符串，这样每次都创建一个新的StringBuffer。另外应尽量避免使用原始类型的包装。</li>
+<li>Dalvik比其他的VM在调用方法时需要更大的开销。如果能使用静态的方法，请尽量使用它们，因为它们的性能最佳。静态方法一般被认为是存在问题的，就像静态变量一样，促成一些糟糕的设计。因此，你应该保持设计尽可能干净。可能也应该避免使用getter和setter方法，直接访问字段的速度大约是没有JIT编译器时方法调用的3倍，有JIT编译器时方法调用的7倍。不过在删除所有的getter和setter方法之前，请再次想一想你的设计。</li>
+<li>在一些旧设备或没有JIT编译器的Dalvik版本中，浮点运算一般通过软件来实现。传统的游戏开发人员一般会针对这些版本使用定点运算，建议也不要这么做，因为整数除法同样也很慢，大多数时候使用浮点运算是可以的，而且新的设备也支持浮点运算单元（FPU），它在支持JIT的情况下可以大幅提升速度。</li>
+<li>尽量在方法内使用局部变量保存频繁访问的值，因为访问局部变量的速度要比访问成员变量或者调用getter函数快很多。</li>
+</ul>
+<h2 id="文件处理AndroidFileIO类"><a href="#文件处理AndroidFileIO类" class="headerlink" title="文件处理AndroidFileIO类"></a>文件处理AndroidFileIO类</h2><p>原始的FileIO接口简洁且有效，它仅包含4个方法：一个方法用于获取资源文件中的InputStream，另一个方法获取外部存储中的文件的InputStream，第三个方法返回外部存储设备上的文件的OutputStream，最后一个方法则获得游戏的SharedPreferences。下面是AndroidFileIO类的代码：</p>
+<pre><code>public class AndroidFileIO implements FileIO {
+    Context context;
+    AssetManager assets;
+    String externalStoragePath;
+
+    public AndroidFileIO(Context context) {
+        this.context = context;
+        this.assets = context.getAssets();
+        this.externalStoragePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
+    }
+
+    public InputStream readAsset(String fileName) throws IOException {
+        return assets.open(fileName);
+    }
+
+    public InputStream readFile(String fileName) throws IOException {
+        return new FileInputStream(externalStoragePath + fileName);
+    }
+
+    public OutputStream writeFile(String fileName) throws IOException {
+        return new FileOutputStream(externalStoragePath + fileName);
+    }
+
+    public SharedPreferences getPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+}
+</code></pre><p>该类实现了FileIO接口，存储了Context实例，存储了一个AssetManager，存储了外部存储的路径，并基于此路径实现了4个方法。</p>
+<p>Game接口的实现将保存这个类的一个实例，并通过Game.getFileIO()返回它。这也意味着Game的实现需要通过Context传入AssetManager，这样才能使AndroidFileIO()实例工作。此时并没有检查外部存储是否可用，如果它不可用，或者我们忘记在清单文件中添加适当的权限，将会得到一个异常，所以错误检查是隐式完全的。</p>
+<h2 id="音频AndroidAudio类，AndroidSound类和AndroidMusic类"><a href="#音频AndroidAudio类，AndroidSound类和AndroidMusic类" class="headerlink" title="音频AndroidAudio类，AndroidSound类和AndroidMusic类"></a>音频AndroidAudio类，AndroidSound类和AndroidMusic类</h2><p><strong>AndroidAudio类的代码</strong></p>
+<pre><code>public class AndroidAudio implements Audio {
+    AssetManager assets;
+    SoundPool soundPool;
+
+    public AndroidAudio(Activity activity) {
+        activity.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        this.assets = activity.getAssets();
+        this.soundPool = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);
+    }
+
+    public Music newMusic(String filename) {
+        try {
+            AssetFileDescriptor assetDescriptor = assets.openFd(filename);
+            return new AndroidMusic(assetDescriptor);
+        } catch (IOException e) {
+            throw new RuntimeException(&quot;Couldn&apos;t load music &apos;&quot; + filename + &quot;&apos;&quot;);
+        }
+    }
+
+    public Sound newSound(String filename) {
+        try {
+            AssetFileDescriptor assetDescriptor = assets.openFd(filename);
+            int soundId = soundPool.load(assetDescriptor, 0);
+            return new AndroidSound(soundPool, soundId);
+        } catch (IOException e) {
+            throw new RuntimeException(&quot;Couldn&apos;t load sound &apos;&quot; + filename + &quot;&apos;&quot;);
+        }
+    }
+}
+</code></pre><p>AndroidAudio实现包含一个AssetManager实例和一个SoundPool实例。在调用newSound()时，必须使用AssetManager将音效从资源文件加载到SoundPool中，SoundPool本身的管理也由AndroidAudio实例来实现。</p>
+<p>newMusic()方法创建了一个新的AndroidMusic实例，抛出Exception但没有将exception传递给调用程序，所以这里宁愿抛出一个不一定要显式捕获的RuntimeException。其次从资源文件中加载音乐，只有忘记把音乐文件添加到assets文件夹或是音乐文件中包含错误的字节时才会失败。为了避免这种情况，游戏框架在其他几个地方也需要抛出Runtime-Exception来代替已检查异常。</p>
+<p>在任何方法中都没有释放SoundPool，这样的原因是，总会有一个Game实例包含一个Audio实例，这个Audio实例又保存一个SoundPool实例。因此SoundPool实例与活动有同样长的生存期，一旦活动结束，它将会被自动销毁。</p>
+<p><strong>AndroidSound类的代码</strong></p>
+<pre><code>public class AndroidSound implements Sound {
+    int soundId;
+    SoundPool soundPool;
+
+    public AndroidSound(SoundPool soundPool, int soundId) {
+        this.soundId = soundId;
+        this.soundPool = soundPool;
+    }
+
+    public void play(float volume) {
+        soundPool.play(soundId, volume, volume, 0, 0, 1);
+    }
+
+    public void dispose() {
+        soundPool.unload(soundId);
+    }
+}
+</code></pre><p><strong>AndroidMusic类的代码</strong></p>
+<p>Music类比较复杂，因为MediaPlayer使用的状态机所导致的，如果调用特定状态的方法，那么它将会不断抛出异常。</p>
+<p>MediaPlayer必须在准备好后才能够调用start()，pause()，stop()方法。在该类中同时实现了OnCompletionListener接口，用来获取MediaPlayer已停止播放音乐文件时的通知。如果这种情况，需要重新准备MediaPlayer才可以再次调用其他方法。OnCompletionListener.onCompletion()方法将在一个单独的线程中被调用，并且设置了一个boolean方法，所以必须确保在并发修改时它是安全的。</p>
+<pre><code>public class AndroidMusic implements Music, OnCompletionListener {
+    MediaPlayer mediaPlayer;
+    boolean isPrepared = false;
+
+    public AndroidMusic(AssetFileDescriptor assetDescriptor) {
+        mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(assetDescriptor.getFileDescriptor(), assetDescriptor.getStartOffset(), assetDescriptor.getLength());
+            mediaPlayer.prepare();
+            isPrepared = true;
+            mediaPlayer.setOnCompletionListener(this);
+        } catch (Exception e) {
+            throw new RuntimeException(&quot;Couldn&apos;t load music&quot;);
+        }
+    }
+
+    public void dispose() {
+        if (mediaPlayer.isPlaying())
+            mediaPlayer.stop();
+        mediaPlayer.release();
+    }
+
+    public boolean isLooping() {
+        return mediaPlayer.isLooping();
+    }
+
+    public boolean isPlaying() {
+        return mediaPlayer.isPlaying();
+    }
+
+    public boolean isStopped() {
+        return !isPrepared;
+    }
+
+    public void pause() {
+        if (mediaPlayer.isPlaying())
+            mediaPlayer.pause();
+    }
+
+    public void play() {
+        if (mediaPlayer.isPlaying())
+            return;
+        try {
+            synchronized (this) {
+                if (!isPrepared)
+                    mediaPlayer.prepare();
+                mediaPlayer.start();
+            }
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setLooping(boolean isLooping) {
+        mediaPlayer.setLooping(isLooping);
+    }
+
+    public void setVolume(float volume) {
+        mediaPlayer.setVolume(volume, volume);
+    }
+
+    public void stop() {
+        mediaPlayer.stop();
+        synchronized (this) {
+            isPrepared = false;
+        }
+    }
+
+    public void onCompletion(MediaPlayer player) {
+        synchronized (this) {
+            isPrepared = false;
+        }
+    }
+}
+</code></pre><h2 id="AccelerometerHandler类和CompassHandler类"><a href="#AccelerometerHandler类和CompassHandler类" class="headerlink" title="AccelerometerHandler类和CompassHandler类"></a>AccelerometerHandler类和CompassHandler类</h2><p><strong>AccelerometerHandler类的代码</strong></p>
+<p>下面是处理加速度的类，这里不需要执行任何同步，尽管onSensorChanged()方法可能在一个不同的线程中被调用，Java的内存模型能够保证对基本的类型（如布尔型，整型或字节型）的写入和读取操作具有原子性。因此只是赋一个新值这是很简单的操作。但是如果在onSensorChanged()方法中对成员变量做了一些修改，就需要正确地进行同步。</p>
+<pre><code>public class AccelerometerHandler implements SensorEventListener {
+    float accelX;
+    float accelY;
+    float accelZ;
+
+    public AccelerometerHandler(Context context) {
+        SensorManager manager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        if (manager.getSensorList(Sensor.TYPE_ACCELEROMETER).size() != 0) {
+            Sensor accelerometer = manager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
+            manager.registerListener(this, accelerometer,SensorManager.SENSOR_DELAY_GAME);
+        }
+    }
+
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // nothing to do here
+    }
+
+    public void onSensorChanged(SensorEvent event) {
+        accelX = event.values[0];
+        accelY = event.values[1];
+        accelZ = event.values[2];
+    }
+
+    public float getAccelX() {
+        return accelX;
+    }
+
+    public float getAccelY() {
+        return accelY;
+    }
+
+    public float getAccelZ() {
+        return accelZ;
+    }
+}
+</code></pre><p><strong>CompassHandler类的代码</strong></p>
+<p>Compass的传感器类型为TYPE_ORIENTATION，并且字段为yaw、pitch、roll。</p>
+<pre><code>public class CompassHandler implements SensorEventListener {
+    float yaw;
+    float pitch;
+    float roll;
+
+    @SuppressWarnings(&quot;deprecation&quot;)
+    public CompassHandler(Context context) {
+        SensorManager manager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        if (manager.getSensorList(Sensor.TYPE_ORIENTATION).size() != 0) {
+            Sensor compass = manager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+            manager.registerListener(this, compass, SensorManager.SENSOR_DELAY_GAME);
+        }
+    }
+
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // nothing to do here
+    }
+
+    public void onSensorChanged(SensorEvent event) {
+        yaw = event.values[0];
+        pitch = event.values[1];
+        roll = event.values[2];
+    }
+
+    public float getYaw() {
+        return yaw;
+    }
+
+    public float getPitch() {
+        return pitch;
+    }
+
+    public float getRoll() {
+        return roll;
+    }
+}
+</code></pre><h2 id="Pool类：对于重用相当有用"><a href="#Pool类：对于重用相当有用" class="headerlink" title="Pool类：对于重用相当有用"></a>Pool类：对于重用相当有用</h2><p>在键盘和触摸事件处理程序中，将不断创建这两个类的实例，并将它们存储在处理程序内部的列表中，因为会不断创建新的实例，这些事件有可能触发垃圾回收机制，导致系统卡顿。为了避免这种情况出现，可以实现一个实例池（instance pooling）的概念，它不是在一个类中不断的创建新实例，而是简单的重用以前创建的实例。</p>
+<pre><code>public class Pool&lt;T&gt; {
+
+    public interface PoolObjectFactory&lt;T&gt; {
+        public T createObject();
+    }
+
+    private final List&lt;T&gt; freeObjects;
+    private final PoolObjectFactory&lt;T&gt; factory;
+    private final int maxSize;
+
+    public Pool(PoolObjectFactory&lt;T&gt; factory, int maxSize) {
+        this.factory = factory;
+        this.maxSize = maxSize;
+        this.freeObjects = new ArrayList&lt;T&gt;(maxSize);
+    }
+
+    public T newObject() {
+        T object = null;
+
+        if (freeObjects.isEmpty())
+            object = factory.createObject();
+        else
+            object = freeObjects.remove(freeObjects.size() - 1);
+        return object;
+    }
+
+    public void free(T object) {
+        if (freeObjects.size() &lt; maxSize)
+            freeObjects.add(object);
+    }
+}
+</code></pre><p>第三个成员maxSize必须得设置，为了Pool不会无限制的增长，否则也会导致内存耗尽。</p>
+<p>这个类的具体使用方法如下：</p>
+<pre><code>PoolObjectFactory&lt;TouchEvent&gt; factory=new PoolObjectFactory&lt;TouchEvent&gt;(){
+    @Override
+    public TouchEvent createObject(){
+        return new TouchEvent();
+    }
+};
+Pool&lt;TouchEvent&gt; touchEventPool=new Pool&lt;TouchEvent&gt;(factory, 50);
+TouchEvent touchEvent=touchEventPool.newObject();
+...do something here...
+touchEventPool.free(touchEvent);
+</code></pre><h2 id="处理键盘输入事件KeyboardHandler类"><a href="#处理键盘输入事件KeyboardHandler类" class="headerlink" title="处理键盘输入事件KeyboardHandler类"></a>处理键盘输入事件KeyboardHandler类</h2><p>第一个成员是一个数组，包含128个boolean值，存储每一个按键的当前状态。每一个按键都有单独的键盘编码，android.view.KeyEvent.KEYCODE_XXX常量都在0-127之间。</p>
+<pre><code>public class KeyboardHandler implements OnKeyListener {
+    boolean[] pressedKeys = new boolean[128];
+    Pool&lt;KeyEvent&gt; keyEventPool;
+    List&lt;KeyEvent&gt; keyEventsBuffer = new ArrayList&lt;KeyEvent&gt;();
+    List&lt;KeyEvent&gt; keyEvents = new ArrayList&lt;KeyEvent&gt;();
+
+    public KeyboardHandler(View view) {
+        PoolObjectFactory&lt;KeyEvent&gt; factory = new PoolObjectFactory&lt;KeyEvent&gt;() {
+            public KeyEvent createObject() {
+                return new KeyEvent();
+            }
+        };
+        keyEventPool = new Pool&lt;KeyEvent&gt;(factory, 100);
+        view.setOnKeyListener(this);
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+    }
+
+    public boolean onKey(View v, int keyCode, android.view.KeyEvent event) {
+        if (event.getAction() == android.view.KeyEvent.ACTION_MULTIPLE)
+            return false;
+
+        synchronized (this) {
+            KeyEvent keyEvent = keyEventPool.newObject();
+            keyEvent.keyCode = keyCode;
+            keyEvent.keyChar = (char) event.getUnicodeChar();
+            if (event.getAction() == android.view.KeyEvent.ACTION_DOWN) {
+                keyEvent.type = KeyEvent.KEY_DOWN;
+                if (keyCode &gt; 0 &amp;&amp; keyCode &lt; 127)
+                    pressedKeys[keyCode] = true;
+            }
+            if (event.getAction() == android.view.KeyEvent.ACTION_UP) {
+                keyEvent.type = KeyEvent.KEY_UP;
+                if (keyCode &gt; 0 &amp;&amp; keyCode &lt; 127)
+                    pressedKeys[keyCode] = false;
+            }
+            keyEventsBuffer.add(keyEvent);
+        }    
+        return false;
+    }
+
+    public boolean isKeyPressed(int keyCode) {
+        if (keyCode &lt; 0 || keyCode &gt; 127)
+            return false;
+        return pressedKeys[keyCode];
+    }
+
+    public List&lt;KeyEvent&gt; getKeyEvents() {
+        synchronized (this) {
+            int len = keyEvents.size();
+            for (int i = 0; i &lt; len; i++) {
+                keyEventPool.free(keyEvents.get(i));
+            }
+            keyEvents.clear();
+            keyEvents.addAll(keyEventsBuffer);
+            keyEventsBuffer.clear();
+            return keyEvents;
+        }
+    }
+}
+</code></pre><p>下面通过示例来探究一下每次UI线程收到一个新事件或者游戏在主线程中获取事件时，keyEvents列表，keyEventBuffer列表和Pool中发生了什么。</p>
+<ul>
+<li>UI thread:onKey-&gt;keyEvents={},keyEventsBuffer={KeyEvent1},pool={}</li>
+<li>Main thread:getKeyEvents()-&gt;keyEvents={KetEvent1},keyEventsBuffer={},pool={}</li>
+<li>UI thread:onKey()-&gt;keyEvents={KeyEvent1},keyEventsBuffer={KeyEvent2},pool={}</li>
+<li>Main thread:onKey()-&gt;keyEvents={KeyEvent2},keyEventsBuffer={},pool={KeyEvent1}</li>
+<li>UI thread:onKey()-&gt;keyEvents={KeyEvent2},keyEventsBuffer={KeyEvent1},pool={}</li>
+</ul>
+<p>这种机制有一点，需要经常调用KeyboardHandler.getKeyEvents()，否则keyEvents列表将很快被填满，而没有对象返回到池中。</p>
+<h2 id="处理触摸输入TouchHandler类"><a href="#处理触摸输入TouchHandler类" class="headerlink" title="处理触摸输入TouchHandler类"></a>处理触摸输入TouchHandler类</h2><p><strong>TouchHandler类的代码</strong></p>
+<pre><code>public interface TouchHandler extends OnTouchListener {
+    public boolean isTouchDown(int pointer);
+
+    public int getTouchX(int pointer);
+
+    public int getTouchY(int pointer);
+
+    public List&lt;TouchEvent&gt; getTouchEvents();
+}
+</code></pre><p><strong>SingleTouchHandler类的代码</strong></p>
+<p>单点触摸事件处理类。当然也可以让KeyboardHandler和SingleTouchHandler派生于一个可以处理所有入池和同步任务的基类，但是这样的话解释起来就更复杂。</p>
+<pre><code>public class SingleTouchHandler implements TouchHandler {
+    boolean isTouched;
+    int touchX;
+    int touchY;
+    Pool&lt;TouchEvent&gt; touchEventPool;
+    List&lt;TouchEvent&gt; touchEvents = new ArrayList&lt;TouchEvent&gt;();
+    List&lt;TouchEvent&gt; touchEventsBuffer = new ArrayList&lt;TouchEvent&gt;();
+    float scaleX;
+    float scaleY;
+
+    public SingleTouchHandler(View view, float scaleX, float scaleY) {
+        PoolObjectFactory&lt;TouchEvent&gt; factory = new PoolObjectFactory&lt;TouchEvent&gt;() {
+            public TouchEvent createObject() {
+                return new TouchEvent();
+            }
+        };
+        touchEventPool = new Pool&lt;TouchEvent&gt;(factory, 100);
+        view.setOnTouchListener(this);
+
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+    }
+
+    public boolean onTouch(View v, MotionEvent event) {
+        synchronized (this) {
+            TouchEvent touchEvent = touchEventPool.newObject();
+            switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                touchEvent.type = TouchEvent.TOUCH_DOWN;
+                isTouched = true;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                touchEvent.type = TouchEvent.TOUCH_DRAGGED;
+                isTouched = true;
+                break;
+            case MotionEvent.ACTION_CANCEL:
+            case MotionEvent.ACTION_UP:
+                touchEvent.type = TouchEvent.TOUCH_UP;
+                isTouched = false;
+                break;
+            }
+
+            touchEvent.x = touchX = (int) (event.getX() * scaleX);
+            touchEvent.y = touchY = (int) (event.getY() * scaleY);
+            touchEventsBuffer.add(touchEvent);
+
+            return true;
+        }
+    }
+
+    public boolean isTouchDown(int pointer) {
+        synchronized (this) {
+            if (pointer == 0)
+                return isTouched;
+            else
+                return false;
+        }
+    }
+
+    public int getTouchX(int pointer) {
+        synchronized (this) {
+            return touchX;
+        }
+    }
+
+    public int getTouchY(int pointer) {
+        synchronized (this) {
+            return touchY;
+        }
+    }
+
+    public List&lt;TouchEvent&gt; getTouchEvents() {
+        synchronized (this) {
+            int len = touchEvents.size();
+            for (int i = 0; i &lt; len; i++)
+                touchEventPool.free(touchEvents.get(i));
+            touchEvents.clear();
+            touchEvents.addAll(touchEventsBuffer);
+            touchEventsBuffer.clear();
+            return touchEvents;
+        }
+    }
+}
+</code></pre><p><strong>MultiTouchHandler类的代码</strong></p>
+<p>这个类所做的事情就是将多点触摸事件与事件入池和同步结合起来。</p>
+<pre><code>public class MultiTouchHandler implements TouchHandler {
+    private static final int MAX_TOUCHPOINTS = 10;
+
+    boolean[] isTouched = new boolean[MAX_TOUCHPOINTS];
+    int[] touchX = new int[MAX_TOUCHPOINTS];
+    int[] touchY = new int[MAX_TOUCHPOINTS];
+    int[] id = new int[MAX_TOUCHPOINTS];
+    Pool&lt;TouchEvent&gt; touchEventPool;
+    List&lt;TouchEvent&gt; touchEvents = new ArrayList&lt;TouchEvent&gt;();
+    List&lt;TouchEvent&gt; touchEventsBuffer = new ArrayList&lt;TouchEvent&gt;();
+    float scaleX;
+    float scaleY;
+
+    public MultiTouchHandler(View view, float scaleX, float scaleY) {
+        PoolObjectFactory&lt;TouchEvent&gt; factory = new PoolObjectFactory&lt;TouchEvent&gt;() {
+            public TouchEvent createObject() {
+                return new TouchEvent();
+            }
+        };
+        touchEventPool = new Pool&lt;TouchEvent&gt;(factory, 100);
+        view.setOnTouchListener(this);
+
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+    }
+
+    @SuppressWarnings(&quot;deprecation&quot;)
+    public boolean onTouch(View v, MotionEvent event) {
+        synchronized (this) {
+            int action = event.getAction() &amp; MotionEvent.ACTION_MASK;
+            int pointerIndex = (event.getAction() &amp; MotionEvent.ACTION_POINTER_ID_MASK) &gt;&gt; MotionEvent.ACTION_POINTER_ID_SHIFT;
+            int pointerCount = event.getPointerCount();
+            TouchEvent touchEvent;
+            for (int i = 0; i &lt; MAX_TOUCHPOINTS; i++) {
+                if (i &gt;= pointerCount) {
+                    isTouched[i] = false;
+                    id[i] = -1;
+                    continue;
+                }
+                int pointerId = event.getPointerId(i);
+                if (event.getAction() != MotionEvent.ACTION_MOVE &amp;&amp; i != pointerIndex) {
+                    // if it&apos;s an up/down/cancel/out event, mask the id to see
+                    // if we should process it for this touch point
+                    continue;
+                }
+                switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    touchEvent = touchEventPool.newObject();
+                    touchEvent.type = TouchEvent.TOUCH_DOWN;
+                    touchEvent.pointer = pointerId;
+                    touchEvent.x = touchX[i] = (int) (event.getX(i) * scaleX);
+                    touchEvent.y = touchY[i] = (int) (event.getY(i) * scaleY);
+                    isTouched[i] = true;
+                    id[i] = pointerId;
+                    touchEventsBuffer.add(touchEvent);
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_POINTER_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    touchEvent = touchEventPool.newObject();
+                    touchEvent.type = TouchEvent.TOUCH_UP;
+                    touchEvent.pointer = pointerId;
+                    touchEvent.x = touchX[i] = (int) (event.getX(i) * scaleX);
+                    touchEvent.y = touchY[i] = (int) (event.getY(i) * scaleY);
+                    isTouched[i] = false;
+                    id[i] = -1;
+                    touchEventsBuffer.add(touchEvent);
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+                    touchEvent = touchEventPool.newObject();
+                    touchEvent.type = TouchEvent.TOUCH_DRAGGED;
+                    touchEvent.pointer = pointerId;
+                    touchEvent.x = touchX[i] = (int) (event.getX(i) * scaleX);
+                    touchEvent.y = touchY[i] = (int) (event.getY(i) * scaleY);
+                    isTouched[i] = true;
+                    id[i] = pointerId;
+                    touchEventsBuffer.add(touchEvent);
+                    break;
+                }
+            }
+            return true;
+        }
+    }
+
+    public boolean isTouchDown(int pointer) {
+        synchronized (this) {
+            int index = getIndex(pointer);
+            if (index &lt; 0 || index &gt;= MAX_TOUCHPOINTS)
+                return false;
+            else
+                return isTouched[index];
+        }
+    }
+
+    public int getTouchX(int pointer) {
+        synchronized (this) {
+            int index = getIndex(pointer);
+            if (index &lt; 0 || index &gt;= MAX_TOUCHPOINTS)
+                return 0;
+            else
+                return touchX[index];
+        }
+    }
+
+    public int getTouchY(int pointer) {
+        synchronized (this) {
+            int index = getIndex(pointer);
+            if (index &lt; 0 || index &gt;= MAX_TOUCHPOINTS)
+                return 0;
+            else
+                return touchY[index];
+        }
+    }
+
+    public List&lt;TouchEvent&gt; getTouchEvents() {
+        synchronized (this) {
+            int len = touchEvents.size();
+            for (int i = 0; i &lt; len; i++)
+                touchEventPool.free(touchEvents.get(i));
+            touchEvents.clear();
+            touchEvents.addAll(touchEventsBuffer);
+            touchEventsBuffer.clear();
+            return touchEvents;
+        }
+    }
+
+    // returns the index for a given pointerId or -1 if no index.
+    private int getIndex(int pointerId) {
+        for (int i = 0; i &lt; MAX_TOUCHPOINTS; i++) {
+            if (id[i] == pointerId) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+</code></pre><h2 id="输入的协调AndroidInput类"><a href="#输入的协调AndroidInput类" class="headerlink" title="输入的协调AndroidInput类"></a>输入的协调AndroidInput类</h2><p>当决定使用哪个TouchHandler时需要根据Android版本来决定。</p>
+<pre><code>public class AndroidInput implements Input {
+    AccelerometerHandler accelHandler;
+    KeyboardHandler keyHandler;
+    TouchHandler touchHandler;
+
+    @SuppressWarnings(&quot;deprecation&quot;)
+    public AndroidInput(Context context, View view, float scaleX, float scaleY) {
+        accelHandler = new AccelerometerHandler(context);
+        keyHandler = new KeyboardHandler(view);
+        if (Integer.parseInt(VERSION.SDK) &lt; 5)
+            touchHandler = new SingleTouchHandler(view, scaleX, scaleY);
+        else
+            touchHandler = new MultiTouchHandler(view, scaleX, scaleY);
+    }
+
+    public boolean isKeyPressed(int keyCode) {
+        return keyHandler.isKeyPressed(keyCode);
+    }
+
+    public boolean isTouchDown(int pointer) {
+        return touchHandler.isTouchDown(pointer);
+    }
+
+    public int getTouchX(int pointer) {
+        return touchHandler.getTouchX(pointer);
+    }
+
+    public int getTouchY(int pointer) {
+        return touchHandler.getTouchY(pointer);
+    }
+
+    public float getAccelX() {
+        return accelHandler.getAccelX();
+    }
+
+    public float getAccelY() {
+        return accelHandler.getAccelY();
+    }
+
+    public float getAccelZ() {
+        return accelHandler.getAccelZ();
+    }
+
+    public List&lt;TouchEvent&gt; getTouchEvents() {
+        return touchHandler.getTouchEvents();
+    }
+
+    public List&lt;KeyEvent&gt; getKeyEvents() {
+        return keyHandler.getKeyEvents();
+    }
+}
+</code></pre><h2 id="AndroidGraphics类和AndroidPixmap类"><a href="#AndroidGraphics类和AndroidPixmap类" class="headerlink" title="AndroidGraphics类和AndroidPixmap类"></a>AndroidGraphics类和AndroidPixmap类</h2><p>关于图形编程有一件事情需要考虑：如何处理不同屏幕大小和分辨率的问题。各种屏幕大小和分辨率很容易造成问题，我们不能假定要在固定的屏幕分辨率上绘制游戏，第二个原因非常微妙：默认两个屏幕有相同的密度，但这在现实中是很少见的。</p>
+<p>为了解决在不同大小屏幕和分辨率的屏幕上的显示效果，在有的游戏中使用不同的纵横比，但是在宽屏的情况下会显示更多的内容，比如“星际争霸2”。或者在宽屏上显示空白，或者使用简单的拉伸。</p>
+<p>有一个简单的技巧：用Bitmap实例的形式给目标分辨率创建一个帧缓冲区。这样在设计图形资源或通过代码进行渲染是就不必担心实际的屏幕分辨率。我们假定所有设备上屏幕的分辨率是相同的。所有绘图调用针对通过Canvas实例产生的“虚拟”帧缓冲区位图。完成渲染游戏的帧之后，通过调用Canvas.drawBitmap()方法，简单地为SurfaceView画出这个帧缓冲区的位图。这是的我们可以得到一个拉伸的位图。</p>
+<p>具体的实现方法：</p>
+<ul>
+<li>为一个固定的目标分辨率设计所有的图形资源。</li>
+<li>创建一个大小与目标分辨率相同的Bitmap，并且针对它调用所有的绘图函数，从而在一个固定的坐标系统中高效的工作。</li>
+<li>当完成帧的绘制时，在SurfaceView上绘制拉伸后的帧缓冲区的位图，在设备分辨率较低的情况下，图像将被缩小；但在设备分辨率比较高的情况下，图像将被放大。</li>
+<li>在进行缩放的时候，必须确保所有用于用户交互的UI元素在所有的屏幕密度下都足够大，这是结合实际设备的大小和前面提到的公式在图形资源设计阶段所做的事情。</li>
+</ul>
+<p>并且屏幕接受触摸事件的x和y坐标在View的坐标系统中定义，而不是目标分辨率的坐标系统中定义。因此，需要将坐标从原坐标系统转换到我们基于缩放因子的系统。</p>
+<pre><code>transformed touch x=real touch x*(target pixels on x axis / real pixels on x axis)
+transformed touch y=real touch y*(target pixels on y axis / real pixels on y axis)
+</code></pre><p>这里用一个简单的示例进行说明，目标分辨率为320<em>480像素，设备分辨率为480</em>800像素。如果触摸的位置在屏幕的（240，400）。那么</p>
+<pre><code>transformed touch x=120*(320/240)=160
+transformed touch y=160*(480/320)=240
+</code></pre><p><strong>AndroidPixmap类的代码</strong></p>
+<pre><code>public class AndroidPixmap implements Pixmap {
+    Bitmap bitmap;
+    PixmapFormat format;
+
+    public AndroidPixmap(Bitmap bitmap, PixmapFormat format) {
+        this.bitmap = bitmap;
+        this.format = format;
+    }
+
+    public int getWidth() {
+        return bitmap.getWidth();
+    }
+
+    public int getHeight() {
+        return bitmap.getHeight();
+    }
+
+    public PixmapFormat getFormat() {
+        return format;
+    }
+
+    public void dispose() {
+        bitmap.recycle();
+    }
+}
+</code></pre><p><strong>AndroidGraphics类的代码</strong></p>
+<p>这个类有一个将来用来加载Bitmap实例的AssetManager成员变量，一个表示人工帧缓冲区的Bitmap成员变量，一个用来绘制到人工帧缓冲区的Canvas成员变量，一个用来绘图的Paint，以及用来实现AndroidGraphics.drawPixmap()方法的两个Rect成员。使用后三个成员是为了避免每次调用绘图函数时创建新的实例，否则会使垃圾回收器运行异常。</p>
+<pre><code>public class AndroidGraphics implements Graphics {
+    AssetManager assets;
+    Bitmap frameBuffer;
+    Canvas canvas;
+    Paint paint;
+    Rect srcRect = new Rect();
+    Rect dstRect = new Rect();
+
+    public AndroidGraphics(AssetManager assets, Bitmap frameBuffer) {
+        this.assets = assets;
+        this.frameBuffer = frameBuffer;
+        this.canvas = new Canvas(frameBuffer);
+        this.paint = new Paint();
+    }
+
+    public Pixmap newPixmap(String fileName, PixmapFormat format) {
+        Config config = null;
+        if (format == PixmapFormat.RGB565)
+            config = Config.RGB_565;
+        else if (format == PixmapFormat.ARGB4444)
+            config = Config.ARGB_4444;
+        else
+            config = Config.ARGB_8888;
+
+        Options options = new Options();
+        options.inPreferredConfig = config;
+
+        InputStream in = null;
+        Bitmap bitmap = null;
+        try {
+            in = assets.open(fileName);
+            bitmap = BitmapFactory.decodeStream(in);
+            if (bitmap == null)
+                throw new RuntimeException(&quot;Couldn&apos;t load bitmap from asset &apos;&quot; + fileName + &quot;&apos;&quot;);
+        } catch (IOException e) {
+            throw new RuntimeException(&quot;Couldn&apos;t load bitmap from asset &apos;&quot; + fileName + &quot;&apos;&quot;);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+
+        if (bitmap.getConfig() == Config.RGB_565)
+            format = PixmapFormat.RGB565;
+        else if (bitmap.getConfig() == Config.ARGB_4444)
+            format = PixmapFormat.ARGB4444;
+        else
+            format = PixmapFormat.ARGB8888;
+
+        return new AndroidPixmap(bitmap, format);
+    }
+
+    public void clear(int color) {
+        canvas.drawRGB((color &amp; 0xff0000) &gt;&gt; 16, (color &amp; 0xff00) &gt;&gt; 8, (color &amp; 0xff));
+    }
+
+    public void drawPixel(int x, int y, int color) {
+        paint.setColor(color);
+        canvas.drawPoint(x, y, paint);
+    }
+
+    public void drawLine(int x, int y, int x2, int y2, int color) {
+        paint.setColor(color);
+        canvas.drawLine(x, y, x2, y2, paint);
+    }
+
+    public void drawRect(int x, int y, int width, int height, int color) {
+        paint.setColor(color);
+        paint.setStyle(Style.FILL);
+        canvas.drawRect(x, y, x + width - 1, y + width - 1, paint);
+    }
+
+    public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight) {
+        srcRect.left = srcX;
+        srcRect.top = srcY;
+        srcRect.right = srcX + srcWidth - 1;
+        srcRect.bottom = srcY + srcHeight - 1;
+
+        dstRect.left = x;
+        dstRect.top = y;
+        dstRect.right = x + srcWidth - 1;
+        dstRect.bottom = y + srcHeight - 1;
+
+        canvas.drawBitmap(((AndroidPixmap) pixmap).bitmap, srcRect, dstRect, null);
+    }
+
+    public void drawPixmap(Pixmap pixmap, int x, int y) {
+        canvas.drawBitmap(((AndroidPixmap) pixmap).bitmap, x, y, null);
+    }
+
+    public int getWidth() {
+        return frameBuffer.getWidth();
+    }
+
+    public int getHeight() {
+        return frameBuffer.getHeight();
+    }
+}
+</code></pre><h2 id="AndroidFastRenderView类的代码"><a href="#AndroidFastRenderView类的代码" class="headerlink" title="AndroidFastRenderView类的代码"></a>AndroidFastRenderView类的代码</h2><p>该类从SurfaceView类派生，确保很好的处理活动的生命周期，建立一个线程，通过一个Canvas实例不断对SurfaceView进行渲染。同时它还做了其他事情</p>
+<ul>
+<li>它将保存对Game实例的一个引用，从中可一个得到一个活跃的Screen实例。我们将从FastRenderView线程中不断调用Screen.update()和Screen.present()方法。</li>
+<li>它会跟踪传递给活跃的Screen实例的帧时间差。</li>
+</ul>
+<p>它将获取人工帧缓冲区，AndroidGraphics实例在其中绘图，然后将该帧缓冲区绘制到SurfaceView中，必要时进行缩放。</p>
+<pre><code>public class AndroidFastRenderView extends SurfaceView implements Runnable {
+    AndroidGame game;
+    Bitmap framebuffer;
+    Thread renderThread = null;
+    SurfaceHolder holder;
+    volatile boolean running = false;
+
+    public AndroidFastRenderView(AndroidGame game, Bitmap framebuffer) {
+        super(game);
+        this.game = game;
+        this.framebuffer = framebuffer;
+        this.holder = getHolder();
+    }
+
+    public void resume() {
+        running = true;
+        renderThread = new Thread(this);
+        renderThread.start();
+    }
+
+    public void run() {
+        Rect dstRect = new Rect();
+        long startTime = System.nanoTime();
+        while (running) {
+            if (!holder.getSurface().isValid())
+                continue;
+
+            float deltaTime = (System.nanoTime() - startTime) / 1000000000.0f;
+            startTime = System.nanoTime();
+
+            game.getCurrentScreen().update(deltaTime);
+            game.getCurrentScreen().present(deltaTime);
+
+            Canvas canvas = holder.lockCanvas();
+            canvas.getClipBounds(dstRect);
+            canvas.drawBitmap(framebuffer, null, dstRect, null);
+            holder.unlockCanvasAndPost(canvas);
+        }
+    }
+
+    public void pause() {
+        running = false;
+        while (true) {
+            try {
+                renderThread.join();
+                return;
+            } catch (InterruptedException e) {
+                // retry
+            }
+        }
+    }
+}
+</code></pre><p>通过使用Canvas.getClipBounds()方法将该矩形延伸到整个SurfaceView。</p>
+<h2 id="整合各个部分，AndroidGame类的代码"><a href="#整合各个部分，AndroidGame类的代码" class="headerlink" title="整合各个部分，AndroidGame类的代码"></a>整合各个部分，AndroidGame类的代码</h2><p>整合各个部分需要执行的任务是</p>
+<ul>
+<li>执行窗口管理。</li>
+<li>使用和管理WakeLock，使屏幕不会变暗</li>
+<li>实例化并分配对Graphics、Audio、FileIO和Input的引用。</li>
+<li>管理Screen实例，并将它们与活动的生命周期相结合。</li>
+<li>总体目标是有一个可以派生其他类的AndroidGame。</li>
+</ul>
+<p>具体代码如下：</p>
+<pre><code>public abstract class AndroidGame extends Activity implements Game {
+    AndroidFastRenderView renderView;
+    Graphics graphics;
+    Audio audio;
+    Input input;
+    FileIO fileIO;
+    Screen screen;
+    WakeLock wakeLock;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        int frameBufferWidth = isLandscape ? 480 : 320;
+        int frameBufferHeight = isLandscape ? 320 : 480;
+        Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth, frameBufferHeight, Config.RGB_565);
+
+        float scaleX = (float) frameBufferWidth / getWindowManager().getDefaultDisplay().getWidth();
+        float scaleY = (float) frameBufferHeight / getWindowManager().getDefaultDisplay().getHeight();
+
+        renderView = new AndroidFastRenderView(this, frameBuffer);
+        graphics = new AndroidGraphics(getAssets(), frameBuffer);
+        fileIO = new AndroidFileIO(this);
+        audio = new AndroidAudio(this);
+        input = new AndroidInput(this, renderView, scaleX, scaleY);
+        screen = getStartScreen();
+        setContentView(renderView);
+
+        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, &quot;GLGame&quot;);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        wakeLock.acquire();
+        screen.resume();
+        renderView.resume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        wakeLock.release();
+        renderView.pause();
+        screen.pause();
+
+        if (isFinishing())
+            screen.dispose();
+    }
+
+    public Input getInput() {
+        return input;
+    }
+
+    public FileIO getFileIO() {
+        return fileIO;
+    }
+
+    public Graphics getGraphics() {
+        return graphics;
+    }
+
+    public Audio getAudio() {
+        return audio;
+    }
+
+    public void setScreen(Screen screen) {
+        if (screen == null)
+            throw new IllegalArgumentException(&quot;Screen must not be null&quot;);
+
+        this.screen.pause();
+        this.screen.dispose();
+        screen.resume();
+        screen.update(0);
+        this.screen = screen;
+    }
+
+    public Screen getCurrentScreen() {
+        return screen;
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/09/03/Game Frame/3游戏框架的实现/" data-id="cj4k7witr001zto6kvv50gqbs" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/游戏框架/">游戏框架</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/09/04/Game Frame/4一个2D游戏的例子/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          4一个2D游戏的例子
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/03/Android官方培训教程/Android官方培训教程10——多媒体打印/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android官方培训教程10——多媒体打印</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

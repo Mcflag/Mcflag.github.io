@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SharedPreferences，AlertDialog，LayoutInflater的使用 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要包括SharedPreferences，AlertDialog，LayoutInflater的使用">
+<meta name="keywords" content="Android基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SharedPreferences，AlertDialog，LayoutInflater的使用">
+<meta property="og:url" content="http://yoursite.com/2015/07/02/Android for Programmers/2基础组件/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要包括SharedPreferences，AlertDialog，LayoutInflater的使用">
+<meta property="og:updated_time" content="2017-06-30T14:18:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SharedPreferences，AlertDialog，LayoutInflater的使用">
+<meta name="twitter:description" content="摘要包括SharedPreferences，AlertDialog，LayoutInflater的使用">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android for Programmers/2基础组件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/02/Android for Programmers/2基础组件/" class="article-date">
+  <time datetime="2015-07-02T14:10:59.000Z" itemprop="datePublished">2015-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SharedPreferences，AlertDialog，LayoutInflater的使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>包括SharedPreferences，AlertDialog，LayoutInflater的使用</p>
+<a id="more"></a>
+<h2 id="SharedPreferences的使用"><a href="#SharedPreferences的使用" class="headerlink" title="SharedPreferences的使用"></a>SharedPreferences的使用</h2><p>SharedPreferences对象存储键值对，键为String类型，值为基本类型或String类型。得到SharedPreferences的方法是：</p>
+<pre><code>SharedPreferences sp=getSharedPreferences(&quot;FileContainTheValue&quot;,MODE_PRIVATE);
+</code></pre><p>MODE_PRIVATE指文件只能由这个应用访问。<br>MODE_WORLD_READABLE指设备上的任何应用都能读这个数据<br>MODE_WORLD_WRITABLE指设备上的任何应用都能够写入这个数据</p>
+<p>获得全部内容 sp.getAll()，获得某数据 sp.getString(“键”，“默认值”);</p>
+<p>写入数据的方法</p>
+<pre><code>SharedPreferences.Editor editor=sp.edit();
+editor.putString(&quot;键&quot;, &quot;值&quot;);
+editor.apply();//修改完后需要提交
+</code></pre><h2 id="LayoutInflater的使用"><a href="#LayoutInflater的使用" class="headerlink" title="LayoutInflater的使用"></a>LayoutInflater的使用</h2><p>要填充布局，先要获得一个服务的引用</p>
+<pre><code>LayoutInflater inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+</code></pre><p>然后再使用填充，inflater.inflate(resource,root)，</p>
+<pre><code>View newView=inflater.inflate(R.layout.tag, null);
+</code></pre><p>添加view，index指在指定的这处添加。</p>
+<pre><code>parentView.add(newView,index);
+</code></pre><h2 id="隐藏软键盘"><a href="#隐藏软键盘" class="headerlink" title="隐藏软键盘"></a>隐藏软键盘</h2><p>直接上代码，使用这一句就能够隐藏软键盘</p>
+<pre><code>// hide soft keyboard
+((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), 0);
+</code></pre><h2 id="AlertDialog的使用"><a href="#AlertDialog的使用" class="headerlink" title="AlertDialog的使用"></a>AlertDialog的使用</h2><p>需要先使用一个AlertDialog.Builder对象，然后用它来创建AlertDialog。</p>
+<pre><code>AlertDialog.Builder builder=new AlertDialog.Builder(this);
+builder.setTitle(&quot;title&quot;);
+builder.setPositiveButton(&quot;OK&quot;, onClickListener);
+builder.setNegativeButton(&quot;Cancel&quot;, onClickListener);
+builder.setMessage(&quot;Message to display&quot;);
+
+AlertDialog errorDialog=builder.create();
+errorDialog.show();
+</code></pre><h2 id="开启浏览器"><a href="#开启浏览器" class="headerlink" title="开启浏览器"></a>开启浏览器</h2><p>使用系统的浏览器，需要使用intent传递url</p>
+<pre><code>String urlString=&quot;www.baidu.com&quot;;
+Intent getUrl=new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+startActivity(getUrl);
+</code></pre><h2 id="Manifest设置"><a href="#Manifest设置" class="headerlink" title="Manifest设置"></a>Manifest设置</h2><p>在Activity的声明中添加下面一行，表明启动Activity时不会显示软键盘。</p>
+<pre><code>android:windowSoftInputMode=&quot;stateAlwaysHidden&quot;
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/07/02/Android for Programmers/2基础组件/" data-id="cj4k7wir60002to6k17a0ijtz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android基础/">Android基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/07/05/Android for Programmers/3基础组件/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用Animation和assets资源
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/06/28/Code Complete/代码大全笔记7/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">代码大全笔记7</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

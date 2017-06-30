@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>算法导论笔记1 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要插入排序的分析">
+<meta name="keywords" content="算法导论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法导论笔记1">
+<meta property="og:url" content="http://yoursite.com/2015/05/21/Introduction to Algorithms/算法导论笔记1/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要插入排序的分析">
+<meta property="og:updated_time" content="2017-06-30T14:16:38.600Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法导论笔记1">
+<meta name="twitter:description" content="摘要插入排序的分析">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Introduction to Algorithms/算法导论笔记1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/21/Introduction to Algorithms/算法导论笔记1/" class="article-date">
+  <time datetime="2015-05-21T14:30:00.000Z" itemprop="datePublished">2015-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      算法导论笔记1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>插入排序的分析<br><a id="more"></a></p>
+<h2 id="第2章-算法基础"><a href="#第2章-算法基础" class="headerlink" title="第2章 算法基础"></a>第2章 算法基础</h2><h3 id="2-1-插入排序"><a href="#2-1-插入排序" class="headerlink" title="2.1 插入排序"></a>2.1 插入排序</h3><blockquote>
+<p>排序的描述<br>输入：n个数的一个序列a1, a2, …, an<br>输出：输出序列的一个排序,满足a1&lt;=a2&lt;=…&lt;=an。</p>
+</blockquote>
+<p><br>一个有效的方法是插入排序。<br><br><br>INSERTION-SORT<br>——From the smallest ont to the biggest one<br></p>
+
+
+<pre><code>ArrayList&lt;int&gt; alist=new ArrayList&lt;int&gt;;
+int i=0;
+for(int j = 1; j&lt;=alist.size(); j++){
+    int key = alist.get(j);
+    i=j-1;
+    while(i&gt;=0 &amp;&amp; alist.get(i)&gt;key){
+        alist.get(i+1)=alist.get(i);
+        i=i-1;
+    }
+    alist.get(i+1)=key;
+}
+</code></pre><p><br>用三点性质证明算法正确性<br>1. 初始化：循环的第一次迭代之前，它为真。<br>2. 保持：如果循环的某次迭代之前它为真，那么下次迭代之前它仍为真。<br>3. 终止：在循环终止时，不变式为我们提供一个有用的性质，该性质有助于证明算法正确性。<br></p>
+
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><h4 id="1-重写代码，使其按降序排列"><a href="#1-重写代码，使其按降序排列" class="headerlink" title="1 重写代码，使其按降序排列"></a>1 重写代码，使其按降序排列</h4><p>INSERTION-SORT<br>——From the biggest ont to the smallest one</p>
+<pre><code>ArrayList&lt;int&gt; alist=new ArrayList&lt;int&gt;;
+int i=0;
+for(int j = 1; j&lt;=alist.size(); j++){
+    int key = alist.get(j);
+    i=j-1;
+    while(i&gt;=0 &amp;&amp; alist.get(i)&lt;key){
+        alist.get(i+1)=alist.get(i);
+        i=i-1;
+    }
+    alist.get(i+1)=key;    
+}
+</code></pre><h4 id="2-考虑查找问题"><a href="#2-考虑查找问题" class="headerlink" title="2 考虑查找问题"></a>2 考虑查找问题</h4><blockquote>
+<p>输入：n个数的一个序列A=a1, a2, …, an和一个值v。<br>输出：下标i使得v=A[i]或者当v不在A中出现时，v为特殊值NIL。<br>写出线性查找代码，扫描整个序列来查找v。并证明算法正确性。</p>
+</blockquote>
+<p>实际上这应该就是个线性查询</p>
+<pre><code>for(int i=0;i&lt;n;i++){
+    if(A[i]==v){
+        result=i;
+        break;
+    }
+}
+result=NIL;
+</code></pre><ol>
+<li>初始不知道是否存在A[i]等于v。</li>
+<li>每次循环结束，要么当前值A[i]等于v，则结果为i；要么当前值与v不等，则继续。</li>
+<li>循环结束，证明没有相等的值，返回NIL。</li>
+</ol>
+<h4 id="3-考虑把两个n位二进制整数相加的情况"><a href="#3-考虑把两个n位二进制整数相加的情况" class="headerlink" title="3 考虑把两个n位二进制整数相加的情况"></a>3 考虑把两个n位二进制整数相加的情况</h4><blockquote>
+<p>这两个整数分别存在两个n元数组A和B中，这两个整数的和应按二进制形式存储在一个(n+1)元数组C中，给出该问题的形式化描述，并写出伪代码。</p>
+</blockquote>
+<p>输入：两个n元数组A[n]和B[n]，每位只能存储0和1。<br>输出：C[n+1]，满足以下两条规则：如果A[n]+B[n] &lt;= 1，C[n+1]=A[n]+B[n]，；或如果A[n]+B[n]=2，C[n+1]=0 且 C[n]=A[n-1]+B[n-1]+1，。</p>
+<pre><code>int flag=0;
+for(int i=n; i&gt;0; i--){
+    c[i] = (a[i-1]+b[i-1]+flag) % 2;
+    if((a[i-1]+b[i-1]+flag)&gt;=2){
+        flag=1;
+    }else{
+        flag=0;
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/05/21/Introduction to Algorithms/算法导论笔记1/" data-id="cj4k7wity002cto6k8cvbtdtw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法导论/">算法导论</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/05/23/Introduction to Algorithms/算法导论笔记2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          算法导论笔记2
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

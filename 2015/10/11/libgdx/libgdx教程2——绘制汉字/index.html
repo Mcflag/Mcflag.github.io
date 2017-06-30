@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Libgdx教程2——绘制汉字 | 柒夜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要Libgdx教程，绘制汉字。">
+<meta name="keywords" content="libgdx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Libgdx教程2——绘制汉字">
+<meta property="og:url" content="http://yoursite.com/2015/10/11/libgdx/libgdx教程2——绘制汉字/index.html">
+<meta property="og:site_name" content="柒夜">
+<meta property="og:description" content="摘要Libgdx教程，绘制汉字。">
+<meta property="og:updated_time" content="2017-06-30T14:14:51.088Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Libgdx教程2——绘制汉字">
+<meta name="twitter:description" content="摘要Libgdx教程，绘制汉字。">
+  
+    <link rel="alternate" href="/atom.xml" title="柒夜" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">柒夜</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">暗夜之虫 会集光中</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-libgdx/libgdx教程2——绘制汉字" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/11/libgdx/libgdx教程2——绘制汉字/" class="article-date">
+  <time datetime="2015-10-11T02:10:10.000Z" itemprop="datePublished">2015-10-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Libgdx教程2——绘制汉字
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Libgdx教程，绘制汉字。<br><a id="more"></a></p>
+<h2 id="显示汉字的基本方法"><a href="#显示汉字的基本方法" class="headerlink" title="显示汉字的基本方法"></a>显示汉字的基本方法</h2><p>在libgdx中的汉字可以通过贴图的方式显示的，使用BitmapFont和SpriteBatch组合来完成文字的绘制。BitmapFont类是有关于文字绘制的，使用方式是：</p>
+<pre><code>public BitmapFont(){
+    this(Gdx.files.classpath(&quot;com/badlogic/gdx/utils/arial-15.fnt&quot;),
+        Gdx.files.classpath(&quot;com/badlogic/gdx/utils/arial-15.png&quot;), false, true)
+}
+</code></pre><p>这是默认的构造函数，可以看出它加载了两个文件arial-15.fnt和arial-15.png。libgdx的文字绘制是根据fnt文件获取对应文字的在png中的坐标位置，然后截取图片的相应部分进行绘制。那么要让libgdx支持中文思路就很简单了，我们自己构造fnt和png文件，其中包含我们要使用的中文即可。作者给我们提供了一个对应的工具：Hiero。通过应用生成两个文件，放在assets文件夹中。</p>
+<pre><code>bitmapFont = new BitmapFont(Gdx.files.internal(&quot;cf.fnt&quot;), Gdx.files.internal(&quot;cf.png&quot;), false);
+bitmapFont.draw(spriteBatch, &quot;FPS&quot; + Gdx.graphics.getFramesPerSecond(), 5, Gdx.graphics.getHeight() - 10); 
+bitmapFont.draw(spriteBatch, &quot;祝大家光棍节快乐&quot;, 0, Gdx.graphics.getHeight()/2-8);
+</code></pre><p>关于多行文字可以调用：</p>
+<pre><code>public TextBounds drawMultiLine(SpriteBatch spriteBatch, CharSequence str, float x, float y)
+</code></pre><p>或者</p>
+<pre><code>public TextBounds drawMultiLine (SpriteBatch spriteBatch, CharSequence str, float x, float y, float alignmentWidth,HAlignment alignment)
+</code></pre><h2 id="使用字体文件"><a href="#使用字体文件" class="headerlink" title="使用字体文件"></a>使用字体文件</h2><p>前面显示中文时使用了BitmapFont（位图字体），这样虽然方便，但是有一个严重的问题：BitmapFont严重依赖图像，如果你需要不同尺寸那将不得不进行比例调整。解决的办法是使用libgdx的扩展，gdx-greetype。仅需要随游戏发布ttf，在运行时动态产生所需的BitmapFont，用户能够在你的游戏里使用自己希望看到的字体。</p>
+<p>gdx-freetype作为libgdx的扩展，在android项目中使用时需要导入so库和gdx-freetype.jar包。</p>
+<h2 id="FreeTypeFontGenerator类"><a href="#FreeTypeFontGenerator类" class="headerlink" title="FreeTypeFontGenerator类"></a>FreeTypeFontGenerator类</h2><p>功能：FreeTypeFontGenerator类是用来保存和解析”.ttf”的字体文件然后备用。一般都配合FreeTypeBitmapFontData来使用。字体文件名称不能有中文。</p>
+<pre><code>private FreeTypeFontGenerator generator;
+generator =new FreeTypeFontGenerator(Gdx.files.internal(&quot;data/bold.TTF&quot;));
+</code></pre><h2 id="FreeTypeBitmapFontData类"><a href="#FreeTypeBitmapFontData类" class="headerlink" title="FreeTypeBitmapFontData类"></a>FreeTypeBitmapFontData类</h2><p>功能：负责处理FreeTypeFontGenerator的数据。</p>
+<p>使用方法：先看代码：</p>
+<pre><code>FreeTypeBitmapFontData fontData=freetypeGenerator.generateData(int size,some chinese string, false);
+</code></pre><p>第一个参数是字号的大小，第二个是中文的字符串，汉字需要加引号，第三个翻转状态。</p>
+<p>FreeTypeBitmapFontData中有个static final String DEFAULT_CHARS，相当于已经封装好了基本的英文字符，即使ttf文件中没有英文字符也可以输出英文字符。</p>
+<p>这里的中文字符串中不允许出现重复字符，否则会出现“Key with name ‘<em>**</em>‘ is already in map”的错误。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><pre><code>private BitmapFont font;
+private FreeTypeFontGenerator generator;
+private FreeTypeBitmapFontData fontData;
+private SpriteBatch batch;
+
+@Override
+public void create() {
+    generator = new FreeTypeFontGenerator(Gdx.files.internal(&quot;data/Baby.TTF&quot;));
+    fontData = generator.generateData(25, generator.DEFAULT_CHARS+ &quot;长的帅人告白才叫，丑男那性骚扰。&quot;, false);// 这里需要把你要输出的字，全部写上，前提是不能有重复的字。
+    font = new BitmapFont(fontData, fontData.getTextureRegion(), false);
+    font.setColor(Color.RED);
+    batch = new SpriteBatch();
+}
+
+@Override
+public void render() {
+    Gdx.gl.glClearColor(1, 1, 1, 1);
+    Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+    batch.begin();
+    font.drawMultiLine(batch,&quot;hello: \n \n长的帅的人告白才叫告白，\n长的丑的男人告白那叫性骚扰。&quot;, 50, 220);
+    batch.end();
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/11/libgdx/libgdx教程2——绘制汉字/" data-id="cj4k7wiu5002oto6kmk7l3mq7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/libgdx/">libgdx</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/13/libgdx/libgdx教程3——动画/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Libgdx教程3——动画
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/10/libgdx/libgdx教程1——图形绘制/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Libgdx教程1——图形绘制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android基础/">Android基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android官方培训教程/">Android官方培训教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Page/">GitHub Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libgdx/">libgdx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码大全/">代码大全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏框架/">游戏框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态独立博客/">静态独立博客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android基础/" style="font-size: 16px;">Android基础</a> <a href="/tags/Android官方培训教程/" style="font-size: 18px;">Android官方培训教程</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-Page/" style="font-size: 10px;">GitHub Page</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/libgdx/" style="font-size: 14px;">libgdx</a> <a href="/tags/代码大全/" style="font-size: 16px;">代码大全</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a> <a href="/tags/游戏框架/" style="font-size: 20px;">游戏框架</a> <a href="/tags/算法导论/" style="font-size: 12px;">算法导论</a> <a href="/tags/静态独立博客/" style="font-size: 10px;">静态独立博客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/28/Other/GitHub-Pages-Hexo搭建博客/">GitHub Pages + Hexo搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/Android programming the big nerd ranch guide/Android编程权威指南笔记1/">Android编程权威指南笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/php/PHP基础函数1/">PHP基础函数1</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/15/libgdx/libgdx教程4——控件（未完成）/">Libgdx教程4——控件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/13/libgdx/libgdx教程3——动画/">Libgdx教程3——动画</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 柒夜<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
