@@ -2,6 +2,7 @@ layout: draft
 title: GitHub Pages + Hexo搭建博客
 comment: true
 tags: [技术, 静态独立博客, Hexo, GitHub Page, Git]
+categories: [技术宅]
 date: 2016-12-28 22:40:50
 updated: 2016-12-29 15:12:00
 ---
@@ -247,3 +248,38 @@ Hexo部署到GitHub上的文件，是.md（你的博文）转化之后的.html�
 1. 使用git clone git@github.com:username/username.github.io.git拷贝仓库（默认分支为hexo）；
 2. 在本地新拷贝的username.github.io文件夹下通过Git bash依次执行下列指令：npm install hexo、npm install、npm install hexo-deployer-git（记得，不需要hexo init这条指令）。
 
+
+## 五、文章格式
+### Front-matter
+
+
+	参数          描述                  默认值
+	-----------------------------------------------
+	layout       布局                   post
+	title        标题                   文件名
+	date         建立日期               文件建立日期
+	updated      更新日期               文件更新日期
+	tags         标签（不适用于分页）	
+	categories   分类（不适用于分页）	
+	permalink    覆盖文章网址	
+	thumbnail    缩略图地址	
+	toc          显示 TOC 按钮          true
+	comment      显示评论               true
+	notag        不生成标签按钮          false
+	top          置顶                   false
+	mathJax      启用                   Mathjax false
+
+
+### 缩略图功能
+
+在 Material 主题中，每个 Scheme 都有缩略图功能。
+只需要在 Front-matter 中添加参数 thumbnail:，然后填入缩略图地址即可。
+
+#### Paradox
+
+此 Scheme 如果没有自定义缩略图，则使用默认随机缩略图，随机缩略图目录位于主题文件夹下 source -> img -> random。
+随机缩略图可添加自己喜好的图片，格式为 <num>.png 。然后在 主题配置文件 中 thumbnail:random_amount 修改缩略图数量。
+
+#### Isolation
+
+此 Scheme 只会显示已自定义缩略图。
