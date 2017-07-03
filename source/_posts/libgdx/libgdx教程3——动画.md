@@ -1,6 +1,7 @@
 title: Libgdx教程3——动画
 date: 2015-10-13 21:52:22
 tags: [libgdx]
+categories: [libgdx]
 ---
 
 ## 摘要

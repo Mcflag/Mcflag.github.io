@@ -1,6 +1,7 @@
 title: Libgdx教程2——绘制汉字
 date: 2015-10-11 10:10:10
 tags: [libgdx]
+categories: [libgdx]
 ---
 
 ## 摘要

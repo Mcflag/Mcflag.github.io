@@ -1,6 +1,7 @@
-title: 2游戏框架中的Android基础
+title: 2、游戏框架中的Android基础
 date: 2015-08-31 23:17:22
 tags: [游戏框架]
+categories: [游戏框架]
 ---
 
 ## 摘要

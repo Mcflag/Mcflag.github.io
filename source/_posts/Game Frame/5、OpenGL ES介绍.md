@@ -1,6 +1,7 @@
-title: 5OpenGL ES介绍
+title: 5、OpenGL ES介绍
 date: 2015-09-05 22:27:34
 tags: [游戏框架]
+categories: [游戏框架]
 ---
 
 ## 摘要

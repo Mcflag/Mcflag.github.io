@@ -1,6 +1,7 @@
-title: 8OpenGL示例下
+title: 8、OpenGL示例下
 date: 2015-09-12 22:31:43
 tags: [游戏框架]
+categories: [游戏框架]
 ---
 
 ## 摘要

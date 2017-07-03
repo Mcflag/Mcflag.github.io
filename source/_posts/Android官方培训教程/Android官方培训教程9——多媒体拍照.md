@@ -1,6 +1,7 @@
 title: Android官方培训教程9——多媒体拍照和视频
 date: 2015-08-31 23:30:41
 tags: [Android官方培训教程]
+categories: [Android官方培训教程]
 ---
 
 ## 摘要

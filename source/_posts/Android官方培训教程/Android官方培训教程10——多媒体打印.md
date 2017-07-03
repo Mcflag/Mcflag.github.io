@@ -1,6 +1,7 @@
 title: Android官方培训教程10——多媒体打印
 date: 2015-09-03 11:10:07
 tags: [Android官方培训教程]
+categories: [Android官方培训教程]
 ---
 
 ## 摘要

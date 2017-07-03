@@ -1,6 +1,7 @@
 title: Libgdx教程4——控件
 date: 2015-10-15 22:45:57
 tags: [libgdx]
+categories: [libgdx]
 ---
 
 ## 摘要

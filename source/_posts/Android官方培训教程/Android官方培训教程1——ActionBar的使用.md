@@ -1,6 +1,7 @@
 title: Android官方培训教程1——ActionBar的使用
 date: 2015-08-30 15:18:10
 tags: [Android官方培训教程]
+categories: [Android官方培训教程]
 ---
 
 ## 摘要

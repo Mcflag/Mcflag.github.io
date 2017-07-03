@@ -1,6 +1,7 @@
 title: Android官方培训教程3——管理Activity的生命周期
 date: 2015-08-30 15:25:02
 tags: [Android官方培训教程]
+categories: [Android官方培训教程]
 ---
 
 ## 摘要

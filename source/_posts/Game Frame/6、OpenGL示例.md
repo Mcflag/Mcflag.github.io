@@ -1,6 +1,7 @@
-title: 6OpenGL示例
+title: 6、OpenGL示例
 date: 2015-09-06 00:21:15
 tags: [游戏框架]
+categories: [游戏框架]
 ---
 
 ## 摘要

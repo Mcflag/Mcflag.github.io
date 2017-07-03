@@ -1,8 +1,8 @@
 layout: draft
 title: GitHub Pages + Hexo搭建博客
 comment: true
-tags: [技术, 静态独立博客, Hexo, GitHub Page, Git]
-categories: [技术宅]
+tags: [Hexo]
+categories: [技术]
 date: 2016-12-28 22:40:50
 updated: 2016-12-29 15:12:00
 ---

@@ -1,6 +1,7 @@
 title: Libgdx教程1——图形绘制
 date: 2015-10-10 16:21:38
 tags: [libgdx]
+categories: [libgdx]
 ---
 
 ## 摘要

@@ -1,6 +1,7 @@
 title: Android官方培训教程5——数据保存
 date: 2015-08-30 15:28:33
 tags: [Android官方培训教程]
+categories: [Android官方培训教程]
 ---
 
 ## 摘要

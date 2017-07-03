@@ -1,6 +1,7 @@
 title: Android官方培训教程8——多媒体音频播放
 date: 2015-08-31 23:21:02
 tags: [Android官方培训教程]
+categories: [Android官方培训教程]
 ---
 
 ## 摘要

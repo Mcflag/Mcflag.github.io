@@ -1,6 +1,7 @@
 title: Android编程权威指南笔记1
 date: 2016-04-11 15:57:43
 tags: [Android基础]
+categories: [Android基础]
 ---
 
 ## 摘要

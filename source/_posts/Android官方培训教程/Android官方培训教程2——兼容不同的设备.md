@@ -1,6 +1,7 @@
 title: Android官方培训教程2——兼容不同的设备
 date: 2015-08-30 15:24:22
 tags: [Android官方培训教程]
+categories: [Android官方培训教程]
 ---
 
 ## 摘要

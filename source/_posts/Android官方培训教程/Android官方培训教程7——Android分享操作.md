@@ -1,6 +1,7 @@
 title: Android官方培训教程7——Android分享操作
 date: 2015-08-30 15:47:42
 tags: [Android官方培训教程]
+categories: [Android官方培训教程]
 ---
 
 ## 摘要

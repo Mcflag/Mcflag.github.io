@@ -1,6 +1,7 @@
-title: 7Flappy Bird示例
+title: 7、Flappy Bird示例
 date: 2015-09-12 21:19:43
 tags: [游戏框架]
+categories: [游戏框架]
 ---
 
 ## 摘要

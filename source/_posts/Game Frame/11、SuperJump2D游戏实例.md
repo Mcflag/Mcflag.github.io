@@ -1,6 +1,7 @@
-title: 11SuperJump2D游戏实例
+title: 11、SuperJump2D游戏实例
 date: 2015-09-22 00:04:35
 tags: [游戏框架]
+categories: [游戏框架]
 ---
 
 ## 摘要

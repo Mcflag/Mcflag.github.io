@@ -1,6 +1,7 @@
 title: Android官方培训教程4——使用Fragment建立动态UI
 date: 2015-08-30 15:26:54
 tags: [Android官方培训教程]
+categories: [Android官方培训教程]
 ---
 
 ## 摘要

@@ -1,6 +1,7 @@
 title: PHP基础函数1
 date: 2016-04-08 11:55:00
 tags: [PHP]
+categories: [PHP]
 ---
 
 ## 摘要

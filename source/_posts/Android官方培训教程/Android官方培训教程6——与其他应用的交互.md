@@ -1,6 +1,7 @@
 title: Android官方培训教程6——与其他应用的交互
 date: 2015-08-30 15:29:28
 tags: [Android官方培训教程]
+categories: [Android官方培训教程]
 ---
 
 ## 摘要
