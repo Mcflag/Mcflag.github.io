@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.4.0 -->
+    <script>window.materialVersion = "1.4.0"</script>
+
+    <!-- Title -->
+    
+    <title>
+        
+            8、OpenGL示例下 | 
+        
+        柒夜
+    </title>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="柒夜">
+    <meta name="description" itemprop="description" content="摘要OpenGL示例">
+    <meta name="keywords" content="null,游戏框架">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="柒夜">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://yoursite.com">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="8、OpenGL示例下 | 柒夜">
+    <meta property="og:image" content="/img/favicon.png" />
+    <meta property="og:description" content="摘要OpenGL示例">
+    <meta property="og:article:tag" content="游戏框架"> 
+
+    
+        <meta property="article:published_time" content="Sat Sep 12 2015 22:31:43 GMT+0800" />
+        <meta property="article:modified_time" content="Sun Jul 02 2017 01:48:31 GMT+0800" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="8、OpenGL示例下 | 柒夜">
+    <meta name="twitter:description" content="摘要OpenGL示例">
+    <meta name="twitter:image" content="/img/favicon.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://yoursite.com" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://yoursite.com/2015/09/12/Game Frame/8、OpenGL示例下/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "柒夜",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "柒夜",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "暗夜之虫 会集光中"
+    },
+    "headline": "8、OpenGL示例下",
+    "url": "http://yoursite.com/2015/09/12/Game Frame/8、OpenGL示例下/index.html",
+    "datePublished": "Sat Sep 12 2015 22:31:43 GMT+0800",
+    "dateModified": "Sun Jul 02 2017 01:48:31 GMT+0800",
+    "description": "摘要OpenGL示例",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://yoursite.com"
+    }
+}
+</script>
+
+
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import CSS & jQuery -->
+    
+        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        
+        
+            <style>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</style>
+
+        
+        <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+
+        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
+    
+    
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Analytics -->
+    
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#纹理映射"><span class="post-toc-number">2.</span> <span class="post-toc-text">纹理映射</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#上传位图"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">上传位图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#纹理过滤"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">纹理过滤</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#释放纹理"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">释放纹理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启用纹理"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">启用纹理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TexturedTriangleTest类，使用纹理的示例"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">TexturedTriangleTest类，使用纹理的示例</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Texture类"><span class="post-toc-number">3.</span> <span class="post-toc-text">Texture类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引顶点，重用的好处"><span class="post-toc-number">4.</span> <span class="post-toc-text">索引顶点，重用的好处</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IndexedScreen类，绘制两个索引三角形"><span class="post-toc-number">5.</span> <span class="post-toc-text">IndexedScreen类，绘制两个索引三角形</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Vertices类"><span class="post-toc-number">6.</span> <span class="post-toc-text">Vertices类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#半透明混合处理"><span class="post-toc-number">7.</span> <span class="post-toc-text">半透明混合处理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2D变换：操作模型视图矩阵"><span class="post-toc-number">8.</span> <span class="post-toc-text">2D变换：操作模型视图矩阵</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用平移的示例"><span class="post-toc-number">9.</span> <span class="post-toc-text">使用平移的示例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#性能优化"><span class="post-toc-number">10.</span> <span class="post-toc-text">性能优化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#造成OpenGl渲染慢的原因"><span class="post-toc-number">11.</span> <span class="post-toc-text">造成OpenGl渲染慢的原因</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 24 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                8、OpenGL示例下
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/touxiang.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>柒夜</strong>
+        <span>9月 12, 2015</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/游戏框架/">游戏框架</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=8、OpenGL示例下&url=http://yoursite.com/2015/09/12/Game Frame/8、OpenGL示例下/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=柒夜&title=8、OpenGL示例下&summary=从零开始&pics=http://yoursite.com/img/favicon.png&url=http://yoursite.com/2015/09/12/Game Frame/8、OpenGL示例下/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>OpenGL示例<br><a id="more"></a></p>
+<h2 id="纹理映射"><a href="#纹理映射" class="headerlink" title="纹理映射"></a>纹理映射</h2><p>纹理坐标：就是把纹理（一张位图）中的一个点映射到三角形的一个顶点上，纹理映射通常都是2D的。相对位置坐标称为x,y,z,纹理坐标称为u、v或者s、t。而且不论纹理图像的宽高比是多少，坐标系统总是左上角为（0，0），右下角为（1，1）。三角形的位置坐标系统和纹理坐标系统中朝向不必相同。</p>
+<pre><code>int VERTEX_SIZE=(2+2)*4;
+ByteBuffer byteBuffer=ByteBuffer.allocateDirect(3*VERTEX_SIZE);
+byteBuffer.order(ByteOrder.nativeOrder());
+vertices=byteBuffer.asFloatBuffer();
+vertices.put(new float[] {    0.0f,    0.0f,    0.0f,    1.0f,
+                            319.0f,    0.0f,    1.0f,    1.0f,
+                            160.0f,    479.0f,    0.5f,    0.0f});
+vertices.flip();
+</code></pre><p>为了告诉OpenGl顶点含有纹理坐标，可以使用下面的方法：</p>
+<pre><code>gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+
+vertices.position(0);
+gl.glVertexPointer(2,GL10.GL_FLOAT,VERTEX_SIZE,vertices);
+vertices.position(2);
+gl.glTexCoordPointer(2,GL10.GL_FLOAT,VERTEX_SIZE,vertices);
+</code></pre><h3 id="上传位图"><a href="#上传位图" class="headerlink" title="上传位图"></a>上传位图</h3><p>首先需要上传位图，创建一个Bitmap，然后告诉OpenGL这是一个新的纹理。</p>
+<pre><code>Bitmap bitmap=BitmapFactory.decodeStream(game.getFileIO().readAsset(&quot;pic.png&quot;));
+GL10.glGenTextures(int numTextures, int[] ids, int offset);
+</code></pre><p>第一个参数指明需要多少个纹理对象，通常只需要创建一个对象，第二个参数是一个整型数组，OpenGL把生成纹理对象的ID保存到数组中，最后一个参数告诉OpenGl从何处开始保存ID。</p>
+<pre><code>int textureIds[]=new int[i];
+gl.glGenTextures(1,textureIds,0);
+int textureId=textureIds[0];
+</code></pre><p>现在还并没有绑定纹理对象，使用glBindTexture()方法绑定纹理对象。</p>
+<pre><code>gl.glBindTexture(GL10.GL_TEXTURE_2D,textureId);
+GLUtils.texImage2D(GL10.GL_TEXTURE_2D,0,bitmap,0);
+</code></pre><p>glBindTexture()方法的第二个参数一大确定，所有使用2D纹理的方法都使用这个纹理对象。GLUtils是由Android框架提供的。通常上传纹理图像任务十分复杂，该类可以提供帮助。需要做的事指明纹理类型（）、多纹理映射层次（默认为0）、需要上传的位图和一个在所有情况下都要设为0的参数。纹理对象和图像数据实际上保存在视频的RAM中，而不是通常的RAM，会丢失，每次上下文重新创建时，纹理和图像也要重新创建。</p>
+<h3 id="纹理过滤"><a href="#纹理过滤" class="headerlink" title="纹理过滤"></a>纹理过滤</h3><p>三角形所在屏幕上占据的区域可能比纹理投影的区域大很多或小很多。这样情况下需要放大或者缩小纹理，这也称为纹理过滤。</p>
+<pre><code>gl.glTexParameterf(GL10.GL_TEXTURE_2D,GL10.GL_TEXTURE_MIN_FILTER,GL10.GL_NEAREST);
+gl.glTexParameterf(GL10.GL_TEXTURE_2D,GL10.GL_TEXTURE_MAG_FILTER,GL10.GL_NEAREST);
+</code></pre><p>GL10.GL_TEXTURE_MIN_FILTER和GL10.GL_TEXTURE_MAG_FILTER表示放大倍数和缩小倍数，最后一个参数指明过滤器的类型。nearest总是选择要映射到像素的纹理映射中最接近的纹元，第二种采样距待处理的三角形像素最近的4个纹元，取他们的平均值之后得到该像素的最终颜色。第一个方法可以得到像素化的图像，第二个方法可以得到平滑图像。</p>
+<pre><code>gl.glBindTexture(GL10.GL_TEXTURE_2D,0);
+bitmap.recycle();
+</code></pre><p>glBindTexture中的0是解除当前绑定的对象。</p>
+<h3 id="释放纹理"><a href="#释放纹理" class="headerlink" title="释放纹理"></a>释放纹理</h3><p>可以使用recycle()来释放。</p>
+<pre><code>gl.glBindTexture(GL10.GL_TEXTURE_2D,0);
+int textuerids={textureid};
+gl.glDeleteTextures(1,textureIds,0);
+</code></pre><p>删除纹理对象之前，需要确定它没有被绑定。</p>
+<h3 id="启用纹理"><a href="#启用纹理" class="headerlink" title="启用纹理"></a>启用纹理</h3><p>纹理映射是否使用还需要通过以下代码设置：</p>
+<pre><code>GL10.glEnable(GL10.GL_TEXTURE_2D);
+GL10.giDisable(GL10.GL_TEXTURE_2D);
+</code></pre><h3 id="TexturedTriangleTest类，使用纹理的示例"><a href="#TexturedTriangleTest类，使用纹理的示例" class="headerlink" title="TexturedTriangleTest类，使用纹理的示例"></a>TexturedTriangleTest类，使用纹理的示例</h3><pre><code>public class TextureTriangleTest extends GLGame {
+
+    @Override
+    public Screen getStartScreen() {
+        return new TexturedTriangleScreen(this);
+    }
+
+    class TexturedTriangleScreen extends Screen {
+
+        final int VERTEX_SIZE = (2 + 2) * 4;
+        GLGraphics glGraphics;
+        FloatBuffer vertices;
+        int textureId;
+
+        public TexturedTriangleScreen(Game game) {
+            super(game);
+            glGraphics = ((GLGame) game).getGLGraphics();
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(VERTEX_SIZE * 3);
+            byteBuffer.order(ByteOrder.nativeOrder());
+            vertices = byteBuffer.asFloatBuffer();
+            vertices.put(new float[] { 0.0f, 0.0f, 0.0f, 1.0f, 319.0f, 0.0f, 1.0f, 1.0f, 160.0f, 479.0f, 0.5f, 0.0f });
+            vertices.flip();
+            textureId = loadTexture(&quot;glbasic/bobrgb8888.png&quot;);
+        }
+
+        public int loadTexture(String fileName) {
+            try {
+                Bitmap bitmap = BitmapFactory.decodeStream(game.getFileIO().readAsset(fileName));
+                GL10 gl = glGraphics.getGL();
+                int textureIds[] = new int[1];
+                gl.glGenTextures(1, textureIds, 0);
+                int textureId = textureIds[0];
+                gl.glBindTexture(GL10.GL_TEXTURE_2D, textureId);
+                GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
+                gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
+                gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_NEAREST);
+                gl.glBindTexture(GL10.GL_TEXTURE_2D, 0);
+                bitmap.recycle();
+                return textureId;
+
+            } catch (IOException e) {
+                throw new RuntimeException(&quot;couldn&apos;t load asset &apos;&quot; + fileName + &quot;&apos;&quot;);
+            }
+        }
+
+        @Override
+        public void update(float deltaTime) {
+
+        }
+
+        @Override
+        public void present(float deltaTime) {
+            GL10 gl=glGraphics.getGL();
+            gl.glViewport(0, 0, glGraphics.getWidth(), glGraphics.getHeight());
+            gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+            gl.glMatrixMode(GL10.GL_PROJECTION);
+            gl.glLoadIdentity();
+            gl.glOrthof(0, 320, 0, 480, 1, -1);
+
+            gl.glEnable(GL10.GL_TEXTURE_2D);
+            gl.glBindTexture(GL10.GL_TEXTURE_2D, textureId);
+
+            gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+
+            vertices.position(0);
+            gl.glVertexPointer(2, GL10.GL_FLOAT, VERTEX_SIZE, vertices);
+            vertices.position(2);
+            gl.glTexCoordPointer(2, GL10.GL_FLOAT, VERTEX_SIZE, vertices);
+
+            gl.glDrawArrays(GL10.GL_TRIANGLES, 0, 3);
+        }
+
+        @Override
+        public void pause() {
+
+        }
+
+        @Override
+        public void resume() {
+
+        }
+
+        @Override
+        public void dispose() {
+
+        }
+
+    }
+}
+</code></pre><p>有一点需要记住，所有加载的位图的宽度和高度都必须是2的次幂。在示例中使用的图像是128*128的。另一个问题是颜色深度，即使没有设置，GLUtils.texImage2D()也能够得到正确的图像数据。</p>
+<h2 id="Texture类"><a href="#Texture类" class="headerlink" title="Texture类"></a>Texture类</h2><p>在框架中专门写一个类来辅助处理纹理对象。并且封装一些易用的方法来绑定和清理纹理。</p>
+<pre><code>public class Texture {
+    GLGraphics glGraphics;
+    FileIO fileIO;
+    String fileName;
+    int textureId;
+    int minFilter;
+    int magFilter;
+    int width;
+    int height;
+
+    public Texture(GLGame glGame, String fileName) {
+        this.glGraphics = glGame.getGLGraphics();
+        this.fileIO = glGame.getFileIO();
+        this.fileName = fileName;
+        load();
+    }
+
+    private void load() {
+        GL10 gl = glGraphics.getGL();
+        int[] textureIds = new int[1];
+        gl.glGenTextures(1, textureIds, 0);
+        textureId = textureIds[0];
+
+        InputStream in = null;
+        try {
+            in = fileIO.readAsset(fileName);
+            Bitmap bitmap = BitmapFactory.decodeStream(in);
+            width = bitmap.getWidth();
+            height = bitmap.getHeight();
+            gl.glBindTexture(GL10.GL_TEXTURE_2D, textureId);
+            GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
+            setFilters(GL10.GL_NEAREST, GL10.GL_NEAREST);
+            gl.glBindTexture(GL10.GL_TEXTURE_2D, 0);
+        } catch (IOException e) {
+            throw new RuntimeException(&quot;Couldn&apos;t load texture &apos;&quot; + fileName + &quot;&apos;&quot;);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+    }
+
+    public void reload() {
+        load();
+        bind();
+        setFilters(minFilter, magFilter);
+        glGraphics.getGL().glBindTexture(GL10.GL_TEXTURE_2D, 0);
+    }
+
+    public void setFilters(int minFilter, int magFilter) {
+        this.minFilter = minFilter;
+        this.magFilter = magFilter;
+        GL10 gl = glGraphics.getGL();
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, minFilter);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, magFilter);
+    }
+
+    public void bind() {
+        GL10 gl = glGraphics.getGL();
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, textureId);
+    }
+
+    public void dispose() {
+        GL10 gl = glGraphics.getGL();
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, textureId);
+        int[] textureIds = { textureId };
+        gl.glDeleteTextures(1, textureIds, 0);
+    }
+}
+</code></pre><p>在上下文丢失时可以使用reload()方法，同时只有在实际绑定了纹理之后，setFilter()方法才会有效。</p>
+<h2 id="索引顶点，重用的好处"><a href="#索引顶点，重用的好处" class="headerlink" title="索引顶点，重用的好处"></a>索引顶点，重用的好处</h2><p>如果有多个三角形的情况下，有可能多个三角形会有共用一些顶点。而且其实渲染一个矩形可以定义为两个三角形。下面先使用旧的方法，即将一个矩形当成两个三角形，其中两个顶点具有相同的位置，颜色和纹理坐标。需要很明确的告诉OpenGL每个三角形使用哪些顶点。例如第一个三角形使用索引值 0，1，2，第二个三角形使用索引值2，3，0。</p>
+<pre><code>short[] indices={0,1,2,2,3,0};
+</code></pre><p>OpenGL要求索引值使用短整型，或者使用字节。但是并不能够将一个短整型数组传给OpenGL，需要使用ShortBuffer。</p>
+<pre><code>ByteBuffer byteBuffer=ByteBuffer.allocate(indices.length*2);
+byteBuffer.order(ByteOrder.nativeOrder());
+ShortBuffer shortBuffer=byteBuffer.asShortBuffer();
+shortBuffer.put(indices);
+shortBuffer.flip();
+</code></pre><p>一个短整型需要2个字节内存空间。如果使用两个三角形绘制成矩形，需要采用如下方式定义顶点。</p>
+<pre><code>ByteBuffer byteBuffer=ByteBuffer.allocateDirect(4*VERTEX_SIZE);
+byteBuffer.order(ByteOrder.nativeOrder());
+vertices=byteBuffer.asFloatBuffer();
+vertices.put(new float[]{100.0f, 100.0f, 0.0f, 1.0f,
+                        228.0f, 100.0f, 1.0f, 1.0f,
+                        228.0f, 229.0f, 1.0f, 0.0f,
+                        100.0f, 228.0f, 0.0f, 0.0f});
+vertices.flip();
+</code></pre><p>同样需要调用glEnableClientState(),glVertexPointer()或glTexCoordPointer()方法，不同之处在于这个实际绘制的方法：</p>
+<pre><code>gl.glDrawElements(GL10.GL_TRIANGLES,6,GL10.GL_UNSIGNED_SHORT,indices);
+</code></pre><p>第一个参数指明了渲染基本类型，第二个参数指明顶点数，第三个参数指明索引类型，第四个是保存6个索引的ShortBuffer。</p>
+<h2 id="IndexedScreen类，绘制两个索引三角形"><a href="#IndexedScreen类，绘制两个索引三角形" class="headerlink" title="IndexedScreen类，绘制两个索引三角形"></a>IndexedScreen类，绘制两个索引三角形</h2><pre><code>public class indexedTest extends GLGame {
+    public Screen getStartScreen() {
+        return new IndexedScreen(this);
+    }
+
+    class IndexedScreen extends Screen {
+        final int VERTEX_SIZE = (2 + 2) * 4;
+        GLGraphics glGraphics;
+        FloatBuffer vertices;
+        ShortBuffer indices;
+        Texture texture;
+
+        public IndexedScreen(Game game) {
+            super(game);
+            glGraphics = ((GLGame) game).getGLGraphics();
+
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * VERTEX_SIZE);
+            byteBuffer.order(ByteOrder.nativeOrder());
+            vertices = byteBuffer.asFloatBuffer();
+            vertices.put(new float[] { 100.0f, 100.0f, 0.0f, 1.0f, 228.0f, 100.0f, 1.0f, 1.0f, 228.0f, 228.0f, 1.0f, 0.0f, 100.0f, 228.0f, 0.0f, 0.0f });
+            vertices.flip();
+
+            byteBuffer = ByteBuffer.allocateDirect(6 * 2);
+            byteBuffer.order(ByteOrder.nativeOrder());
+            indices = byteBuffer.asShortBuffer();
+            indices.put(new short[] { 0, 1, 2, 2, 3, 0 });
+            indices.flip();
+
+            texture = new Texture((GLGame) game, &quot;bobrgb888.png&quot;);
+        }
+
+        @Override
+        public void present(float deltaTime) {
+            GL10 gl = glGraphics.getGL();
+            gl.glViewport(0, 0, glGraphics.getWidth(), glGraphics.getHeight());
+            gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+            gl.glMatrixMode(GL10.GL_PROJECTION);
+            gl.glLoadIdentity();
+            gl.glOrthof(0, 320, 0, 480, 1, -1);
+
+            gl.glEnable(GL10.GL_TEXTURE_2D);
+            texture.bind();
+
+            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+            gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+
+            vertices.position(0);
+            gl.glVertexPointer(2, GL10.GL_FLOAT, VERTEX_SIZE, vertices);
+            vertices.position(2);
+            gl.glTexCoordPointer(2, GL10.GL_FLOAT, VERTEX_SIZE, vertices);
+
+            gl.glDrawElements(GL10.GL_TRIANGLES, 6, GL10.GL_UNSIGNED_SHORT, indices);
+        }
+
+        @Override
+        public void update(float deltaTime) {
+        }
+
+        @Override
+        public void pause() {
+        }
+
+        @Override
+        public void resume() {
+        }
+
+        @Override
+        public void dispose() {
+        }
+    }
+}
+</code></pre><h2 id="Vertices类"><a href="#Vertices类" class="headerlink" title="Vertices类"></a>Vertices类</h2><p>为了更易于使用，将会创建一个Vertices类，类有一个最大顶点数，并且可以使用索引进行渲染。可以启用所有渲染需要使用的状态，并在渲染结束后清理这些状态。</p>
+<pre><code>public class Vertices {
+    final GLGraphics glGraphics;
+    final boolean hasColor;
+    final boolean hasTexCoords;
+    final int vertexSize;
+    final FloatBuffer vertices;
+    final ShortBuffer indices;
+
+    public Vertices(GLGraphics glGraphics, int maxVertices, int maxIndices, boolean hasColor, boolean hasTexCoords) {
+        this.glGraphics = glGraphics;
+        this.hasColor = hasColor;
+        this.hasTexCoords = hasTexCoords;
+        this.vertexSize = (2 + (hasColor ? 4 : 0) + (hasTexCoords ? 2 : 0)) * 4;
+
+        ByteBuffer buffer = ByteBuffer.allocateDirect(maxVertices * vertexSize);
+        buffer.order(ByteOrder.nativeOrder());
+        vertices = buffer.asFloatBuffer();
+
+        if (maxIndices &gt; 0) {
+            buffer = ByteBuffer.allocateDirect(maxIndices * Short.SIZE / 8);
+            buffer.order(ByteOrder.nativeOrder());
+            indices = buffer.asShortBuffer();
+        } else {
+            indices = null;
+        }
+    }
+
+    public void setVertices(float[] vertices, int offset, int length) {
+        this.vertices.clear();
+        this.vertices.put(vertices, offset, length);
+        this.vertices.flip();
+    }
+
+    public void setIndices(short[] indices, int offset, int length) {
+        this.indices.clear();
+        this.indices.put(indices, offset, length);
+        this.indices.flip();
+    }
+
+    public void draw(int primitiveType, int offset, int numVertices) {
+        GL10 gl = glGraphics.getGL();
+
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+        vertices.position(0);
+        gl.glVertexPointer(2, GL10.GL_FLOAT, vertexSize, vertices);
+
+        if (hasColor) {
+            gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+            vertices.position(2);
+            gl.glColorPointer(4, GL10.GL_FLOAT, vertexSize, vertices);
+        }
+
+        if (hasTexCoords) {
+            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+            vertices.position(hasColor ? 6 : 2);
+            gl.glTexCoordPointer(2, GL10.GL_FLOAT, vertexSize, vertices);
+        }
+
+        if (indices != null) {
+            indices.position(offset);
+            gl.glDrawElements(primitiveType, numVertices, GL10.GL_UNSIGNED_SHORT, indices);
+        } else {
+            gl.glDrawArrays(primitiveType, offset, numVertices);
+        }
+
+        if (hasTexCoords) {
+            gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+        }
+
+        if (hasColor) {
+            gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
+        }
+    }
+}
+</code></pre><p>并且现在可以这么使用Vertices类来减少代码：</p>
+<pre><code>Vertices vertices=new Vertices(glGraphics,4,6,false,true);
+vertices.setVertices(new Float[]{    100.0f,    100.0f,    0.0f,    1.0f,
+                                    228.0f,    100.0f,    1.0f,    1.0f,
+                                    228.0f,    228.0f,    1.0f,    0.0f,
+                                    100.0f,    228.0f,    0.0f,    0.0f},0,16);
+vertices.setIndices(new short[]{0,1,2,2,3,0}, 0, 6);
+</code></pre><p>同样可以使用简单调用来代替设置顶点属性数组和渲染工作的调用：</p>
+<pre><code>vertices.draw(GL10.GL_TRIANGLES,0,6);
+</code></pre><h2 id="半透明混合处理"><a href="#半透明混合处理" class="headerlink" title="半透明混合处理"></a>半透明混合处理</h2><p>在OpenGL中启用半透明混合处理，需要调用两个方法：</p>
+<pre><code>gl.glEnable(GL10.GL_BLEND);
+gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+</code></pre><p>第一个方法通知OpenGL从现在开始对渲染的所有三角形启用半透明混合处理。第二个方法指明来源色和目的色如何混合。</p>
+<p>BlendingTest类的代码</p>
+<pre><code>public class BlendingTest extends GLGame {
+    public Screen getStartScreen() {
+        return new BlendingScreen(this);
+    }
+
+    class BlendingScreen extends Screen {
+        GLGraphics glGraphics;
+        Vertices vertices;
+        Texture textureRgb;
+        Texture textureRgba;
+
+        public BlendingScreen(Game game) {
+            super(game);
+            glGraphics = ((GLGame)game).getGLGraphics();
+
+            textureRgb = new Texture((GLGame)game, &quot;glbasic/bobrgb888.png&quot;);
+            textureRgba = new Texture((GLGame)game, &quot;glbasic/bobargb8888.png&quot;);
+
+            vertices = new Vertices(glGraphics, 8, 12, true, true);
+            float[] rects = new float[] {
+                100, 100, 1, 1, 1, 0.5f, 0, 1,
+                228, 100, 1, 1, 1, 0.5f, 1, 1,
+                228, 228, 1, 1, 1, 0.5f, 1, 0,
+                100, 228, 1, 1, 1, 0.5f, 0, 0,
+
+                100, 300, 1, 1, 1, 1, 0, 1,
+                228, 300, 1, 1, 1, 1, 1, 1,
+                228, 428, 1, 1, 1, 1, 1, 0,
+                100, 428, 1, 1, 1, 1, 0, 0                    
+            };
+            vertices.setVertices(rects, 0, rects.length);
+            vertices.setIndices(new short[] {0, 1, 2, 2, 3, 0,
+                                         4, 5, 6, 6, 7, 4 }, 0, 12);                        
+        }
+
+        @Override
+        public void present(float deltaTime) {
+            GL10 gl = glGraphics.getGL();
+            gl.glViewport(0, 0, glGraphics.getWidth(), glGraphics.getHeight());
+            gl.glClearColor(1,0,0,1);
+            gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+            gl.glMatrixMode(GL10.GL_PROJECTION);
+            gl.glLoadIdentity();
+            gl.glOrthof(0, 320, 0, 480, 1, -1);
+
+            gl.glEnable(GL10.GL_BLEND);
+            gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+
+            gl.glEnable(GL10.GL_TEXTURE_2D);
+            textureRgb.bind();
+            vertices.draw(GL10.GL_TRIANGLES, 0, 6 );
+
+            textureRgba.bind();
+            vertices.draw(GL10.GL_TRIANGLES, 6, 6 );
+        }
+
+        @Override
+        public void update(float deltaTime) {
+        }
+
+        @Override
+        public void pause() {
+        }
+
+        @Override
+        public void resume() {
+        }
+
+        @Override
+        public void dispose() {
+        }
+    }
+}
+</code></pre><p>混合的开销很大，只有在确实需要的时候才使用混合。</p>
+<h2 id="2D变换：操作模型视图矩阵"><a href="#2D变换：操作模型视图矩阵" class="headerlink" title="2D变换：操作模型视图矩阵"></a>2D变换：操作模型视图矩阵</h2><p>平移，旋转和缩放操作矩阵。需要使用模型视图矩阵来进行变换。</p>
+<pre><code>gl.glMatrixMode(GL10.GL_MODELVIEW);
+gl.glLoadIdentity();
+gl.glTranslatef(200,300,0);
+vertices.draw(GL10.GL_TRIANGLES,0,6);
+</code></pre><p>通过常量GL10.GL_MODELVIEW指定模型视图矩阵，glTranslatef()有3个输入参数，平移发生在x、y和z轴。</p>
+<h2 id="使用平移的示例"><a href="#使用平移的示例" class="headerlink" title="使用平移的示例"></a>使用平移的示例</h2><p><strong>Bob类</strong></p>
+<pre><code>class Bob {
+    static final Random rand = new Random();
+    public float x, y;
+    float dirX, dirY;
+
+    public Bob() {
+        x = rand.nextFloat() * 320;
+        y = rand.nextFloat() * 480;
+        dirX = 50;
+        dirY = 50;
+    }
+
+    public void update(float deltaTime) {
+        x = x + dirX * deltaTime;
+        y = y + dirY * deltaTime;
+
+        if (x &lt; 0) {
+            dirX = -dirX;
+            x = 0;
+           }
+
+        if (x &gt; 320) {
+            dirX = -dirX;
+            x = 320;
+        }
+
+        if (y &lt; 0) {
+            dirY = -dirY;
+            y = 0;
+        }
+
+        if (y &gt; 480) {
+            dirY = -dirY;
+            y = 480;
+        }
+    }
+}
+</code></pre><p>可以使用下列代码渲染</p>
+<pre><code>gl.glMatrixMode(GL10.GL_MODELVIEW);
+for(int i=0;i&lt;100;i++){
+    bob.update(deltaTime);
+    gl.glLoadIdentity();
+    gl.glTranslatef(bobs[i].x,bobs[i].y,0);
+    bobModel.render(GL10.GL_TRIANGLES,0,6);
+}
+</code></pre><p><strong>BobTest类：100个移动的Bob</strong></p>
+<pre><code>public class BobTest extends GLGame {
+    public Screen getStartScreen() {
+        return new BobScreen(this);
+    }
+
+    class BobScreen extends Screen {
+        static final int NUM_BOBS = 100;
+        GLGraphics glGraphics;
+        Texture bobTexture;
+        Vertices bobModel;
+        Bob[] bobs;
+
+        public BobScreen(Game game) {
+            super(game);
+            glGraphics = ((GLGame)game).getGLGraphics();
+
+            bobTexture = new Texture((GLGame)game, &quot;bobrgb888.png&quot;);
+
+            bobModel = new Vertices(glGraphics, 4, 12, false, true);
+            bobModel.setVertices(new float[] { -16, -16, 0, 1,  
+                                            16, -16, 1, 1, 
+                                            16,  16, 1, 0,
+                                           -16,  16, 0, 0, }, 0, 16);
+            bobModel.setIndices(new short[] {0, 1, 2, 2, 3, 0}, 0, 6);
+
+
+            bobs = new Bob[100];
+            for(int i = 0; i &lt; 100; i++) {
+                bobs[i] = new Bob();
+            }            
+        }
+
+        @Override
+        public void update(float deltaTime) {         
+            game.getInput().getTouchEvents();
+            game.getInput().getKeyEvents();
+
+            for(int i = 0; i &lt; NUM_BOBS; i++) {
+                bobs[i].update(deltaTime);
+            }
+        }
+
+        @Override
+        public void present(float deltaTime) {
+            GL10 gl = glGraphics.getGL();
+            gl.glClearColor(1,0,0,1);
+            gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+            gl.glMatrixMode(GL10.GL_PROJECTION);
+            gl.glLoadIdentity();
+            gl.glOrthof(0, 320, 0, 480, 1, -1);
+
+            gl.glEnable(GL10.GL_TEXTURE_2D);
+            bobTexture.bind();
+
+            gl.glMatrixMode(GL10.GL_MODELVIEW);
+            for(int i = 0; i &lt; NUM_BOBS; i++) {
+                gl.glLoadIdentity();
+                gl.glTranslatef(bobs[i].x, bobs[i].y, 0);
+                gl.glRotatef(45, 0, 0, 1);
+                gl.glScalef(2, 0.5f, 0);
+                bobModel.draw(GL10.GL_TRIANGLES, 0, 6);
+            }            
+        }
+
+        @Override
+        public void pause() {            
+        }
+
+        @Override
+        public void resume() {            
+        }
+
+        @Override
+        public void dispose() {            
+        }
+    }
+}
+</code></pre><p><strong>更多的变换</strong></p>
+<p>除了glTranslate()，glRotatef()，glScalef()。</p>
+<pre><code>GL10.glRotatef(float angle,float axisX,float axisY,float axisZ);
+</code></pre><p>第一个参数是顶点需要旋转的角度，单位是度，后三个参数定义了一个旋转的轴。比如调用gl.glRotatef(45,0,0,1)，表示使用z轴作为旋转轴。使用glScalef()方法缩放图片。</p>
+<pre><code>GL10.glScalef(float x,float y,float z);
+</code></pre><p>该方法表示在x轴，y轴和z轴上的缩放。</p>
+<p>所有的方法glTranslate(),glScalef(),glRotatef(),glOrthof()。</p>
+<blockquote>
+<p>需要特别注意，对矩阵的操作，<strong>最后指定的矩阵最先使用</strong>。</p>
+</blockquote>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><p>测量帧率</p>
+<pre><code>public class FPSCounter {
+    long startTime = System.nanoTime();
+    int frames = 0;
+
+    public void logFrame() {
+        frames++;
+        if(System.nanoTime() - startTime &gt;= 1000000000) {
+            Log.d(&quot;FPSCounter&quot;, &quot;fps: &quot; + frames);
+            frames = 0;
+            startTime = System.nanoTime();
+        }
+    }
+}
+</code></pre><h2 id="造成OpenGl渲染慢的原因"><a href="#造成OpenGl渲染慢的原因" class="headerlink" title="造成OpenGl渲染慢的原因"></a>造成OpenGl渲染慢的原因</h2><p>对OpenGL不好的：</p>
+<ul>
+<li>在每一帧中改变状态很多次(例如混合、启用/关闭纹理映射等);</li>
+<li>在每一帧中改变矩阵很多次；</li>
+<li>在每一帧中绑定纹理很多次；</li>
+<li>在每一帧中改变顶点、颜色和纹理坐标指针很多次。</li>
+</ul>
+<p>由于glDrawElements()或glDrawArrays()方法被调用后并不是立即执行，这些命令被放在一个缓冲区中，由GPU异步执行。</p>
+<ul>
+<li>改变当前绑定的纹理的代价是昂贵的，命令缓冲区中使用了纹理且还没有被处理的三角形必须首先进行渲染，管道将会停止。</li>
+<li>改变顶点、颜色和纹理坐标指针的是昂贵的，命令缓冲区中使用就指针且还没有被渲染的三角形必须首先渲染，管道将会停止。</li>
+<li>改变混合状态的代价是昂贵的，命令缓冲区中需要/不需要混合且还未被渲染的三角形必须首先渲染。管道将会停止。</li>
+<li>改变模型视图或者投影矩阵的代价是昂贵的，命令缓冲区中应当应用旧矩阵且还未被处理的三角形必须首先渲染。管道将会停止。</li>
+</ul>
+<p>主要的优化方式就是移除不必要的状态改变。减小纹理大小意味着需要获取更少的像素，减少OpenGL/JNI方法的调用，绑定顶点的概念。</p>
+<p>将Vertices改为可绑定的模式，减少对OpenGL的调用</p>
+<pre><code>public class BindableVertices {
+    final GLGraphics glGraphics;
+    final boolean hasColor;
+    final boolean hasTexCoords;
+    final int vertexSize;
+    final FloatBuffer vertices;
+    final ShortBuffer indices;
+
+    public BindableVertices(GLGraphics glGraphics, int maxVertices, int maxIndices, boolean hasColor, boolean hasTexCoords) {
+        this.glGraphics = glGraphics;
+        this.hasColor = hasColor;
+        this.hasTexCoords = hasTexCoords;
+        this.vertexSize = (2 + (hasColor ? 4 : 0) + (hasTexCoords ? 2 : 0)) * 4;
+
+        ByteBuffer buffer = ByteBuffer.allocateDirect(maxVertices * vertexSize);
+        buffer.order(ByteOrder.nativeOrder());
+        vertices = buffer.asFloatBuffer();
+
+        if (maxIndices &gt; 0) {
+            buffer = ByteBuffer.allocateDirect(maxIndices * Short.SIZE / 8);
+            buffer.order(ByteOrder.nativeOrder());
+            indices = buffer.asShortBuffer();
+        } else {
+            indices = null;
+        }
+    }
+
+    public void setVertices(float[] vertices, int offset, int length) {
+        this.vertices.clear();
+        this.vertices.put(vertices, offset, length);
+        this.vertices.flip();
+    }
+
+    public void setIndices(short[] indices, int offset, int length) {
+        this.indices.clear();
+        this.indices.put(indices, offset, length);
+        this.indices.flip();
+    }
+
+    public void bind() {
+        GL10 gl = glGraphics.getGL();
+
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+        vertices.position(0);
+        gl.glVertexPointer(2, GL10.GL_FLOAT, vertexSize, vertices);
+
+        if (hasColor) {
+            gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+            vertices.position(2);
+            gl.glColorPointer(4, GL10.GL_FLOAT, vertexSize, vertices);
+        }
+
+        if (hasTexCoords) {
+            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+            vertices.position(hasColor ? 6 : 2);
+            gl.glTexCoordPointer(2, GL10.GL_FLOAT, vertexSize, vertices);
+        }
+    }
+
+    public void draw(int primitiveType, int offset, int numVertices) {
+        GL10 gl = glGraphics.getGL();
+
+        if (indices != null) {
+            indices.position(offset);
+            gl.glDrawElements(primitiveType, numVertices, GL10.GL_UNSIGNED_SHORT, indices);
+        } else {
+            gl.glDrawArrays(primitiveType, offset, numVertices);
+        }
+    }
+
+    public void unbind() {
+        GL10 gl = glGraphics.getGL();
+        if (hasTexCoords)
+            gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+
+        if (hasColor)
+            gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
+    }
+}
+</code></pre><p>同时移除了不必要的状态改变后以及使用可绑定的BindableVertices类的示例如下：</p>
+<pre><code>public class OptimizedBobTest extends GLGame {
+    public Screen getStartScreen() {
+        return new OptimizedBobScreen(this);
+    }
+
+    class OptimizedBobScreen extends Screen {
+        static final int NUM_BOBS = 100;
+        GLGraphics glGraphics;
+        Texture bobTexture;
+        BindableVertices bobModel;
+        Bob[] bobs;
+        FPSCounter fpsCounter;
+
+        public OptimizedBobScreen(Game game) {
+            super(game);
+            glGraphics = ((GLGame) game).getGLGraphics();
+
+            bobTexture = new Texture((GLGame) game, &quot;bobrgb888-32x32.png&quot;);
+
+            bobModel = new BindableVertices(glGraphics, 4, 12, false, true);
+            bobModel.setVertices(new float[] { -16, -16, 0, 1, 16, -16, 1, 1, 16, 16, 1, 0, -16, 16, 0, 0, }, 0, 16);
+            bobModel.setIndices(new short[] { 0, 1, 2, 2, 3, 0 }, 0, 6);
+
+            bobs = new Bob[100];
+            for (int i = 0; i &lt; 100; i++) {
+                bobs[i] = new Bob();
+            }
+
+            fpsCounter = new FPSCounter();
+        }
+
+        @Override
+        public void update(float deltaTime) {
+            game.getInput().getTouchEvents();
+            game.getInput().getKeyEvents();
+
+            for (int i = 0; i &lt; NUM_BOBS; i++) {
+                bobs[i].update(deltaTime);
+            }
+        }
+
+        @Override
+        public void resume() {
+            GL10 gl = glGraphics.getGL();
+            gl.glViewport(0, 0, glGraphics.getWidth(), glGraphics.getHeight());
+            gl.glClearColor(1, 0, 0, 1);
+            gl.glMatrixMode(GL10.GL_PROJECTION);
+            gl.glLoadIdentity();
+            gl.glOrthof(0, 320, 0, 480, 1, -1);
+
+            gl.glMatrixMode(GL10.GL_MODELVIEW);
+
+            bobTexture.reload();
+            gl.glEnable(GL10.GL_TEXTURE_2D);
+            bobTexture.bind();
+        }
+
+        @Override
+        public void present(float deltaTime) {
+            GL10 gl = glGraphics.getGL();
+            gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+            bobModel.bind();
+            for (int i = 0; i &lt; NUM_BOBS; i++) {
+                gl.glLoadIdentity();
+                gl.glTranslatef((int) bobs[i].x, (int) bobs[i].y, 0);
+                bobModel.draw(GL10.GL_TRIANGLES, 0, 6);
+            }
+            bobModel.unbind();
+
+            fpsCounter.logFrame();
+        }
+
+        @Override
+        public void pause() {
+        }
+
+        @Override
+        public void dispose() {
+        }
+    }
+}
+</code></pre>
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2015/09/13/Game Frame/9、2D游戏编程技巧/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2015/09/12/Game Frame/7、Flappy Bird示例/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/touxiang.jpg" alt="柒夜's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        whu_cc@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto: whu_cc@163.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">22</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/10/">十月 2015<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">14</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/06/">六月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">五月 2015<span class="sidebar_archives-count">8</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android基础/">Android基础<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/categories/Android官方培训教程/">Android官方培训教程<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/categories/PHP/">PHP<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Swift/">Swift<span class="sidebar_archives-count">22</span></a></li><li><a class="sidebar_archives-link" href="/categories/libgdx/">libgdx<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码大全/">代码大全<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/categories/技术/">技术<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/杂谈/">杂谈<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/游戏框架/">游戏框架<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/categories/算法导论/">算法导论<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/gallery" title="相册">
+                
+                    <i class="material-icons sidebar-material-icons">photo</i>
+                
+                相册
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/tags" title="标签云">
+                
+                    <i class="material-icons sidebar-material-icons">label_outline</i>
+                
+                标签云
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+        <li>
+            <a href="/links" title="友情链接">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                友情链接
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">69</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>柒夜
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+		<!--
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+        -->
+    
+</footer>
+
+
+                    <!-- Import File -->
+
+
+    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
+    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
+
+
+
+    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Window Load-->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Bing Background -->
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

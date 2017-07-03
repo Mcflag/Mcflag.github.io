@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.4.0 -->
+    <script>window.materialVersion = "1.4.0"</script>
+
+    <!-- Title -->
+    
+    <title>
+        
+            6、OpenGL示例 | 
+        
+        柒夜
+    </title>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="柒夜">
+    <meta name="description" itemprop="description" content="摘要OpenGL示例">
+    <meta name="keywords" content="null,游戏框架">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="柒夜">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://yoursite.com">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="6、OpenGL示例 | 柒夜">
+    <meta property="og:image" content="/img/favicon.png" />
+    <meta property="og:description" content="摘要OpenGL示例">
+    <meta property="og:article:tag" content="游戏框架"> 
+
+    
+        <meta property="article:published_time" content="Sun Sep 06 2015 00:21:15 GMT+0800" />
+        <meta property="article:modified_time" content="Sun Jul 02 2017 01:48:00 GMT+0800" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="6、OpenGL示例 | 柒夜">
+    <meta name="twitter:description" content="摘要OpenGL示例">
+    <meta name="twitter:image" content="/img/favicon.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://yoursite.com" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://yoursite.com/2015/09/06/Game Frame/6、OpenGL示例/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "柒夜",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "柒夜",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "暗夜之虫 会集光中"
+    },
+    "headline": "6、OpenGL示例",
+    "url": "http://yoursite.com/2015/09/06/Game Frame/6、OpenGL示例/index.html",
+    "datePublished": "Sun Sep 06 2015 00:21:15 GMT+0800",
+    "dateModified": "Sun Jul 02 2017 01:48:00 GMT+0800",
+    "description": "摘要OpenGL示例",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://yoursite.com"
+    }
+}
+</script>
+
+
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import CSS & jQuery -->
+    
+        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        
+        
+            <style>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</style>
+
+        
+        <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+
+        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
+    
+    
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Analytics -->
+    
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GLSurfaceView的代码"><span class="post-toc-number">2.</span> <span class="post-toc-text">GLSurfaceView的代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GLGame：实现游戏接口"><span class="post-toc-number">3.</span> <span class="post-toc-text">GLGame：实现游戏接口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#绘制一个红色的三角形"><span class="post-toc-number">4.</span> <span class="post-toc-text">绘制一个红色的三角形</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#绘制三角形的示例代码"><span class="post-toc-number">5.</span> <span class="post-toc-text">绘制三角形的示例代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#指定每个顶点的颜色"><span class="post-toc-number">6.</span> <span class="post-toc-text">指定每个顶点的颜色</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 24 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                6、OpenGL示例
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/touxiang.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>柒夜</strong>
+        <span>9月 06, 2015</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/游戏框架/">游戏框架</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=6、OpenGL示例&url=http://yoursite.com/2015/09/06/Game Frame/6、OpenGL示例/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=柒夜&title=6、OpenGL示例&summary=从零开始&pics=http://yoursite.com/img/favicon.png&url=http://yoursite.com/2015/09/06/Game Frame/6、OpenGL示例/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>OpenGL示例<br><a id="more"></a></p>
+<h2 id="GLSurfaceView的代码"><a href="#GLSurfaceView的代码" class="headerlink" title="GLSurfaceView的代码"></a>GLSurfaceView的代码</h2><p>首先我们需要某种类型的View，它允许使用OpenGl ES绘图。它称为GLSurfaceView类，派生自SurfaceView类。为了不打断UI线程的执行，还需要一个独立的主循环线程。GLSurfaceView已经自动实现了这样的一个线程，在使用时需要做的是实现一个名为GLSurfaceView.Renderer的监听器接口。</p>
+<p>GL10实例将命令发给OpenGL ES,EGLConfig则设置Surface的属性，例如颜色和深度等。</p>
+<p>每一次活动暂停都将导致GLSurfaceView界面的销毁。当活动恢复时GLSurfaceView会重新实例化一个新的OpenGL ES渲染界面。并通过调用监听器的onSurfaceCreated()方法进行通知。这同时也导致丢失所有的OpenGL状态。</p>
+<p>GLSurfaceViewTest的代码：</p>
+<pre><code>public class GLSurfaceViewTest extends Activity {
+    GLSurfaceView glView;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        glView = new GLSurfaceView(this);
+        glView.setRenderer(new SimpleRenderer());
+        setContentView(glView);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        glView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        glView.onPause();
+    }
+
+    static class SimpleRenderer implements Renderer {
+        Random rand = new Random();
+
+        @Override
+        public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+
+        }
+
+        @Override
+        public void onSurfaceChanged(GL10 gl, int width, int height) {
+
+        }
+
+        @Override
+        public void onDrawFrame(GL10 gl) {
+            gl.glClearColor(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1);
+            gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        }
+    }
+}
+</code></pre><p>glClear方法指明了清理哪个缓冲区，这里设置的是GL_COLOR_BUFFER_BIT缓冲区。注意：永远不要在另一个线程中调用OpenGl ES。这是由于OpenGL ES是被设计为用在单线程中的，而且不是线程安全的。</p>
+<h2 id="GLGame：实现游戏接口"><a href="#GLGame：实现游戏接口" class="headerlink" title="GLGame：实现游戏接口"></a>GLGame：实现游戏接口</h2><p>实现一个GLGame类实现前面的定义的Game接口。而且OpenGL不太适合作为该Graphics接口的编程模型，替代方法是实现一个新类GLGraphics，该类记录从GLSurfaceView获得的GL10实例的变化。</p>
+<pre><code>public class GLGraphics {
+    GLSurfaceView glView;
+    GL10 gl;
+
+    GLGraphics(GLSurfaceView glView) {
+        this.glView = glView;
+    }
+
+    public GL10 getGL() {
+        return gl;
+    }
+
+    void setGL(GL10 gl) {
+        this.gl = gl;
+    }
+
+    public int getWidth() {
+        return glView.getWidth();
+    }
+
+    public int getHeight() {
+        return glView.getHeight();
+    }
+}
+</code></pre><p>上面GLGraphics类将在GLSurfaceView的渲染线程中使用，GLGame与AndroidGame类绝大多数相同，唯一复杂的地方是渲染线程和UI线程之间的同步。</p>
+<pre><code>public abstract class GLGame extends Activity implements Game, Renderer {
+    enum GLGameState {
+        Initialized, Running, Paused, Finished, Idle
+    }
+
+    GLSurfaceView glView;
+    GLGraphics glGraphics;
+    Audio audio;
+    Input input;
+    FileIO fileIO;
+    Screen screen;
+    GLGameState state = GLGameState.Initialized;
+    Object stateChanged = new Object();
+    long startTime = System.nanoTime();
+    WakeLock wakeLock;
+
+    @SuppressWarnings(&quot;deprecation&quot;)
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        glView = new GLSurfaceView(this);
+        glView.setRenderer(this);
+        setContentView(glView);
+
+        glGraphics = new GLGraphics(glView);
+        fileIO = new AndroidFileIO(this);
+        audio = new AndroidAudio(this);
+        input = new AndroidInput(this, glView, 1, 1);
+        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, &quot;GLGame&quot;);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        glView.onResume();
+        wakeLock.acquire();
+    }
+
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        glGraphics.setGL(gl);
+
+        synchronized (stateChanged) {
+            if (state == GLGameState.Initialized)
+                screen = getStartScreen();
+            state = GLGameState.Running;
+            screen.resume();
+            startTime = System.nanoTime();
+        }
+    }
+
+    public void onSurfaceChanged(GL10 gl, int width, int height) {
+    }
+
+    public void onDrawFrame(GL10 gl) {
+        GLGameState state = null;
+
+        synchronized (stateChanged) {
+            state = this.state;
+        }
+
+        if (state == GLGameState.Running) {
+            float deltaTime = (System.nanoTime() - startTime) / 1000000000.0f;
+            startTime = System.nanoTime();
+
+            screen.update(deltaTime);
+            screen.present(deltaTime);
+        }
+
+        if (state == GLGameState.Paused) {
+            screen.pause();
+            synchronized (stateChanged) {
+                this.state = GLGameState.Idle;
+                stateChanged.notifyAll();
+            }
+        }
+
+        if (state == GLGameState.Finished) {
+            screen.pause();
+            screen.dispose();
+            synchronized (stateChanged) {
+                this.state = GLGameState.Idle;
+                stateChanged.notifyAll();
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        synchronized (stateChanged) {
+            if (isFinishing())
+                state = GLGameState.Finished;
+            else
+                state = GLGameState.Paused;
+            while (true) {
+                try {
+                    stateChanged.wait();
+                    break;
+                } catch (InterruptedException e) {
+                }
+            }
+        }
+        wakeLock.release();
+        glView.onPause();
+        super.onPause();
+    }
+
+    public GLGraphics getGLGraphics() {
+        return glGraphics;
+    }
+
+    public Input getInput() {
+        return input;
+    }
+
+    public FileIO getFileIO() {
+        return fileIO;
+    }
+
+    public Graphics getGraphics() {
+        throw new IllegalStateException(&quot;We are using OpenGL!&quot;);
+    }
+
+    public Audio getAudio() {
+        return audio;
+    }
+
+    public void setScreen(Screen newScreen) {
+        if (newScreen == null)
+            throw new IllegalArgumentException(&quot;Screen must not be null&quot;);
+
+        this.screen.pause();
+        this.screen.dispose();
+        newScreen.resume();
+        newScreen.update(0);
+        this.screen = newScreen;
+    }
+
+    public Screen getCurrentScreen() {
+        return screen;
+    }
+}
+</code></pre><p>通过GLGame.getGLGraphics()方法得到GLGraphics方法来代替标准Graphics。所有的Screen都在渲染线程中执行。下面是一个使用GLGame的示例：</p>
+<pre><code>public class GLGameTest extends GLGame {
+
+    @Override
+    public Screen getStartScreen() {
+        return new TestScreen(this);
+    }
+
+    class TestScreen extends Screen {
+        GLGraphics glGraphics;
+        Random rand = new Random();
+
+        public TestScreen(Game game) {
+            super(game);
+            glGraphics = ((GLGame) game).getGLGraphics();
+        }
+
+        @Override
+        public void update(float deltaTime) {
+        }
+
+        @Override
+        public void present(float deltaTime) {
+            GL10 gl = glGraphics.getGL();
+            gl.glClearColor(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1);
+            gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        }
+
+        @Override
+        public void pause() {
+        }
+
+        @Override
+        public void resume() {
+        }
+
+        @Override
+        public void dispose() {
+        }
+    }
+}
+</code></pre><h2 id="绘制一个红色的三角形"><a href="#绘制一个红色的三角形" class="headerlink" title="绘制一个红色的三角形"></a>绘制一个红色的三角形</h2><p>使用OpenGL ES绘制几何图形之前需要进行一些设置，其中有两个设置最重要，投影矩阵（以及相应的视锥）和视口。</p>
+<p><strong>1、定义视口</strong>：通过以下方法可以使用帧缓冲区的一部分或者全部。</p>
+<pre><code>GL10.glViewport(int x, int y, int width, int height);
+</code></pre><p>x和y坐标表示帧缓冲区中视口的左上方，width和height表示视口的大小，单位是像素，需要注意的是OpenGL ES假定帧缓冲区坐标系统的原点在屏幕左下角。通常情况下将x和y设置为0，width和height设置为屏幕的分辨率，也就是全屏模式。虽然看起来像是该方法设置了渲染用的2D坐标系统，但实际上并非如此。它只是定义了OpenGL用来输出最终图像的帧缓冲区部分，2D坐标系统是通过投影和模型-视图矩阵定义的。</p>
+<p><strong>2、定义投影矩阵</strong>：先只使用平行投影。</p>
+<p>（1）矩阵模式与活动矩阵。OpenGL ES会记录3个矩阵：投影矩阵，模型视图矩阵和纹理矩阵。在使用矩阵时必须先声明要操作哪个矩阵。使用如下方法：</p>
+<pre><code>GL10.glMatrixMode(int mode)
+</code></pre><p>参数mode可以是GL10.GL_PROJECTION、GL10.GL_MODELVIEW或者GL10.GL_TEXTURE。该方法调用后会一直使用该矩阵，知道下次设定新的矩阵。这个矩阵模式是OpenGL的状态之一，如果应用暂停并恢复，上下文会丢失，导致此模式也会丢失。为了使后续调用都能够操作投影矩阵，可使用以下方法：</p>
+<pre><code>gl.glMatrixMode(GL10.GL_PROJECTION);
+</code></pre><p>（2）使用glOrthof设置正交投影。OpenGL提供以下方法设置正交投影矩阵：</p>
+<pre><code>GL10.glOrthof(int left,int right,int bottom,int top, int near,int far)
+</code></pre><p>这实质上是在视锥裁剪面上做了一些操作。这六个值定义了一个类似盒子的长方体，定义的是前一个面的左下角和后一个面的右上角。一般设置视锥为：</p>
+<pre><code>gl.glOrthof(0,480,0,320,1,-1);
+</code></pre><p>虽然视锥很薄，但是在2D模式下是没有问题的。需要注意最好不要将near和far都设为0，为了能够安全可靠的使用，也给z轴分配一些缓冲区。现在坐标的原点在左下角，对于游戏世界来说实际更加方便一些。</p>
+<p><strong>3、有用的代码片段</strong>：这段代码主要用黑色清屏，设置视口为整个帧缓冲区，设置投影矩阵，由此设置视锥。</p>
+<pre><code>gl.glClearColor(0,0,0,1);
+gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+gl.glViewport(0,0,glGraphics.getWidth(),glGraphics.getHeight());
+gl.glMatrixMode(GL10.GL_PROJECTION);
+gl.glLoadIdentity();
+gl.glOrthof(0,320,0,480,1,-1);
+</code></pre><p>glLoadIdentity()方法作用：实际上OpenGL提供的大多数操作活动矩阵的方法并不是直接设置活动矩阵，实际做法是根据它们携带的参数构造一个临时矩阵，并用这个矩阵与当前矩阵相乘。如果在每一帧中都调用glOrthof()方法，那么每次调用投影矩阵都会与其自身相乘。为了避免这种情况，在与投影矩阵相乘之前需要确保在合适的地方有一个干净的单位矩阵。实际意思是该方法是一个归位操作，因为每一次的矩阵变换都是基于栈顶矩阵的值，如果不归位的话会一直计算，影响下一轮的值。所以进行归位实际上是置为单位矩阵，那么哪怕是相乘也不产生影响。</p>
+<p><strong>4、指定三角形</strong>：首先要定义一个三角形的组成部分。</p>
+<ul>
+<li>一个三角形由3个点组成。</li>
+<li>每个点都称为顶点</li>
+<li>一个顶点对应3D空间中的一个位置。</li>
+<li>3D空间中的一个位置由3个浮点数表示，分别是x、y、z坐标。</li>
+<li>一个顶点可以有一些附加属性，例如颜色或者纹理，这些属性也都由浮点数表示。</li>
+</ul>
+<p>OpenGL采用数组的形式定义三角形，但是，OpenGL实际上是通过C API提供接口，因此无法使用标准JAVA数组。这里使用的替代方法是采用JAVA的NIO缓冲区，该缓冲区是一段连续字节的内存块。</p>
+<p>为了保证完全准确，需要使用直接NIO缓冲区。这意味着这块内存不是在虚拟机的对内存中，而是在主机的堆内存中。可以使用下面的代码：</p>
+<pre><code>ByteBuffer buffer=ByteBuffer.allocateDirect(NUMBER_OF_BYTES);
+buffer.order(ByteOrder.nativeOrder());
+</code></pre><p>上面的代码将分配一个总长NUMBER_OF_BYTES字节的ByteBuffer，并且保证字节的顺序等于底层的CPU的字节顺序。一个NIO缓冲区有3个属性，</p>
+<ul>
+<li>Capacity：缓冲区可以容纳的元素的总个数；</li>
+<li>Position：下一个元素将要写入或读取的当前位置；</li>
+<li>Limit：最后一个元素的索引加1。</li>
+</ul>
+<p>一个缓冲区的容量实际上是它的大小，Position和Limit属性可以看成是缓冲区中从位置开始到界限（不包括在内）为止定义的一个段。既然需要使用浮点数表示顶点，那么最好不用处理字节。可以将ByteBuffer实例转换成FloatBuffer实例，这样就可以使用浮点数。</p>
+<pre><code>FloatBuffer floatBuffer=buffer.asFloatBuffer();
+</code></pre><p>在FloatBuffer中，容量，位置和界限都是浮点型，这些缓冲区的使用方式也很简单，</p>
+<pre><code>float[] vertices={...definitions of vertex positions etc...};
+floatBuffer.clear();
+floatBuffer.put(vertices);
+floatBuffer.flip();
+</code></pre><p>首先使用标准JAVA浮点型数组定义数据，在将数组存入缓冲区之前，需要将缓冲区清空。clear()方法只是把位置属性设为0，把界限属性设为容量。使用put()方法从缓冲区当前位置将所有的内容复制到缓冲区中，复制完后，缓冲区位置属性将加上数组的长度。接着put()方法会给复制到缓冲区的最后一个数组的数据附加其他数据，最后调用的FloatBuffer.flip()只是将位置值和界限值交换。OpenGL需要准确知道位置值和需要读取的元素数量。</p>
+<p>有时在填充完缓冲区后，手动设置属性是很有用的。通过调用下面的方法可以实现该功能，</p>
+<pre><code>FloatBuffer.position(int position);
+</code></pre><p>当需要临时给一个填充过的缓冲区设置一个非零位置值。以便OpenGL将从指定的位置开始进行读取时，这个方法就派上了用场。</p>
+<p><strong>5、将顶点发送到OpenGL ES</strong></p>
+<p>假定坐标系统是从（0，0，1）到（320，480，-1），可以使用下面的代码：</p>
+<pre><code>ByteBuffer byteBuffer=ByteBuffer.allocateDirect(3*2*4);
+byteBuffer.order(ByteOrder.nativeOrder());
+FloatBuffer vertices=byteBuffer.asFloatBuffer();
+vertices.put(new flaot[]{0.0f,0.0f,
+            319.0f,0.0f,
+            160.0f,479.0f});
+vertices.flip();
+</code></pre><p>主要的部分是分配字节，这里有3个顶点，每个顶点是有一个给定位置的x，y坐标的位置组成的。每一个坐标值是一个浮点数，占据4个字节。3个顶点数量乘以两个坐标值数量，再乘以4个字节数量，因此这个三角形共需要24个字节。</p>
+<blockquote>
+<p>只能使用x，y坐标指定顶点，OpenGL ES会自动将z坐标置为0.</p>
+</blockquote>
+<p>在缓冲区中使用一个浮点数组保存顶点的位置。三角形从左下角（0，0）坐标开始，直到视锥/屏幕的右边缘（319，0），然后到达视锥/屏幕顶边缘的中部。作为一个使用NIO缓冲区的好习惯，在缓冲区上也使用了flip()方法。这样位置被设置为0，界限值将被设置为6（FloatBuffer的界限和位置值都是浮点型，而不是字节）。</p>
+<p>一旦NIO缓冲区可用，OpenGL便可根据它的当前状态（即视口和投影矩阵）进行绘制。代码如下：</p>
+<pre><code>gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+gl.glVertexPointer(2,GL10.GL_FLOAT,0,vertices);
+gl.glDrawArrays(GL10.GL_TRIANGLES,0,3);
+</code></pre><p>glEnableClientState()方法的调用是有点遗留问题，它告诉OpenGL这些需要绘制的顶点都有一个位置。它的问题有：</p>
+<ul>
+<li>常量名为GL10.GL_VERTEX_ARRAY，这容易造成混淆，命名为GL10.GL_POSITION_ARRAY会更好一些。</li>
+<li>因为无法绘制任何没有位置的物体，所以调用该方法有些多余。但仍然这样做的目的是为了满足OpenGL的要求。</li>
+</ul>
+<p>在调用glVertexPointer()方法时，需要告诉OpenGL从何处取得顶点的位置和其他一些附加信息。第一个参数告诉OpenGL每个顶点位置是由x，y坐标组成的。如果需要制定x，y和z的值那么需要将这个值设置为3。第二个参数告诉OpenGL坐标所使用的数据类型，在此是GL10.GL_FLOAT，这说明坐标值使用的是浮点型，占用4个字节。第三个参数是步长，告诉OpenGL顶点位置值之间的字节距离，在此步长为0.说明位置值是紧密封装的(vertex1(x,y),vertex2(x,y)等)。最后一个参数是FloatBuffer，对于它有亮点：</p>
+<ul>
+<li>FloatBuffer代表原生堆中的一个内存块，并有一个起始地址。</li>
+<li>FloatBuffer的位置是从起始地址开始的偏移量。</li>
+</ul>
+<p>OpenGL将管理该缓冲区的起始地址并将缓冲区的位置设为浮点数所在的位置。当需要绘制缓冲区中的内容时，OpenGL将从该位置读取这些顶点值。顶点指针（或者位置指针）是OpenGL中的一个状态，只要该值未改动（上下文也未丢失），OpenGL将记住并在所有需要使用顶点位置的子调用中使用它。</p>
+<p>最后调用glDrawArrays()方法，它将绘制三角形。第一个参数指明了将要绘制的物体类型。在本例中，通过GL10.GL_TRIANGLES指明将渲染三角形。下一个参数是与顶点指针指向的第一个顶点相关量的偏移量。该偏移量以顶点为单位进行测量的，而不是以字节或浮点为单位。如果指定了多个三角形，那么可以使用这个偏移量渲染三角形列表的最后一个子集。最后一个参数告诉OpenGL渲染时使用的顶点数量。在此是3个顶点。如果绘制的是GL10.GL_TRIANGLES类型，顶点数量必须是3的倍数。</p>
+<p>一旦发出了glVertexPointer()命令，OpenGL将把顶点位置传输到GPU并进行存储一共后续渲染命令使用。每次渲染顶点时读取的顶点数据是最近一次使用glVertexPointer()指定的。每个顶点可能拥有多个属性。如果不设置颜色，绘制时会使用默认值。这只颜色的方法为：</p>
+<pre><code>GL10.glColor4f(float r,float g,float b,float a);
+</code></pre><p>方法取值区间为0.0~1.0，默认颜色是（1，1，1，1），从完全不透明的白色开始。</p>
+<p>这里是使用OpenGl绘制三角形所使用的16行代码，完成了清屏，设置视口与投影矩阵，创建存储顶点位置的NIO缓冲区和绘制三角形。</p>
+<h2 id="绘制三角形的示例代码"><a href="#绘制三角形的示例代码" class="headerlink" title="绘制三角形的示例代码"></a>绘制三角形的示例代码</h2><pre><code>public class FirstTriangleTest extends GLGame {
+    public Screen getStartScreen() {
+        return new FirstTriangleScreen(this);
+    }
+
+    class FirstTriangleScreen extends Screen {
+        GLGraphics glGraphics;
+        FloatBuffer vertices;
+
+        public FirstTriangleScreen(Game game) {
+            super(game);
+            glGraphics = ((GLGame) game).getGLGraphics();
+
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(3 * 2 * 4);
+            byteBuffer.order(ByteOrder.nativeOrder());
+            vertices = byteBuffer.asFloatBuffer();
+            vertices.put(new float[] { 0.0f, 0.0f, 319.0f, 0.0f, 160.0f, 479.0f });
+            vertices.flip();
+        }
+
+        @Override
+        public void present(float deltaTime) {
+            GL10 gl = glGraphics.getGL();
+            gl.glViewport(0, 0, glGraphics.getWidth(), glGraphics.getHeight());
+            gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+            gl.glMatrixMode(GL10.GL_PROJECTION);
+            gl.glLoadIdentity();
+            gl.glOrthof(0, 320, 0, 480, 1, -1);
+
+            gl.glColor4f(1, 0, 0, 1);
+            gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+            gl.glVertexPointer(2, GL10.GL_FLOAT, 0, vertices);
+            gl.glDrawArrays(GL10.GL_TRIANGLES, 0, 3);
+        }
+
+        @Override
+        public void update(float deltaTime) {
+            game.getInput().getTouchEvents();
+            game.getInput().getKeyEvents();
+        }
+
+        @Override
+        public void pause() {
+        }
+
+        @Override
+        public void resume() {
+        }
+
+        @Override
+        public void dispose() {
+        }
+    }
+}
+</code></pre><p>在这个类中，有两个实例，GLGraphics实例和用来存储三角形3个顶点的2D位置的FloatBuffer。从OpenGl的最佳实践来看，之前的代码中做错了几件事：</p>
+<ul>
+<li>在没有需求的地方，一遍一遍地将同一状态设为相同值，在OpenGL中改变状态的开销是巨大的，因此在单一帧中应当尽力减少状态改变的次数。</li>
+<li>视口和投影矩阵一经设置就不会再改变，应当将这些代码移到resume()中，该方法只在OpenGL界面每次重新创建的时候被调用；这样也处理了OpenGL的上下文丢失。</li>
+<li>应当将设置颜色的代码移到resume()中，这些代码设置的颜色用来清除或设置默认的顶点颜色，这两种颜色也不会改变。</li>
+<li>应当将glEnableClientState()和glVertexPointer()方法移动到resume()中。</li>
+<li>唯一需要在每一帧中调用的方法是glClear()和glDrawArray()。这两种方法都使用OpenGL的当前状态，只要我们不修改，并且不会因为活动暂停和恢复而丢失上下文，当前的状态就将保持不变。</li>
+</ul>
+<p>如果实际中使用了这些优化方法，那么在主循环中只需要两个OpenGL调用。</p>
+<blockquote>
+<p>这里还有一个小问题，三角形的右下角实际上丢失了一个像素，这实际上是因为OpenGL光栅化(绘制像素)三角形时所采用的方式造成的。有一个特定的三角形光栅处理规则导致了这个问题。但是实际上更多的是渲染2D矩形（由两个三角形组成），其中不会存在这个问题。</p>
+</blockquote>
+<h2 id="指定每个顶点的颜色"><a href="#指定每个顶点的颜色" class="headerlink" title="指定每个顶点的颜色"></a>指定每个顶点的颜色</h2><p>上一节使用glColor4f()方法设置顶点颜色，但是可以通过更细度的控制方式（例如，为每一个顶点设置颜色）。</p>
+<pre><code>int VERTEX_SIZE=(2+4)*4;
+ByteBuffer byteBuffer=ByteBuffer.allocateDirect(3*VERTEX_SIZE);
+byteBuffer.order(ByteOrder.nativeOrder());
+FloatBuffer vertices=byteBuffer.asFloatBuffer();
+vertices.put(new Float[]{0.0f,0.0f,1,0,0,1,
+            319.0f,0.0f,0,1,0,1,
+            160.0f,479.0f,0,0,1,1});
+vertices.flip();
+</code></pre><p>总共3个顶点，每个顶点需要两个坐标和4个颜色分量。因此共需要6个浮点数，每个浮点数占用4个字节。要使用这些数值，需要渲染它就必须告诉OpenGL不但有位置信息，还有颜色属性。</p>
+<pre><code>gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+</code></pre><p>还需要告诉OpenGL哪里可以得到这些信息：</p>
+<pre><code>vertices.position(0);
+gl.glVertexPointer(2,GL10.GL_FLOAT,VERTEX_SIZE,vertices);
+verteices.position(2);
+gl.glColorPointer(4,GL10.GL_FLOAT,VERTEZ_SIZE,vertiecs);
+</code></pre><p>这里需要指明顶点的大小。使用VERTEX_SIZE常量。接下来，设置第一个顶点的R颜色分量在缓冲区的位置并调用glColorPointer()方法，第一个参数是每个颜色的分量数，一直都是4，因为包含R、G、B和A四个分量。第二个参数指明分量类型，第三个参数是顶点颜色间的步长。与顶点位置间的步长一致，最后一个参数是顶点缓冲区。在调用glColorPointer()方法之前先调用vertices.position(2)，OpenGL知道第一个顶点的颜色从第三个浮点数开始。</p>
+<p>为了绘制三角形，需要调用glDrawElements()方法，该方法告诉OpenGL使用FloatBuffer中的前3个顶点绘制一个三角形。</p>
+<pre><code>gl.glDrawElements(GL10.GL_TRIANGLES,0,3);
+</code></pre><p>由于设置了顶点和顶点颜色，那么OpenGL会自动忽略默认颜色。</p>
+<p><strong>ColoredTriangleTest类的代码</strong></p>
+<pre><code>public class ColoredTriangleTest extends GLGame {
+    public Screen getStartScreen() {
+        return new ColoredTriangleScreen(this);
+    }
+
+    class ColoredTriangleScreen extends Screen {
+        final int VERTEX_SIZE = (2 + 4) * 4;
+        GLGraphics glGraphics;
+        FloatBuffer vertices;        
+
+        public ColoredTriangleScreen(Game game) {
+            super(game);
+            glGraphics = ((GLGame) game).getGLGraphics();
+
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(3 * VERTEX_SIZE);
+            byteBuffer.order(ByteOrder.nativeOrder());
+            vertices = byteBuffer.asFloatBuffer();
+            vertices.put( new float[] {   0.0f,   0.0f, 1, 0, 0, 1,
+                                        319.0f,   0.0f, 0, 1, 0, 1,
+                                        160.0f, 479.0f, 0, 0, 1, 1});
+            vertices.flip();
+           }
+
+        @Override
+        public void present(float deltaTime) {
+            GL10 gl = glGraphics.getGL();
+            gl.glViewport(0, 0, glGraphics.getWidth(), glGraphics.getHeight());
+            gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+            gl.glMatrixMode(GL10.GL_PROJECTION);
+            gl.glLoadIdentity();
+            gl.glOrthof(0, 320, 0, 480, 1, -1);
+
+            gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+            gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+
+            vertices.position(0);
+            gl.glVertexPointer(2, GL10.GL_FLOAT, VERTEX_SIZE, vertices);
+            vertices.position(2);            
+            gl.glColorPointer(4, GL10.GL_FLOAT, VERTEX_SIZE, vertices);
+
+            gl.glDrawArrays(GL10.GL_TRIANGLES, 0, 3);
+        }
+
+        @Override
+        public void update(float deltaTime) {
+        }
+
+        @Override
+        public void pause() {
+        }
+
+        @Override
+        public void resume() {
+        }
+
+        @Override
+        public void dispose() {
+        }
+    }
+}
+</code></pre><p>现在也可以关闭GL10.GL_COLOR_ARRAY，这样OpenGL可以使用默认的颜色了。可以采用之前的方式使用glColor4f()方法设置。关闭GL10.GL_COLOR_ARRAY可以使用下面方法：</p>
+<pre><code>gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
+</code></pre><p>但是这样只是关闭从FloatBuffer读取颜色的功能，如果通过glColorPointer()设置了颜色指针，就会一直使用颜色指针。</p>
+
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2015/09/12/Game Frame/7、Flappy Bird示例/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2015/09/05/Game Frame/5、OpenGL ES介绍/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/touxiang.jpg" alt="柒夜's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        whu_cc@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto: whu_cc@163.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">22</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/10/">十月 2015<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">14</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/06/">六月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">五月 2015<span class="sidebar_archives-count">8</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android基础/">Android基础<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/categories/Android官方培训教程/">Android官方培训教程<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/categories/PHP/">PHP<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Swift/">Swift<span class="sidebar_archives-count">22</span></a></li><li><a class="sidebar_archives-link" href="/categories/libgdx/">libgdx<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码大全/">代码大全<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/categories/技术/">技术<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/杂谈/">杂谈<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/游戏框架/">游戏框架<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/categories/算法导论/">算法导论<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/gallery" title="相册">
+                
+                    <i class="material-icons sidebar-material-icons">photo</i>
+                
+                相册
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/tags" title="标签云">
+                
+                    <i class="material-icons sidebar-material-icons">label_outline</i>
+                
+                标签云
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+        <li>
+            <a href="/links" title="友情链接">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                友情链接
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">69</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>柒夜
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+		<!--
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+        -->
+    
+</footer>
+
+
+                    <!-- Import File -->
+
+
+    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
+    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
+
+
+
+    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Window Load-->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Bing Background -->
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

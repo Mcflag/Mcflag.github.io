@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.4.0 -->
+    <script>window.materialVersion = "1.4.0"</script>
+
+    <!-- Title -->
+    
+    <title>
+        
+            4、一个2D游戏的例子 | 
+        
+        柒夜
+    </title>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="柒夜">
+    <meta name="description" itemprop="description" content="摘要一个2D游戏的例子，类贪食蛇">
+    <meta name="keywords" content="null,游戏框架">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="柒夜">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://yoursite.com">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="4、一个2D游戏的例子 | 柒夜">
+    <meta property="og:image" content="/img/favicon.png" />
+    <meta property="og:description" content="摘要一个2D游戏的例子，类贪食蛇">
+    <meta property="og:article:tag" content="游戏框架"> 
+
+    
+        <meta property="article:published_time" content="Fri Sep 04 2015 03:07:02 GMT+0800" />
+        <meta property="article:modified_time" content="Sun Jul 02 2017 01:47:42 GMT+0800" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="4、一个2D游戏的例子 | 柒夜">
+    <meta name="twitter:description" content="摘要一个2D游戏的例子，类贪食蛇">
+    <meta name="twitter:image" content="/img/favicon.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://yoursite.com" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://yoursite.com/2015/09/04/Game Frame/4、一个2D游戏的例子/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "柒夜",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "柒夜",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "暗夜之虫 会集光中"
+    },
+    "headline": "4、一个2D游戏的例子",
+    "url": "http://yoursite.com/2015/09/04/Game Frame/4、一个2D游戏的例子/index.html",
+    "datePublished": "Fri Sep 04 2015 03:07:02 GMT+0800",
+    "dateModified": "Sun Jul 02 2017 01:47:42 GMT+0800",
+    "description": "摘要一个2D游戏的例子，类贪食蛇",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://yoursite.com"
+    }
+}
+</script>
+
+
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import CSS & jQuery -->
+    
+        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        
+        
+            <style>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</style>
+
+        
+        <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+
+        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
+    
+    
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Analytics -->
+    
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-number">2.</span> <span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主活动"><span class="post-toc-number">3.</span> <span class="post-toc-text">主活动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#保存资源类"><span class="post-toc-number">4.</span> <span class="post-toc-text">保存资源类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置Settings类的代码"><span class="post-toc-number">5.</span> <span class="post-toc-text">设置Settings类的代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LoadingScreen载入画面"><span class="post-toc-number">6.</span> <span class="post-toc-text">LoadingScreen载入画面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主菜单画面MainMenuScreen类的代码"><span class="post-toc-number">7.</span> <span class="post-toc-text">主菜单画面MainMenuScreen类的代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#帮助类HelpScreen类的代码"><span class="post-toc-number">8.</span> <span class="post-toc-text">帮助类HelpScreen类的代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#排行榜HighscoreScreen类的代码"><span class="post-toc-number">9.</span> <span class="post-toc-text">排行榜HighscoreScreen类的代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#对游戏世界的抽象"><span class="post-toc-number">10.</span> <span class="post-toc-text">对游戏世界的抽象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#World类"><span class="post-toc-number">11.</span> <span class="post-toc-text">World类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GameScreen类"><span class="post-toc-number">12.</span> <span class="post-toc-text">GameScreen类</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 24 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                4、一个2D游戏的例子
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/touxiang.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>柒夜</strong>
+        <span>9月 04, 2015</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/游戏框架/">游戏框架</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=4、一个2D游戏的例子&url=http://yoursite.com/2015/09/04/Game Frame/4、一个2D游戏的例子/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=柒夜&title=4、一个2D游戏的例子&summary=从零开始&pics=http://yoursite.com/img/favicon.png&url=http://yoursite.com/2015/09/04/Game Frame/4、一个2D游戏的例子/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>一个2D游戏的例子，类贪食蛇<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>游戏玩法就是一个简单的贪食蛇，但是只能通过左右两个按钮来控制贪食蛇转向，向左或者向右转向。而且还可以通过一个很好的开源应用程序Audacity来录制音频。</p>
+<ul>
+<li><p>注意1：Google的Android系统处理Assert有个bug，在AssertManager中不能处理单个超过1MB的文件，不然会报异常，raw没这个限制可以放个4MB的Mp3文件没问题。</p>
+</li>
+<li><p>注意2：assets 文件夹是存放不进行编译加工的原生文件，即该文件夹里面的文件不会像 xml， java 文件被预编译，可以存放一些图片，html，js, css 等文件。</p>
+</li>
+</ul>
+<h2 id="主活动"><a href="#主活动" class="headerlink" title="主活动"></a>主活动</h2><p>因为其他的工作都在框架中做了，所以其实主活动本身非常简单，从AndroidGame中派生并实现getStartScreen()，它将返回一个Screen。</p>
+<pre><code>public class MainGame extends AndroidGame{
+    @Override
+    public Screen getStartScreen() {
+        return new LoadingScreen(this); 
+    }
+}
+</code></pre><h2 id="保存资源类"><a href="#保存资源类" class="headerlink" title="保存资源类"></a>保存资源类</h2><p>加载所有的游戏资源，并且使用静态公有成员，保存加载的Pixmap和Sound。这种方式非常方便，但是因为不是final变量，所以无法防止覆盖这些静态成员变量。对于一个简单的游戏来说，这种处理方式虽然不够安全，但是却更简单方便。</p>
+<pre><code>public class Assets {
+    public static Pixmap background;
+    public static Pixmap logo;
+    public static Pixmap mainMenu;
+    public static Pixmap buttons;
+    public static Pixmap help1;
+    public static Pixmap help2;
+    public static Pixmap help3;
+    public static Pixmap numbers;
+    public static Pixmap ready;
+    public static Pixmap pause;
+    public static Pixmap gameOver;
+    public static Pixmap headUp;
+    public static Pixmap headLeft;
+    public static Pixmap headDown;
+    public static Pixmap headRight;
+    public static Pixmap tail;
+    public static Pixmap stain1;
+    public static Pixmap stain2;
+    public static Pixmap stain3;
+
+    public static Sound click;
+    public static Sound eat;
+    public static Sound bitten;
+}
+</code></pre><h2 id="设置Settings类的代码"><a href="#设置Settings类的代码" class="headerlink" title="设置Settings类的代码"></a>设置Settings类的代码</h2><p>这个类用来存储是否播放音效，以及保存高分榜。load()方法从文件中取出设置，如果某些地方出错，比如暂时没有设置文件将会使用默认值。save()方法将设置数据保存到一个文件中。</p>
+<pre><code>public class Settings {
+    public static boolean soundEnabled = true;
+    public static int[] highscores = new int[] { 100, 80, 50, 30, 10 };
+
+    public static void load(FileIO files) {
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(files.readFile(&quot;.mrnom&quot;)));
+            soundEnabled = Boolean.parseBoolean(in.readLine());
+            for (int i = 0; i &lt; 5; i++) {
+                highscores[i] = Integer.parseInt(in.readLine());
+            }
+        } catch (IOException e) {
+            // :( It&apos;s ok we have defaults
+        } catch (NumberFormatException e) {
+            // :/ It&apos;s ok, defaults save our day
+        } finally {
+            try {
+                if (in != null)
+                    in.close();
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    public static void save(FileIO files) {
+        BufferedWriter out = null;
+        try {
+            out = new BufferedWriter(new OutputStreamWriter(files.writeFile(&quot;.mrnom&quot;)));
+            out.write(Boolean.toString(soundEnabled));
+            for (int i = 0; i &lt; 5; i++) {
+                out.write(Integer.toString(highscores[i]));
+            }
+
+        } catch (IOException e) {
+        } finally {
+            try {
+                if (out != null)
+                    out.close();
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    public static void addScore(int score) {
+        for (int i = 0; i &lt; 5; i++) {
+            if (highscores[i] &lt; score) {
+                for (int j = 4; j &gt; i; j--)
+                    highscores[j] = highscores[j - 1];
+                highscores[i] = score;
+                break;
+            }
+        }
+    }
+}
+</code></pre><h2 id="LoadingScreen载入画面"><a href="#LoadingScreen载入画面" class="headerlink" title="LoadingScreen载入画面"></a>LoadingScreen载入画面</h2><p>继承Screen类，需要我们实现一个Game实例的构造函数，将其传给父类的构造函数。</p>
+<pre><code>public class LoadingScreen extends Screen {
+    public LoadingScreen(Game game) {
+        super(game);
+    }
+
+    public void update(float deltaTime) {
+        Graphics g = game.getGraphics();
+        Assets.background = g.newPixmap(&quot;background.png&quot;, PixmapFormat.RGB565);
+        Assets.logo = g.newPixmap(&quot;logo.png&quot;, PixmapFormat.ARGB4444);
+        Assets.mainMenu = g.newPixmap(&quot;mainmenu.png&quot;, PixmapFormat.ARGB4444);
+           Assets.buttons = g.newPixmap(&quot;buttons.png&quot;, PixmapFormat.ARGB4444);
+        Assets.help1 = g.newPixmap(&quot;help1.png&quot;, PixmapFormat.ARGB4444);
+        Assets.help2 = g.newPixmap(&quot;help2.png&quot;, PixmapFormat.ARGB4444);
+        Assets.help3 = g.newPixmap(&quot;help3.png&quot;, PixmapFormat.ARGB4444);
+        Assets.numbers = g.newPixmap(&quot;numbers.png&quot;, PixmapFormat.ARGB4444);
+        Assets.ready = g.newPixmap(&quot;ready.png&quot;, PixmapFormat.ARGB4444);
+        Assets.pause = g.newPixmap(&quot;pausemenu.png&quot;, PixmapFormat.ARGB4444);
+        Assets.gameOver = g.newPixmap(&quot;gameover.png&quot;, PixmapFormat.ARGB4444);
+        Assets.headUp = g.newPixmap(&quot;headup.png&quot;, PixmapFormat.ARGB4444);
+        Assets.headLeft = g.newPixmap(&quot;headleft.png&quot;, PixmapFormat.ARGB4444);
+        Assets.headDown = g.newPixmap(&quot;headdown.png&quot;, PixmapFormat.ARGB4444);
+        Assets.headRight = g.newPixmap(&quot;headright.png&quot;, PixmapFormat.ARGB4444);
+        Assets.tail = g.newPixmap(&quot;tail.png&quot;, PixmapFormat.ARGB4444);
+        Assets.stain1 = g.newPixmap(&quot;stain1.png&quot;, PixmapFormat.ARGB4444);
+        Assets.stain2 = g.newPixmap(&quot;stain2.png&quot;, PixmapFormat.ARGB4444);
+        Assets.stain3 = g.newPixmap(&quot;stain3.png&quot;, PixmapFormat.ARGB4444);
+        Assets.click = game.getAudio().newSound(&quot;click.ogg&quot;);
+        Assets.eat = game.getAudio().newSound(&quot;eat.ogg&quot;);
+        Assets.bitten = game.getAudio().newSound(&quot;bitten.ogg&quot;);
+        Settings.load(game.getFileIO());
+        game.setScreen(new MainMenuScreen(game));
+    }
+
+    public void present(float deltaTime) {
+
+    }
+
+    public void pause() {
+
+    }
+
+    public void resume() {
+
+    }
+
+    public void dispose() {
+
+    }
+}
+</code></pre><h2 id="主菜单画面MainMenuScreen类的代码"><a href="#主菜单画面MainMenuScreen类的代码" class="headerlink" title="主菜单画面MainMenuScreen类的代码"></a>主菜单画面MainMenuScreen类的代码</h2><p>每个界面使用inbounds方法绑定触摸事件和区域。所有的坐标都是以目标分辨率320*480像素进行处理，得益于以框架中实现的缩放处理来适配各个设备的屏幕分辨率。</p>
+<pre><code>public class MainMenuScreen extends Screen {
+    public MainMenuScreen(Game game) {
+        super(game);               
+    }   
+
+    public void update(float deltaTime) {
+        Graphics g = game.getGraphics();
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();       
+
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(inBounds(event, 0, g.getHeight() - 64, 64, 64)) {
+                    Settings.soundEnabled = !Settings.soundEnabled;
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                }
+                if(inBounds(event, 64, 220, 192, 42) ) {
+                    game.setScreen(new GameScreen(game));
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                    return;
+                }
+                if(inBounds(event, 64, 220 + 42, 192, 42) ) {
+                    game.setScreen(new HighscoreScreen(game));
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                    return;
+                }
+                if(inBounds(event, 64, 220 + 84, 192, 42) ) {
+                    game.setScreen(new HelpScreen(game));
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                    return;
+                }
+            }
+        }
+    }
+
+    private boolean inBounds(TouchEvent event, int x, int y, int width, int height) {
+        if(event.x &gt; x &amp;&amp; event.x &lt; x + width - 1 &amp;&amp; event.y &gt; y &amp;&amp; event.y &lt; y + height - 1) 
+            return true;
+        else
+            return false;
+    }
+
+    public void present(float deltaTime) {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.background, 0, 0);
+        g.drawPixmap(Assets.logo, 32, 20);
+        g.drawPixmap(Assets.mainMenu, 64, 220);
+        if(Settings.soundEnabled)
+            g.drawPixmap(Assets.buttons, 0, 416, 0, 0, 64, 64);
+        else
+            g.drawPixmap(Assets.buttons, 0, 416, 64, 0, 64, 64);
+    }
+
+    public void pause() {        
+        Settings.save(game.getFileIO());
+    }
+
+    public void resume() {
+
+    }
+
+    public void dispose() {
+
+    }
+}
+</code></pre><h2 id="帮助类HelpScreen类的代码"><a href="#帮助类HelpScreen类的代码" class="headerlink" title="帮助类HelpScreen类的代码"></a>帮助类HelpScreen类的代码</h2><p>从Screen派生，update()方法不停检查底部的按钮是否被按下。还有HelpScreen2和HelpScreen3两个类，两个类比较类似，仅仅只是切换显示。</p>
+<pre><code>public class HelpScreen extends Screen {      
+    public HelpScreen(Game game) {
+        super(game);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(event.x &gt; 256 &amp;&amp; event.y &gt; 416 ) {
+                    game.setScreen(new HelpScreen2(game));
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        Graphics g = game.getGraphics();      
+        g.drawPixmap(Assets.background, 0, 0);
+        g.drawPixmap(Assets.help1, 64, 100);
+        g.drawPixmap(Assets.buttons, 256, 416, 0, 64, 64, 64);
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+}
+</code></pre><h2 id="排行榜HighscoreScreen类的代码"><a href="#排行榜HighscoreScreen类的代码" class="headerlink" title="排行榜HighscoreScreen类的代码"></a>排行榜HighscoreScreen类的代码</h2><p>该类设定了使用图片显示字符。</p>
+<pre><code>public class HighscoreScreen extends Screen {
+    String lines[] = new String[5];
+
+    public HighscoreScreen(Game game) {
+        super(game);
+
+        for (int i = 0; i &lt; 5; i++) {
+               lines[i] = &quot;&quot; + (i + 1) + &quot;. &quot; + Settings.highscores[i];
+        }
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+
+        int len = touchEvents.size();
+        for (int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if (event.type == TouchEvent.TOUCH_UP) {
+                if (event.x &lt; 64 &amp;&amp; event.y &gt; 416) {
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                    game.setScreen(new MainMenuScreen(game));
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.background, 0, 0);
+        g.drawPixmap(Assets.mainMenu, 64, 20, 0, 42, 196, 42);
+
+        int y = 100;
+        for (int i = 0; i &lt; 5; i++) {
+            drawText(g, lines[i], 20, y);
+            y += 50;
+        }
+
+        g.drawPixmap(Assets.buttons, 0, 416, 64, 64, 64, 64);
+    }
+
+    public void drawText(Graphics g, String line, int x, int y) {
+        int len = line.length();
+        for (int i = 0; i &lt; len; i++) {
+            char character = line.charAt(i);
+
+            if (character == &apos; &apos;) {
+                x += 20;
+                continue;
+            }
+
+            int srcX = 0;
+            int srcWidth = 0;
+            if (character == &apos;.&apos;) {
+                srcX = 200;
+                srcWidth = 10;
+            } else {
+                srcX = (character - &apos;0&apos;) * 20;
+                srcWidth = 20;
+            }
+
+            g.drawPixmap(Assets.numbers, x, y, srcX, 0, srcWidth, 32);
+            x += srcWidth;
+        }
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+}
+</code></pre><h2 id="对游戏世界的抽象"><a href="#对游戏世界的抽象" class="headerlink" title="对游戏世界的抽象"></a>对游戏世界的抽象</h2><p><strong>Stain类</strong></p>
+<pre><code>public class Stain {
+    public static final int TYPE_1 = 0;
+    public static final int TYPE_2 = 1;
+    public static final int TYPE_3 = 2;
+    public int x, y;
+    public int type;
+
+    public Stain(int x, int y, int type) {
+        this.x = x;
+        this.y = y;
+        this.type = type;
+    }
+}
+</code></pre><p><strong>SnakePart类</strong></p>
+<pre><code>public class SnakePart {
+    public int x, y;
+
+    public SnakePart(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}  
+</code></pre><p><strong>Snake类</strong></p>
+<pre><code>public class Snake {
+    public static final int UP = 0;
+    public static final int LEFT = 1;
+    public static final int DOWN = 2;
+    public static final int RIGHT = 3;
+
+    public List&lt;SnakePart&gt; parts = new ArrayList&lt;SnakePart&gt;();
+    public int direction;    
+
+    public Snake() {        
+        direction = UP;
+        parts.add(new SnakePart(5, 6));
+        parts.add(new SnakePart(5, 7));
+        parts.add(new SnakePart(5, 8));
+    }
+
+    public void turnLeft() {
+        direction += 1;
+        if(direction &gt; RIGHT)
+            direction = UP;
+    }
+
+    public void turnRight() {
+        direction -= 1;
+        if(direction &lt; UP)
+            direction = RIGHT;
+    }
+
+    public void eat() {
+        SnakePart end = parts.get(parts.size()-1); 
+        parts.add(new SnakePart(end.x, end.y));
+    }
+
+    public void advance() {
+        SnakePart head = parts.get(0);               
+
+        int len = parts.size() - 1;
+        for(int i = len; i &gt; 0; i--) {
+            SnakePart before = parts.get(i-1);
+            SnakePart part = parts.get(i);
+            part.x = before.x;
+            part.y = before.y;
+        }
+
+        if(direction == UP)
+            head.y -= 1;
+        if(direction == LEFT)
+            head.x -= 1;
+        if(direction == DOWN)
+            head.y += 1;
+        if(direction == RIGHT)
+            head.x += 1;
+
+        if(head.x &lt; 0)
+            head.x = 9;
+        if(head.x &gt; 9)
+            head.x = 0;
+        if(head.y &lt; 0)
+            head.y = 12;
+        if(head.y &gt; 12)
+            head.y = 0;
+    }
+
+    public boolean checkBitten() {
+        int len = parts.size();
+        SnakePart head = parts.get(0);
+        for(int i = 1; i &lt; len; i++) {
+            SnakePart part = parts.get(i);
+            if(part.x == head.x &amp;&amp; part.y == head.y)
+                return true;
+        }        
+        return false;
+    }      
+}
+</code></pre><h2 id="World类"><a href="#World类" class="headerlink" title="World类"></a>World类</h2><p>针对这个游戏的玩法，world类的几个任务：</p>
+<ul>
+<li>跟踪贪食蛇本身和掉落的点。</li>
+<li>根据时间更新，还需要判断贪食蛇是否吃到点还是自己。</li>
+<li>跟踪得分。</li>
+<li>每吃够10个加快移动速度。</li>
+<li>判断游戏是否结束。</li>
+<li>在贪食蛇吃掉一个点的时候创建一个新的点。</li>
+</ul>
+<p>代码如下：</p>
+<pre><code>public class World {
+    static final int WORLD_WIDTH = 10;
+    static final int WORLD_HEIGHT = 13;
+    static final int SCORE_INCREMENT = 10;
+    static final float TICK_INITIAL = 0.5f;
+    static final float TICK_DECREMENT = 0.05f;
+
+    public Snake snake;
+    public Stain stain;
+    public boolean gameOver = false;;
+    public int score = 0;
+
+    boolean fields[][] = new boolean[WORLD_WIDTH][WORLD_HEIGHT];
+    Random random = new Random();
+    float tickTime = 0;
+    float tick = TICK_INITIAL;
+
+    public World() {
+        snake = new Snake();
+        placeStain();
+    }
+
+    private void placeStain() {
+        for (int x = 0; x &lt; WORLD_WIDTH; x++) {
+            for (int y = 0; y &lt; WORLD_HEIGHT; y++) {
+                fields[x][y] = false;
+            }
+        }
+
+        int len = snake.parts.size();
+        for (int i = 0; i &lt; len; i++) {
+            SnakePart part = snake.parts.get(i);
+            fields[part.x][part.y] = true;
+        }
+
+        int stainX = random.nextInt(WORLD_WIDTH);
+        int stainY = random.nextInt(WORLD_HEIGHT);
+        while (true) {
+            if (fields[stainX][stainY] == false)
+                break;
+            stainX += 1;
+            if (stainX &gt;= WORLD_WIDTH) {
+                stainX = 0;
+                stainY += 1;
+                if (stainY &gt;= WORLD_HEIGHT) {
+                    stainY = 0;
+                }
+            }
+        }
+        stain = new Stain(stainX, stainY, random.nextInt(3));
+    }
+
+    public void update(float deltaTime) {
+        if (gameOver)
+            return;
+
+        tickTime += deltaTime;
+
+        while (tickTime &gt; tick) {
+            tickTime -= tick;
+            snake.advance();
+            if (snake.checkBitten()) {
+                gameOver = true;
+                return;
+            }
+
+            SnakePart head = snake.parts.get(0);
+            if (head.x == stain.x &amp;&amp; head.y == stain.y) {
+                score += SCORE_INCREMENT;
+                snake.eat();
+                if (snake.parts.size() == WORLD_WIDTH * WORLD_HEIGHT) {
+                    gameOver = true;
+                    return;
+                } else {
+                    placeStain();
+                }
+
+                if (score % 100 == 0 &amp;&amp; tick - TICK_DECREMENT &gt; 0) {
+                    tick -= TICK_DECREMENT;
+                }
+            }
+        }
+    }
+}
+</code></pre><h2 id="GameScreen类"><a href="#GameScreen类" class="headerlink" title="GameScreen类"></a>GameScreen类</h2><p>游戏画面有4种状态：</p>
+<ul>
+<li>就绪状态：用户触摸屏幕开始游戏。</li>
+<li>在运行状态中，更新世界并渲染。</li>
+<li>暂停状态，可以恢复游戏，以及退出游戏。</li>
+<li>游戏结束。</li>
+</ul>
+<p><strong>GameScreen的代码</strong></p>
+<pre><code>public class GameScreen extends Screen {
+    enum GameState {
+        Ready,
+        Running,
+        Paused,
+        GameOver
+    }
+
+    GameState state = GameState.Ready;
+    World world;
+    int oldScore = 0;
+    String score = &quot;0&quot;;
+
+    public GameScreen(Game game) {
+        super(game);
+        world = new World();
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        List&lt;TouchEvent&gt; touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
+
+        if(state == GameState.Ready)
+            updateReady(touchEvents);
+        if(state == GameState.Running)
+            updateRunning(touchEvents, deltaTime);
+        if(state == GameState.Paused)
+            updatePaused(touchEvents);
+        if(state == GameState.GameOver)
+            updateGameOver(touchEvents);        
+    }
+
+    private void updateReady(List&lt;TouchEvent&gt; touchEvents) {
+        if(touchEvents.size() &gt; 0)
+            state = GameState.Running;
+    }
+
+    private void updateRunning(List&lt;TouchEvent&gt; touchEvents, float deltaTime) {        
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(event.x &lt; 64 &amp;&amp; event.y &lt; 64) {
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                    state = GameState.Paused;
+                    return;
+                }
+            }
+            if(event.type == TouchEvent.TOUCH_DOWN) {
+                if(event.x &lt; 64 &amp;&amp; event.y &gt; 416) {
+                    world.snake.turnLeft();
+                }
+                if(event.x &gt; 256 &amp;&amp; event.y &gt; 416) {
+                    world.snake.turnRight();
+                }
+            }
+        }
+
+        world.update(deltaTime);
+        if(world.gameOver) {
+            if(Settings.soundEnabled)
+                Assets.bitten.play(1);
+            state = GameState.GameOver;
+        }
+        if(oldScore != world.score) {
+            oldScore = world.score;
+            score = &quot;&quot; + oldScore;
+            if(Settings.soundEnabled)
+                Assets.eat.play(1);
+        }
+    }
+
+    private void updatePaused(List&lt;TouchEvent&gt; touchEvents) {
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(event.x &gt; 80 &amp;&amp; event.x &lt;= 240) {
+                    if(event.y &gt; 100 &amp;&amp; event.y &lt;= 148) {
+                        if(Settings.soundEnabled)
+                            Assets.click.play(1);
+                        state = GameState.Running;
+                        return;
+                    }                    
+                    if(event.y &gt; 148 &amp;&amp; event.y &lt; 196) {
+                        if(Settings.soundEnabled)
+                            Assets.click.play(1);
+                        game.setScreen(new MainMenuScreen(game)); 
+                        return;
+                    }
+                }
+            }
+           }
+    }
+
+    private void updateGameOver(List&lt;TouchEvent&gt; touchEvents) {
+        int len = touchEvents.size();
+        for(int i = 0; i &lt; len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(event.x &gt;= 128 &amp;&amp; event.x &lt;= 192 &amp;&amp; event.y &gt;= 200 &amp;&amp; event.y &lt;= 264) {
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                    game.setScreen(new MainMenuScreen(game));
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void present(float deltaTime) {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.background, 0, 0);
+        drawWorld(world);
+        if(state == GameState.Ready) 
+            drawReadyUI();
+        if(state == GameState.Running)
+            drawRunningUI();
+        if(state == GameState.Paused)
+            drawPausedUI();
+        if(state == GameState.GameOver)
+            drawGameOverUI();
+
+        drawText(g, score, g.getWidth() / 2 - score.length()*20 / 2, g.getHeight() - 42);
+    }
+
+    private void drawWorld(World world) {
+        Graphics g = game.getGraphics();
+        Snake snake = world.snake;
+        SnakePart head = snake.parts.get(0);
+        Stain stain = world.stain;
+
+
+        Pixmap stainPixmap = null;
+        if(stain.type == Stain.TYPE_1)
+            stainPixmap = Assets.stain1;
+        if(stain.type == Stain.TYPE_2)
+            stainPixmap = Assets.stain2;
+        if(stain.type == Stain.TYPE_3)
+            stainPixmap = Assets.stain3;
+        int x = stain.x * 32;
+        int y = stain.y * 32;      
+        g.drawPixmap(stainPixmap, x, y);             
+
+        int len = snake.parts.size();
+        for(int i = 1; i &lt; len; i++) {
+            SnakePart part = snake.parts.get(i);
+            x = part.x * 32;
+            y = part.y * 32;
+            g.drawPixmap(Assets.tail, x, y);
+        }
+
+        Pixmap headPixmap = null;
+        if(snake.direction == Snake.UP) 
+            headPixmap = Assets.headUp;
+        if(snake.direction == Snake.LEFT) 
+            headPixmap = Assets.headLeft;
+        if(snake.direction == Snake.DOWN) 
+            headPixmap = Assets.headDown;
+        if(snake.direction == Snake.RIGHT) 
+            headPixmap = Assets.headRight;        
+        x = head.x * 32 + 16;
+        y = head.y * 32 + 16;
+        g.drawPixmap(headPixmap, x - headPixmap.getWidth() / 2, y - headPixmap.getHeight() / 2);
+    }
+
+    private void drawReadyUI() {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.ready, 47, 100);
+        g.drawLine(0, 416, 480, 416, Color.BLACK);
+    }
+
+    private void drawRunningUI() {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.buttons, 0, 0, 64, 128, 64, 64);
+        g.drawLine(0, 416, 480, 416, Color.BLACK);
+        g.drawPixmap(Assets.buttons, 0, 416, 64, 64, 64, 64);
+        g.drawPixmap(Assets.buttons, 256, 416, 0, 64, 64, 64);
+    }
+
+    private void drawPausedUI() {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.pause, 80, 100);
+        g.drawLine(0, 416, 480, 416, Color.BLACK);
+    }
+
+    private void drawGameOverUI() {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.gameOver, 62, 100);
+        g.drawPixmap(Assets.buttons, 128, 200, 0, 128, 64, 64);
+        g.drawLine(0, 416, 480, 416, Color.BLACK);
+    }
+
+    public void drawText(Graphics g, String line, int x, int y) {
+        int len = line.length();
+        for (int i = 0; i &lt; len; i++) {
+            char character = line.charAt(i);
+
+            if (character == &apos; &apos;) {
+                x += 20;
+                continue;
+            }
+
+            int srcX = 0;
+            int srcWidth = 0;
+            if (character == &apos;.&apos;) {
+                srcX = 200;
+                srcWidth = 10;
+            } else {
+                srcX = (character - &apos;0&apos;) * 20;
+                srcWidth = 20;
+            }
+
+            g.drawPixmap(Assets.numbers, x, y, srcX, 0, srcWidth, 32);
+            x += srcWidth;
+        }
+    }
+
+    @Override
+    public void pause() {
+        if(state == GameState.Running)
+            state = GameState.Paused;
+
+        if(world.gameOver) {
+            Settings.addScore(world.score);
+            Settings.save(game.getFileIO());
+        }
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+}
+</code></pre>
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2015/09/05/Game Frame/5、OpenGL ES介绍/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2015/09/03/Game Frame/3、游戏框架的实现/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/touxiang.jpg" alt="柒夜's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        whu_cc@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto: whu_cc@163.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">22</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/10/">十月 2015<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">14</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/06/">六月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">五月 2015<span class="sidebar_archives-count">8</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android基础/">Android基础<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/categories/Android官方培训教程/">Android官方培训教程<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/categories/PHP/">PHP<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Swift/">Swift<span class="sidebar_archives-count">22</span></a></li><li><a class="sidebar_archives-link" href="/categories/libgdx/">libgdx<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码大全/">代码大全<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/categories/技术/">技术<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/杂谈/">杂谈<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/游戏框架/">游戏框架<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/categories/算法导论/">算法导论<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/gallery" title="相册">
+                
+                    <i class="material-icons sidebar-material-icons">photo</i>
+                
+                相册
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/tags" title="标签云">
+                
+                    <i class="material-icons sidebar-material-icons">label_outline</i>
+                
+                标签云
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+        <li>
+            <a href="/links" title="友情链接">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                友情链接
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">69</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>柒夜
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+		<!--
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+        -->
+    
+</footer>
+
+
+                    <!-- Import File -->
+
+
+    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
+    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
+
+
+
+    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Window Load-->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Bing Background -->
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

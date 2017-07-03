@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.4.0 -->
+    <script>window.materialVersion = "1.4.0"</script>
+
+    <!-- Title -->
+    
+    <title>
+        
+            ListActivity与Adapter以及SQLite的使用 | 
+        
+        柒夜
+    </title>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="柒夜">
+    <meta name="description" itemprop="description" content="摘要ListActivity、AdapterView、适配器、多个活动、SQLite、GUI样式、菜单资源及MenuInflater。">
+    <meta name="keywords" content="null,Android基础">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="柒夜">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://yoursite.com">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="ListActivity与Adapter以及SQLite的使用 | 柒夜">
+    <meta property="og:image" content="/img/favicon.png" />
+    <meta property="og:description" content="摘要ListActivity、AdapterView、适配器、多个活动、SQLite、GUI样式、菜单资源及MenuInflater。">
+    <meta property="og:article:tag" content="Android基础"> 
+
+    
+        <meta property="article:published_time" content="Tue Aug 04 2015 00:30:29 GMT+0800" />
+        <meta property="article:modified_time" content="Sun Jul 02 2017 01:40:51 GMT+0800" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="ListActivity与Adapter以及SQLite的使用 | 柒夜">
+    <meta name="twitter:description" content="摘要ListActivity、AdapterView、适配器、多个活动、SQLite、GUI样式、菜单资源及MenuInflater。">
+    <meta name="twitter:image" content="/img/favicon.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://yoursite.com" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://yoursite.com/2015/08/04/Android for Programmers/7、基础组件/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "柒夜",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "柒夜",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "暗夜之虫 会集光中"
+    },
+    "headline": "ListActivity与Adapter以及SQLite的使用",
+    "url": "http://yoursite.com/2015/08/04/Android for Programmers/7、基础组件/index.html",
+    "datePublished": "Tue Aug 04 2015 00:30:29 GMT+0800",
+    "dateModified": "Sun Jul 02 2017 01:40:51 GMT+0800",
+    "description": "摘要ListActivity、AdapterView、适配器、多个活动、SQLite、GUI样式、菜单资源及MenuInflater。",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://yoursite.com"
+    }
+}
+</script>
+
+
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import CSS & jQuery -->
+    
+        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        
+        
+            <style>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</style>
+
+        
+        <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+
+        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
+    
+    
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Analytics -->
+    
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用style-xml文件定义style元素"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用style.xml文件定义style元素</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在XML中用menu资源定义应用的MenuItem"><span class="post-toc-number">3.</span> <span class="post-toc-text">在XML中用menu资源定义应用的MenuItem</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ListActivity类和ListView"><span class="post-toc-number">4.</span> <span class="post-toc-text">ListActivity类和ListView</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AsyncTask的使用方法"><span class="post-toc-number">5.</span> <span class="post-toc-text">AsyncTask的使用方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#重写onCreateOptionsMenu和onOptionsItemSelected，使用MenuInflater"><span class="post-toc-number">6.</span> <span class="post-toc-text">重写onCreateOptionsMenu和onOptionsItemSelected，使用MenuInflater</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现OnItemClickListener接口"><span class="post-toc-number">7.</span> <span class="post-toc-text">实现OnItemClickListener接口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DatabaseConnector的实用工具类"><span class="post-toc-number">8.</span> <span class="post-toc-text">DatabaseConnector的实用工具类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#扩展SQLiteOpenHelper"><span class="post-toc-number">9.</span> <span class="post-toc-text">扩展SQLiteOpenHelper</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 24 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                ListActivity与Adapter以及SQLite的使用
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/touxiang.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>柒夜</strong>
+        <span>8月 04, 2015</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Android基础/">Android基础</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=ListActivity与Adapter以及SQLite的使用&url=http://yoursite.com/2015/08/04/Android for Programmers/7、基础组件/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=柒夜&title=ListActivity与Adapter以及SQLite的使用&summary=从零开始&pics=http://yoursite.com/img/favicon.png&url=http://yoursite.com/2015/08/04/Android for Programmers/7、基础组件/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>ListActivity、AdapterView、适配器、多个活动、SQLite、GUI样式、菜单资源及MenuInflater。</p>
+<a id="more"></a>
+<h2 id="使用style-xml文件定义style元素"><a href="#使用style-xml文件定义style元素" class="headerlink" title="使用style.xml文件定义style元素"></a>使用style.xml文件定义style元素</h2><p>资源文件都使用&lt;resources&gt;标签，style元素使用&lt;style&gt;标签。与此类似的所有的属性都可以放在style里面定义，</p>
+<pre><code>&lt;resources&gt;
+    &lt;style name=&quot;SomeStyle&quot;&gt;
+        &lt;item name=&quot;android:layout_width&quot;&gt;wrap_content&lt;/item&gt;
+        &lt;item name=&quot;android:layout_height&quot;&gt;wrap_content&lt;/item&gt;
+        &lt;item name=&quot;android:gravity&quot;&gt;center&lt;/item&gt;
+        &lt;item name=&quot;android:layout_margin&quot;&gt;5dpt&lt;/item&gt;
+        &lt;item name=&quot;android:background&quot;&gt;@drawable/somebackground&lt;/item&gt;
+        &lt;item name=&quot;android:textColor&quot;&gt;@android:color/white&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre><p>在view中使用定义的style</p>
+<pre><code>&lt;view 
+    style=&quot;@style/SomeStyle&quot;/&gt;
+</code></pre><h2 id="在XML中用menu资源定义应用的MenuItem"><a href="#在XML中用menu资源定义应用的MenuItem" class="headerlink" title="在XML中用menu资源定义应用的MenuItem"></a>在XML中用menu资源定义应用的MenuItem</h2><p>每一个menu资源XML文件都包含一个根menu元素，里面嵌套的每一个item都代表一个MenuItem。需要为每一个item指定一个android:id属性，以便能够在程序中用对应的MenuItem交互。其他的item属性还包括：</p>
+<ul>
+<li>android:title和android:titleCondensed表示标题文本和如果显示不了完整的情况下显示的紧凑型标题文本。</li>
+<li>android:icon指定一个Drawable属性，表示显示的图片。</li>
+<li>andorid:orderInCategory决定MenuItem出现的顺序。</li>
+</ul>
+<p>下面是示例代码：</p>
+<pre><code>&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;item android:id=&quot;@+id/item1&quot;
+        android:title=&quot;item1&quot;
+        android:icon=&quot;@drawable/item1&quot;
+        android:titleCondensed=&quot;1&quot;
+        android:orderInCategory=&quot;1&quot;&gt;
+    &lt;/item&gt;
+    &lt;item android:id=&quot;@+id/item2&quot;
+        android:title=&quot;item2&quot;
+        android:icon=&quot;@drawable/item2&quot;
+        android:titleCondensed=&quot;2&quot;
+        android:orderInCategory=&quot;2&quot;&gt;
+    &lt;/item&gt;
+&lt;/menu&gt;
+</code></pre><p>代码end</p>
+<h2 id="ListActivity类和ListView"><a href="#ListActivity类和ListView" class="headerlink" title="ListActivity类和ListView"></a>ListActivity类和ListView</h2><p>ListActivity是只包含一个ListView的类。可以使用CursorAdapter作为适配器填充ListView。并且ListActivity是内置ListView。ListView需要设置adapter和OnItemClickListener。同时要使用SimpleCursorAdapter，必须先定义两个数组，分别包含需要映射成GUI组件的列名称及GUI组件的资源ID。SimpleCursorAdapter的构造函数接收如下参数：</p>
+<ul>
+<li>运行ListView所在的Context</li>
+<li>用来显示ListView中每一项的布局的资源ID</li>
+<li>提供数据访问的Cursor，可以提供null，并且在后面指定它</li>
+<li>包含要显示的列名称的String数组</li>
+<li>包含对应的GUI资源ID的int数组</li>
+</ul>
+<p>实例代码如下：</p>
+<pre><code>ListView lv=getListView();
+lv.setOnitemClickListener(viewListener);
+
+String[] from=new String[]{&quot;name&quot;};
+int[] to=new int[]{R.id.to};
+CursorAdapter mAdapter=new SimpleCursorAdapter(this,R.layout.listview,null,from,to);
+setListAdapter(mAdapter);
+</code></pre><p>当Cursor类不再需要时</p>
+<pre><code>Cursor cursor=mAdapter.getCursor();
+if(cursor!=null){
+    cursor.deactivate();
+}
+mAdapter.changeCursor(null);
+</code></pre><h2 id="AsyncTask的使用方法"><a href="#AsyncTask的使用方法" class="headerlink" title="AsyncTask的使用方法"></a>AsyncTask的使用方法</h2><p>创建一个新的AsyncTask，并且执行它。AsyncTask会在一个单独的线程中执行任务，这里的execute方法的实参表明任务不会接收任何实参，这个方法会接收可变数量的实参，随后它们作为实参被传递给人物的doInBackground方法。每次执行如下方法，都会创建一个新的AsyncTask对象，因为每一个AsyncTask只能执行一次，所以这样是必须的。</p>
+<p>AsyncTask是一个要求三个参数的泛型类型：</p>
+<ul>
+<li>第一个参数是变长参数表的类型，用于AsyncTask的doInBackground方法。当调用execute方法，doInBackground方法会在一个单独执行线程中执行任务。</li>
+<li>第二个参数是变长参数表的类型，用于AsyncTask的onProgressUpdate方法。这个方法在GUI线程中执行，并用来从长时间运行的任务中接收特定类型的过渡性更新数据。</li>
+<li>第三个参数是任务结果的类型，它会被传递给AsyncTask的onPostExecute方法。</li>
+</ul>
+<p>doInBackground方法使用databaseConnector来打开数据库连接。</p>
+<pre><code>private class GetTask extends AsyncTask&lt;Object, Object, Cursor&gt;{
+    DatabaseConnector databaseConnector = new DatabaseConnector(AddressBook.this);
+
+    @Override
+    protected Cursor doInBackgroudn(Object... params){
+        databaseConnector.open();
+
+        return databaseConnector.getAllContacts();
+    }
+
+    @Override
+    protected void onPostExecute(Cursor result){
+        contactAdapter.changeCursor(result);
+        databaseConnector.close();
+    }
+}
+</code></pre><p>创建新的AsyncTask，并执行它。</p>
+<pre><code>Bundle extras = getIntent().getExtras();
+rowID = extras.getLong(&quot;row_id&quot;);
+
+new GetTask().execute(rowID);
+</code></pre><h2 id="重写onCreateOptionsMenu和onOptionsItemSelected，使用MenuInflater"><a href="#重写onCreateOptionsMenu和onOptionsItemSelected，使用MenuInflater" class="headerlink" title="重写onCreateOptionsMenu和onOptionsItemSelected，使用MenuInflater"></a>重写onCreateOptionsMenu和onOptionsItemSelected，使用MenuInflater</h2><p>使用MenuInflater填充菜单。</p>
+<pre><code>@Override
+public boolean onCreateOptionsMenu(Menu menu){
+    super.onCreateOptionsMenu(menu);
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.address_menu, menu);
+    return true;
+}
+
+@Override
+public boolean onOptionsItemSelected(MenuItem item){
+    Intent addNew = new Intent(this, EditActivity.class);
+    startActivity(addNew);
+    return super.onOptionsItemSelected(item);
+}
+</code></pre><h2 id="实现OnItemClickListener接口"><a href="#实现OnItemClickListener接口" class="headerlink" title="实现OnItemClickListener接口"></a>实现OnItemClickListener接口</h2><p>Menu的OnItemClickListener方法的参数</p>
+<ul>
+<li>与用户交互的AdapterView引用</li>
+<li>点触的列表项的根View的引用</li>
+<li>ListView中点触的列表项的索引</li>
+<li>所选择列表项的唯一long类型的ID，这里即为Cursor中的行ID</li>
+</ul>
+<p>下面是示例代码</p>
+<pre><code>OnItemClickListener viewContactListener=new OnItemClickListener(){
+    @Override
+    public void onItemClick(AdapterView&lt;?&gt; arg0, View arg1, int arg2, long arg3){
+        Intent viewContact=new Intent(this, ViewContact.class);
+        viewContact.putExtra(ROW_ID, arg3);
+        startActivity(viewContact);
+    }
+}
+</code></pre><p>代码end</p>
+<h2 id="DatabaseConnector的实用工具类"><a href="#DatabaseConnector的实用工具类" class="headerlink" title="DatabaseConnector的实用工具类"></a>DatabaseConnector的实用工具类</h2><p>实用DatabaseConnector工具类管理与SQLite的交互。</p>
+<pre><code>public class DatabaseConnector{
+    private SQLiteDatabase database;
+    private DatabaseOpenHelper databaseOpenHelper;
+
+    public DatabaseConnector(Context context){
+        databaseOpenHelper-new DatabaseOpenHelper(context, DATABASE_NAME, null, 1);
+    }
+
+    public void open() throws SQLException{
+        database=databaseOpenHelper.getWritableDatabase();
+    }
+
+    public void close(){
+        if(database!=null){
+            database.close();
+        }
+    }
+
+    public void insertContact(String name, String phone){
+        ContentValues newContact=new ContentValues();
+        newContact.put(&quot;name&quot;, name);
+        newContact.put(&quot;phone&quot;, phone);
+
+        open();
+        database.insert(&quot;contacts&quot;, null, newContact);
+        close();
+    }
+
+    public void updateContact(long id, String name, String phone){
+        ContentValues editContact=new ContentValues();
+        editContact.put(&quot;name&quot;, name);
+        editContact.put(&quot;phone&quot;, phone);
+
+        open();
+        database.update(&quot;contacts&quot;, editContact, &quot;_id=&quot;+id, null);
+        close();
+    }
+
+    publci Cursor getAllContacts(){
+        return database.query(&quot;contacts&quot;, new String[]{&quot;_id&quot;, &quot;name&quot;}, null, null, null, null, &quot;name&quot;);
+    }
+
+    public Cursor getOneContact(long id){
+        return database.query(&quot;contacts&quot;, null, &quot;_id=&quot;+id, null, null, null, null);
+    }
+
+    public void deleteContact(long id){
+        open();
+        database.delete(&quot;contacts&quot;, &quot;_id=&quot;+id, null);
+        close();
+    }
+}
+</code></pre><p>getAllContacts方法使用SQLiteDatabase的query方法，取得一个Cursor游标，它的实参如下</p>
+<ul>
+<li>要查询的表名称</li>
+<li>需返回的列名称的一个String数组</li>
+<li>一个SQL WHERE子句，或者是返回全部行的null</li>
+<li>实参的String数组会替换WHERE子句里的实参值中的问号占位符。如果WHERE子句中没有实参，则会使用null代替。</li>
+<li>一个SQL GROUP BY子句（不包含关键字GROUP BY）或者null（如果不希望分组结果）</li>
+<li>SQL HAVING子句（不包含HAVING），指定结果中要包含来自于GROUP BY子句中的哪些组，如果GROUP BY子句为null，则这里也为null。</li>
+<li>SQL ORDER BY子句（不包含关键字ORDER BY），指定结果顺序，或者为null（不指定顺序）</li>
+</ul>
+<h2 id="扩展SQLiteOpenHelper"><a href="#扩展SQLiteOpenHelper" class="headerlink" title="扩展SQLiteOpenHelper"></a>扩展SQLiteOpenHelper</h2><p>使用SQLiteOpenHelper帮助应用创建数据库并管理版本的变化情况。它要求有如下的4个实参。</p>
+<ul>
+<li>Context，包含需创建和打开的数据库。</li>
+<li>数据库名称，如果希望使用内存数据库，则为null</li>
+<li>所使用的CursorFactory，null表示希望使用默认的SQLite CursorFactory</li>
+<li>数据库版本号，从1开始。</li>
+</ul>
+<p>实例代码如下：</p>
+<pre><code>private class DatabaseOpenHelper extends SQLiteOpenHelper{
+    public DatabaseOpenHelper(Context context, String name, CursorFactory factory, int version){
+        super(context, name, factory, version);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db){
+        String createQuery=&quot;CREATE TABLE contacts&quot;+&quot;(_id integer primary key autoincrement,&quot;+&quot;name TEXT, phone TEXT);&quot;;
+
+        db.execSQL(createQuery);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+
+    }
+}
+</code></pre>
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2015/08/30/Game Frame/1、游戏框架简述/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2015/08/02/Android for Programmers/6、基础组件/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/touxiang.jpg" alt="柒夜's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        whu_cc@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto: whu_cc@163.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">22</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/10/">十月 2015<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">14</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/06/">六月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">五月 2015<span class="sidebar_archives-count">8</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android基础/">Android基础<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/categories/Android官方培训教程/">Android官方培训教程<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/categories/PHP/">PHP<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Swift/">Swift<span class="sidebar_archives-count">22</span></a></li><li><a class="sidebar_archives-link" href="/categories/libgdx/">libgdx<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码大全/">代码大全<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/categories/技术/">技术<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/杂谈/">杂谈<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/游戏框架/">游戏框架<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/categories/算法导论/">算法导论<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/gallery" title="相册">
+                
+                    <i class="material-icons sidebar-material-icons">photo</i>
+                
+                相册
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/tags" title="标签云">
+                
+                    <i class="material-icons sidebar-material-icons">label_outline</i>
+                
+                标签云
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+        <li>
+            <a href="/links" title="友情链接">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                友情链接
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">69</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>柒夜
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+		<!--
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+        -->
+    
+</footer>
+
+
+                    <!-- Import File -->
+
+
+    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
+    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
+
+
+
+    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Window Load-->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Bing Background -->
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
