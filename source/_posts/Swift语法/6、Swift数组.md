@@ -1,5 +1,5 @@
 title: 6、Swift数组
-date: 2017-04-13 21:27:06
+date: 2017-04-6 21:27:06
 tags: [Swift]
 categories: [Swift]
 ---

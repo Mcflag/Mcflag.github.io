@@ -1,5 +1,5 @@
 title: 22、Swift类型检查和类型转换
-date: 2017-04-13 21:27:06
+date: 2017-04-22 21:27:06
 tags: [Swift]
 categories: [Swift]
 ---
